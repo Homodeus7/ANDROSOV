@@ -62,18 +62,17 @@
     "badgeLive": "Live",
     "badgeClosed": "Closed",
     "nda": "Under NDA — client name, screenshots and business logic are not disclosed.",
-    "demoPending": "Interactive demo lands in a later phase.",
     "problem": "Problem",
     "constraint": "Constraint",
     "solution": "Solution",
     "result": "Result",
     "prevCase": "Previous",
-    "nextCase": "Next case"
+    "nextCase": "Next case",
+    "demo": "Demo"
   },
   "lab": {
     "title": "Lab",
-    "lead": "Each demo rebuilds one feature from a real project. Standalone, linkable, runnable.",
-    "empty": "Demos arrive in phase 3."
+    "lead": "Each demo rebuilds one feature from a real project. Standalone, linkable, runnable."
   },
   "about": {
     "title": "About",
@@ -87,5 +86,43 @@
   "footer": {
     "builtWith": "Built with Next.js, GSAP and a strict grid.",
     "grid": "Press G for the grid"
+  },
+  "demos": {
+    "loading": "Loading the demo…",
+    "pending": "Interactive demo lands in a later phase.",
+    "vueNote": "This demo runs as a real Vue 3 island inside a React page — its own chunk, loaded on sight.",
+    "undoRedo": {
+      "title": "Undo buffer",
+      "lead": "Drag the blocks, add one, delete one, rename one. Every gesture writes actions into a single buffer, and the buffer collapses before it is sent.",
+      "seedNames": [
+        "Request",
+        "Validate",
+        "Route",
+        "Notify",
+        "Archive"
+      ],
+      "newBlockName": "Step",
+      "add": "Add",
+      "connect": "Link",
+      "connecting": "Now pick the second block — the link appears, or goes away.",
+      "remove": "Delete",
+      "rename": "Name",
+      "undo": "Undo",
+      "redo": "Redo",
+      "reset": "Reset",
+      "canvas": "Process canvas",
+      "hint": "Drag a block, or tap one to select it. ⌘Z rewinds — so does the scrubber.",
+      "buffer": "Buffer",
+      "saved": "Requests saved",
+      "empty": "The buffer is empty.",
+      "earlier": "earlier",
+      "timeline": "Position in history",
+      "coverage": "Six action types here, forty-odd in the editor. The mechanism does not count them.",
+      "rules": {
+        "ephemeral": "never existed",
+        "paired": "undone",
+        "lastWrite": "superseded"
+      }
+    }
   }
 }

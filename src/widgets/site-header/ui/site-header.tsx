@@ -26,7 +26,7 @@ export function SiteHeader() {
           <ul className="spec mr-3 hidden items-center gap-6 md:flex">
             {NAV.map((item) => (
               <li key={item.href}>
-                <Link href={item.href} className="hover:text-accent">
+                <Link href={item.href} className="hover:text-accent-ink">
                   {t(item.key)}
                 </Link>
               </li>

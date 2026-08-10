@@ -5,6 +5,7 @@ import { Link } from "@/shared/i18n";
 import { cn } from "@/shared/lib";
 import { FlipTarget, Reveal } from "@/shared/motion";
 import { Container, SectionLabel } from "@/shared/ui";
+import { DemoSlot } from "@/widgets/demos";
 import { CaseNav } from "./case-nav";
 
 type CasePageProps = {
@@ -46,7 +47,7 @@ export function CasePage({ item, index, total, previous, next }: CasePageProps) 
                 className={cn(
                   "border-2 px-3 py-1",
                   status === "badgeLive"
-                    ? "border-accent text-accent"
+                    ? "border-accent-ink text-accent-ink"
                     : "border-border text-muted",
                 )}
               >
@@ -110,12 +111,12 @@ export function CasePage({ item, index, total, previous, next }: CasePageProps) 
                           href={link.href}
                           target="_blank"
                           rel="noreferrer"
-                          className="hover:text-accent group inline-flex items-center gap-1 underline underline-offset-4"
+                          className="hover:text-accent-ink group inline-flex items-center gap-1 underline underline-offset-4"
                         >
                           {link.label}
                           <ArrowUpRight
                             aria-hidden
-                            className="size-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                            className="size-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                           />
                         </a>
                       </li>
@@ -168,14 +169,19 @@ export function CasePage({ item, index, total, previous, next }: CasePageProps) 
               ) : null}
             </Reveal>
           ))}
-
-          {item.demo ? (
-            <div className="border-border spec text-muted border-2 border-dashed p-8 normal-case">
-              {t("demoPending")} — <span className="font-mono">{item.demo}</span>
-            </div>
-          ) : null}
         </div>
       </Container>
+
+      {item.demo ? (
+        <section className="border-border border-t-2 py-16 md:py-24">
+          <Container>
+            <SectionLabel>{t("demo")}</SectionLabel>
+            <div className="mt-6">
+              <DemoSlot demo={item.demo} />
+            </div>
+          </Container>
+        </section>
+      ) : null}
 
       <CaseNav previous={previous} next={next} />
     </>

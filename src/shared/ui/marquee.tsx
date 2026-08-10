@@ -28,7 +28,7 @@ export function Marquee({ items, speed = 24, reverse = false, className }: Marqu
         {track.map((item, index) => (
           <li key={`${item}-${index}`} className="flex shrink-0 items-center gap-8 pr-8">
             <span>{item}</span>
-            <span className="text-accent">▪</span>
+            <span className="text-accent-ink">▪</span>
           </li>
         ))}
       </ul>

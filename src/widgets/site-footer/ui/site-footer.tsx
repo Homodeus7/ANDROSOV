@@ -18,7 +18,7 @@ export function SiteFooter() {
         <ul className="spec flex flex-wrap gap-x-6 gap-y-2">
           {CONTACTS.map((contact) => (
             <li key={contact.label}>
-              <a href={contact.href} className="hover:text-accent">
+              <a href={contact.href} className="hover:text-accent-ink">
                 {contact.label}
               </a>
             </li>

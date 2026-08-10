@@ -33,7 +33,9 @@ export function CaseCard({ item, index, total, featured = false, className }: Ca
         </span>
         <span
           className={cn(
-            status === "badgeLive" ? "text-accent group-hover:text-on-accent" : "text-muted",
+            status === "badgeLive"
+              ? "text-accent-ink group-hover:text-on-accent"
+              : "text-muted",
             "group-hover:text-on-accent",
           )}
         >
@@ -51,7 +53,7 @@ export function CaseCard({ item, index, total, featured = false, className }: Ca
           </h3>
           <ArrowUpRight
             aria-hidden
-            className="size-6 shrink-0 transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1"
+            className="size-6 shrink-0 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
           />
         </div>
         <p className={cn("mt-3 max-w-prose text-balance", featured ? "text-lg" : "text-base")}>

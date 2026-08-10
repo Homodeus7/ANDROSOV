@@ -60,4 +60,10 @@ export default tseslint.config(
     },
   },
   ...LAYERS.map(layerConfig),
+  {
+    // Внутри островов React нет: `useFlowDemo` — composable Vue,
+    // и правила хуков ловят его только по имени
+    files: ["src/**/vue/**/*"],
+    rules: { "react-hooks/rules-of-hooks": "off" },
+  },
 );
