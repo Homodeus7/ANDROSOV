@@ -180,7 +180,15 @@ export const FlowBuffer = defineComponent({
               `−${props.state.savedShare.value}%`,
             ),
           ]),
-          h("p", { class: "text-muted mt-2 text-xs" }, props.strings.coverage),
+          h("p", { class: "spec text-muted mt-2 flex items-baseline justify-between gap-4" }, [
+            h("span", null, props.strings.signals),
+            h(
+              "span",
+              { "data-buffer": "signals", class: "tabular-nums" },
+              String(props.state.signals.value),
+            ),
+          ]),
+          h("p", { class: "text-muted mt-3 text-xs" }, props.strings.coverage),
         ]),
       ]);
   },

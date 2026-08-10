@@ -23,6 +23,7 @@ export function UndoRedoDemo() {
     hint: t("hint"),
     buffer: t("buffer"),
     saved: t("saved"),
+    signals: t("signals"),
     empty: t("empty"),
     earlier: t("earlier"),
     timeline: t("timeline"),

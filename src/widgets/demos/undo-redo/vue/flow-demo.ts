@@ -42,7 +42,8 @@ export const FlowDemo = defineComponent({
     }
 
     return () =>
-      h("div", { class: "flex flex-col gap-4", onKeydown }, [
+      // Драг по холсту иначе выделяет подписи блоков и половину панели
+      h("div", { class: "flex select-none flex-col gap-4", onKeydown }, [
         h("div", { class: "flex flex-wrap items-center gap-2" }, [
           tool(s.add, state.addBlock),
           tool(s.connect, state.toggleConnect, {

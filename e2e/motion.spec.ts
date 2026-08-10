@@ -12,10 +12,11 @@ test.describe("reduced motion", () => {
       .evaluate((el) => getComputedStyle(el).animationName);
     expect(marqueeAnimation).toBe("none");
 
-    const hidden = await page.evaluate(() =>
-      [...document.querySelectorAll<HTMLElement>("[data-reveal] > *")].filter(
-        (el) => Number(getComputedStyle(el).opacity) < 1,
-      ).length,
+    const hidden = await page.evaluate(
+      () =>
+        [...document.querySelectorAll<HTMLElement>("[data-reveal] > *")].filter(
+          (el) => Number(getComputedStyle(el).opacity) < 1,
+        ).length,
     );
     expect(hidden).toBe(0);
 

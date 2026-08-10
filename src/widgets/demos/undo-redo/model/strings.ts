@@ -15,6 +15,7 @@ export type FlowDemoStrings = {
   hint: string;
   buffer: string;
   saved: string;
+  signals: string;
   empty: string;
   earlier: string;
   timeline: string;

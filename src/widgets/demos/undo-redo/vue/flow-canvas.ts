@@ -87,7 +87,7 @@ export const FlowCanvas = defineComponent({
 
       const x = clamp(event.clientX - rect.left - drag.grabX, travelX.value);
       const y = clamp(event.clientY - rect.top - drag.grabY, travelY.value);
-      props.state.move(
+      props.state.dragTo(
         drag.id,
         Math.round((x / travelX.value) * CANVAS_SPAN),
         Math.round((y / travelY.value) * CANVAS_SPAN),
@@ -99,6 +99,7 @@ export const FlowCanvas = defineComponent({
       // click прилетает уже после pointerup, поэтому решение о нём принимаем здесь
       swallowClick = drag.moved;
       drag = null;
+      props.state.dropBlock();
       const target = event.currentTarget as HTMLElement;
       if (target.hasPointerCapture(event.pointerId))
         target.releasePointerCapture(event.pointerId);
@@ -115,7 +116,7 @@ export const FlowCanvas = defineComponent({
     }
 
     function renderEdges() {
-      const lookup = new Map(props.state.scene.value.blocks.map((block) => [block.id, block]));
+      const lookup = new Map(props.state.view.value.blocks.map((block) => [block.id, block]));
 
       return h(
         "svg",
@@ -136,7 +137,7 @@ export const FlowCanvas = defineComponent({
               [h("path", { d: "M0 0 L8 4 L0 8 Z", fill: "currentColor" })],
             ),
           ]),
-          ...props.state.scene.value.edges.flatMap((edge) => {
+          ...props.state.view.value.edges.flatMap((edge) => {
             const from = lookup.get(edge.from);
             const to = lookup.get(edge.to);
             if (!from || !to) return [];
@@ -218,7 +219,7 @@ export const FlowCanvas = defineComponent({
           class:
             "border-border bg-bg relative h-[clamp(15rem,38vw,21rem)] overflow-hidden border-2",
         },
-        [renderEdges(), ...props.state.scene.value.blocks.map(renderBlock)],
+        [renderEdges(), ...props.state.view.value.blocks.map(renderBlock)],
       );
   },
 });

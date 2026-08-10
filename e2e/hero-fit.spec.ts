@@ -27,7 +27,9 @@ async function measureHeadline(page: Page) {
 
 for (const motion of ["no-preference", "reduce"] as const) {
   test(`headline fills its container without spilling (${motion})`, async ({ page }) => {
-    await page.emulateMedia({ reducedMotion: motion === "reduce" ? "reduce" : "no-preference" });
+    await page.emulateMedia({
+      reducedMotion: motion === "reduce" ? "reduce" : "no-preference",
+    });
     await page.goto("/en");
     await page.evaluate(() => document.fonts.ready);
     await page.waitForTimeout(1500);

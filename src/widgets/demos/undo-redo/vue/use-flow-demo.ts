@@ -1,6 +1,7 @@
 import { computed, ref, shallowRef } from "vue";
 import {
   CANVAS_SPAN,
+  applyAction,
   canRedo,
   canUndo,
   createHistory,
@@ -20,17 +21,34 @@ export function useFlowDemo(strings: FlowDemoStrings) {
   const selected = ref<string | null>(null);
   const connecting = ref(false);
   const spawned = ref(0);
+  const dragged = ref<{ id: string; x: number; y: number } | null>(null);
+  const signals = ref(0);
 
   const scene = computed(() => history.value.scene);
+
+  // Предпросмотр перетаскивания — то же действие, только не записанное:
+  // блок едет за курсором, а в буфер уходит одна конечная точка на жест
+  const view = computed(() =>
+    dragged.value
+      ? applyAction(scene.value, {
+          type: "MoveNode",
+          nodeId: dragged.value.id,
+          x: dragged.value.x,
+          y: dragged.value.y,
+        })
+      : scene.value,
+  );
+
   const buffer = computed(() => pendingActions(history.value));
   const normalized = computed(() => normalizeActions(buffer.value));
   const savedShare = computed(() =>
-    buffer.value.length === 0
+    signals.value === 0
       ? 0
-      : Math.round((1 - normalized.value.actions.length / buffer.value.length) * 100),
+      : Math.round((1 - normalized.value.actions.length / signals.value) * 100),
   );
 
   function apply(action: FlowAction) {
+    signals.value += 1;
     history.value = record(history.value, action);
   }
 
@@ -62,8 +80,15 @@ export function useFlowDemo(strings: FlowDemoStrings) {
     connecting.value = false;
   }
 
-  function move(id: string, x: number, y: number) {
-    apply({ type: "MoveNode", nodeId: id, x, y });
+  function dragTo(id: string, x: number, y: number) {
+    signals.value += 1;
+    dragged.value = { id, x, y };
+  }
+
+  function dropBlock() {
+    const drop = dragged.value;
+    dragged.value = null;
+    if (drop) apply({ type: "MoveNode", nodeId: drop.id, x: drop.x, y: drop.y });
   }
 
   function rename(name: string) {
@@ -82,13 +107,17 @@ export function useFlowDemo(strings: FlowDemoStrings) {
     selected.value = null;
     connecting.value = false;
     spawned.value = 0;
+    dragged.value = null;
+    signals.value = 0;
   }
 
   return {
     scene,
+    view,
     buffer,
     normalized,
     savedShare,
+    signals,
     selected,
     connecting,
     position: computed(() => history.value.position),
@@ -100,7 +129,8 @@ export function useFlowDemo(strings: FlowDemoStrings) {
     canRedo: computed(() => canRedo(history.value)),
     addBlock,
     pick,
-    move,
+    dragTo,
+    dropBlock,
     rename,
     remove,
     reset,

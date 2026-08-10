@@ -111,7 +111,7 @@
       "redo": "Redo",
       "reset": "Reset",
       "canvas": "Process canvas",
-      "hint": "Drag a block, or tap one to select it. ⌘Z rewinds — so does the scrubber.",
+      "hint": "Drag a block, or tap one to select it. A whole drag is one action — ⌘Z undoes the gesture, not a frame of it.",
       "buffer": "Buffer",
       "saved": "Requests saved",
       "empty": "The buffer is empty.",
@@ -122,7 +122,8 @@
         "ephemeral": "never existed",
         "paired": "undone",
         "lastWrite": "superseded"
-      }
+      },
+      "signals": "Raw input events"
     }
   }
 }
