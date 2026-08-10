@@ -1,7 +1,7 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
-import { THEME_STORAGE_KEY } from "../lib/theme-script";
+import { THEME_STORAGE_KEY } from "../lib/constants";
 
 export type Theme = "dark" | "light";
 
