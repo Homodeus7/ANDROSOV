@@ -15,7 +15,11 @@ export function SectionLabel({ index, total, children, className }: SectionLabel
 
   return (
     <div className={cn("spec text-muted flex items-baseline gap-4", className)}>
-      {counter ? <span aria-hidden>{counter}</span> : null}
+      {counter ? (
+        <span aria-hidden className="shrink-0 whitespace-nowrap">
+          {counter}
+        </span>
+      ) : null}
       <span>{children}</span>
     </div>
   );

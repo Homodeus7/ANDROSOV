@@ -1,6 +1,17 @@
 import { test, expect } from "@playwright/test";
 
-const ROUTES = ["/en", "/en/lab", "/en/about", "/en/resume", "/en/work/foodiq"];
+const ROUTES = [
+  "/en",
+  "/ru",
+  "/en/lab",
+  "/en/about",
+  "/en/resume",
+  "/en/work/foodiq",
+  "/en/work/blocks-editor",
+  "/en/work/payment-gateways",
+  "/en/work/property-ops",
+  "/en/work/stardex",
+];
 
 test.describe("smoke", () => {
   for (const route of ROUTES) {
@@ -29,12 +40,14 @@ test.describe("smoke", () => {
       const widest = await page.evaluate(() => {
         const limit = document.documentElement.clientWidth;
 
+        // data-clip помечает места, где обрезка по горизонтали — сознательное решение
         const insideScroller = (el: HTMLElement) => {
           for (
             let node = el.parentElement;
             node && node !== document.body;
             node = node.parentElement
           ) {
+            if (node.hasAttribute("data-clip")) return true;
             if (/^(auto|scroll)$/.test(getComputedStyle(node).overflowX)) return true;
           }
           return false;

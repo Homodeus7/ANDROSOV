@@ -41,7 +41,7 @@
   --font-mono: var(--stack-mono);
 
   --text-display: clamp(2.25rem, 10.5vw, 12rem);
-  --text-display--line-height: 0.86;
+  --text-display--line-height: 1.05;
   --text-display--letter-spacing: -0.04em;
   --text-h1: clamp(2.5rem, 6vw, 5rem);
   --text-h1--line-height: 0.95;
@@ -93,6 +93,11 @@
     outline-offset: 2px;
   }
 
+  /* Скрываем до анимации только когда JS точно есть — иначе контент недостижим */
+  html[data-js] [data-reveal]:not([data-revealed]) > * {
+    opacity: 0;
+  }
+
   ::selection {
     background: var(--accent);
     color: var(--on-accent);
@@ -140,6 +145,38 @@
   }
 }
 
+/* Строки набора масштабируются от ширины контейнера, а не от вьюпорта:
+   font-size рассчитывается как 100cqw / (ширина строки в em). */
+@utility hero-fit {
+  container-type: inline-size;
+  /* SplitText делает из каждого символа inline-block и теряет кернинг —
+     без этого разбитая строка шире измеренной и вылезает за контейнер */
+  font-kerning: none;
+  font-variant-ligatures: none;
+}
+
+@utility rule-y {
+  background-image: repeating-linear-gradient(
+    to right,
+    transparent 0,
+    transparent calc(100% / 12 - 1px),
+    var(--border) calc(100% / 12 - 1px),
+    var(--border) calc(100% / 12)
+  );
+}
+
+@keyframes marquee {
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.marquee-track {
+  animation: marquee var(--marquee-duration, 24s) linear infinite;
+  animation-direction: var(--marquee-direction, normal);
+  will-change: transform;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -151,5 +188,14 @@
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+
+  .marquee-track {
+    animation: none !important;
+    transform: none !important;
+  }
+
+  html[data-js] [data-reveal] > * {
+    opacity: 1;
   }
 }

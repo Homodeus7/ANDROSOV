@@ -8,7 +8,10 @@
     "lab": "Lab",
     "about": "About",
     "resume": "Resume",
+    "wordmark": "ANDROSOV",
     "openPalette": "Open command palette",
+    "palettePlaceholder": "Type a destination…",
+    "paletteEmpty": "Nothing matches",
     "toggleTheme": "Toggle theme",
     "switchLocale": "Switch language",
     "skipToContent": "Skip to content"
@@ -16,10 +19,26 @@
   "home": {
     "role": "Frontend Engineer",
     "location": "Vietnam — remote",
+    "availability": "Open to work",
+    "lead": "Four years of production frontend. React, Vue, TypeScript — and every number on this page is a demo you can run.",
+    "scroll": "Scroll",
     "manifestoTitle": "NDA hides the code, not the engineering",
     "manifesto": "Most of what I have built is under NDA and cannot be linked. So instead of screenshots, the feature itself is rebuilt here — runnable, in the browser, with the numbers on screen.",
+    "manifestoNote": "Client code stays closed. The engineering decision does not: an undo buffer, a frame budget, a virtualised table — all of it can be reconstructed from scratch and shipped as something you can click.",
     "workTitle": "Selected work",
-    "metricsTitle": "Numbers"
+    "workCount": "projects"
+  },
+  "metrics": {
+    "title": "Numbers",
+    "fps": { "label": "Canvas frame rate on 100+ block diagrams" },
+    "billing": { "label": "Load taken off the billing service by a shared query cache" },
+    "transactions": { "label": "Transactions scrolled without dropping a frame" },
+    "operations": { "label": "Operation types covered by one undo / redo buffer" }
+  },
+  "contact": {
+    "label": "Contact",
+    "headline": "Have a frontend that has to hold up? Let's talk.",
+    "timezone": "UTC+7 — overlaps most of the European day"
   },
   "case": {
     "spec": "Spec",
@@ -28,6 +47,9 @@
     "stack": "Stack",
     "metrics": "Metrics",
     "links": "Links",
+    "badgeNda": "NDA",
+    "badgeLive": "Live",
+    "badgeClosed": "Closed",
     "nda": "Under NDA — client name, screenshots and business logic are not disclosed.",
     "demoPending": "Interactive demo lands in a later phase.",
     "problem": "Problem",

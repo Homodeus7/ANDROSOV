@@ -17,7 +17,8 @@ export default defineConfig({
   webServer: {
     command: `npm run build && npm run start -- --port ${PORT}`,
     url: baseURL,
-    reuseExistingServer: !process.env.CI,
+    // Переиспользование сервера молча тестирует прошлую сборку — уже ловили ложные падения
+    reuseExistingServer: false,
     timeout: 180_000,
   },
 });

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Command } from "cmdk";
 import { useTranslations } from "next-intl";
 import { useRouter } from "@/shared/i18n";
+import { PALETTE_OPEN_EVENT } from "../lib/open-event";
 
 const ROUTES = [
   { href: "/", key: "work" },
@@ -24,8 +25,14 @@ export function CommandPalette() {
         setOpen((current) => !current);
       }
     };
+    const onOpen = () => setOpen(true);
+
     window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
+    window.addEventListener(PALETTE_OPEN_EVENT, onOpen);
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+      window.removeEventListener(PALETTE_OPEN_EVENT, onOpen);
+    };
   }, []);
 
   return (
@@ -37,11 +44,13 @@ export function CommandPalette() {
     >
       <div className="border-border bg-surface w-full max-w-xl border-2">
         <Command.Input
-          placeholder="…"
+          placeholder={t("palettePlaceholder")}
           className="spec placeholder:text-muted w-full bg-transparent px-4 py-4 outline-none"
         />
         <Command.List className="border-border max-h-72 overflow-y-auto border-t-2">
-          <Command.Empty className="spec text-muted px-4 py-4">—</Command.Empty>
+          <Command.Empty className="spec text-muted px-4 py-4">
+            {t("paletteEmpty")}
+          </Command.Empty>
           {ROUTES.map((route) => (
             <Command.Item
               key={route.href}

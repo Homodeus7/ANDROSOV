@@ -60,7 +60,7 @@ export function CasePage({ item }: { item: ResolvedCase }) {
 
         <div className="col-span-full mt-12 lg:col-span-8 lg:col-start-5 lg:mt-0">
           {item.metrics.length > 0 ? (
-            <ul className="border-border mb-16 grid gap-px border-2 sm:grid-cols-3">
+            <ul className="border-border bg-border mb-16 grid gap-px border-2 sm:grid-cols-3">
               {item.metrics.map((metric) => (
                 <li key={metric.label} className="bg-bg p-6">
                   <p className="display text-h2">{metric.value}</p>
