@@ -14,7 +14,10 @@
     "paletteEmpty": "Nothing matches",
     "toggleTheme": "Toggle theme",
     "switchLocale": "Switch language",
-    "skipToContent": "Skip to content"
+    "skipToContent": "Skip to content",
+    "groupCases": "Cases",
+    "groupPages": "Pages",
+    "groupActions": "Actions"
   },
   "home": {
     "role": "Frontend Engineer",
@@ -30,10 +33,18 @@
   },
   "metrics": {
     "title": "Numbers",
-    "fps": { "label": "Canvas frame rate on 100+ block diagrams" },
-    "billing": { "label": "Load taken off the billing service by a shared query cache" },
-    "transactions": { "label": "Transactions scrolled without dropping a frame" },
-    "operations": { "label": "Operation types covered by one undo / redo buffer" }
+    "fps": {
+      "label": "Canvas frame rate on 100+ block diagrams"
+    },
+    "billing": {
+      "label": "Load taken off the billing service by a shared query cache"
+    },
+    "transactions": {
+      "label": "Transactions scrolled without dropping a frame"
+    },
+    "operations": {
+      "label": "Operation types covered by one undo / redo buffer"
+    }
   },
   "contact": {
     "label": "Contact",
@@ -55,7 +66,9 @@
     "problem": "Problem",
     "constraint": "Constraint",
     "solution": "Solution",
-    "result": "Result"
+    "result": "Result",
+    "prevCase": "Previous",
+    "nextCase": "Next case"
   },
   "lab": {
     "title": "Lab",

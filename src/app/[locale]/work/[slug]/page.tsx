@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { setRequestLocale } from "next-intl/server";
-import { getCase, getCaseSlugs } from "@/entities/case";
+import { getCase, getCaseNeighbours, getCaseSlugs } from "@/entities/case";
 import { routing, type Locale } from "@/shared/i18n";
 import { CasePage } from "@/views/case";
 
@@ -26,5 +26,16 @@ export default async function Page({ params }: PageProps) {
   const item = getCase(slug, locale);
   if (!item) notFound();
 
-  return <CasePage item={item} />;
+  const slugs = getCaseSlugs();
+  const { previous, next } = getCaseNeighbours(slug, locale);
+
+  return (
+    <CasePage
+      item={item}
+      index={slugs.indexOf(slug)}
+      total={slugs.length}
+      previous={previous}
+      next={next}
+    />
+  );
 }

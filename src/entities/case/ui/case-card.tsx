@@ -1,7 +1,8 @@
 import { ArrowUpRight } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { Link } from "@/shared/i18n";
 import { cn } from "@/shared/lib";
+import { FlipLink } from "@/shared/motion";
+import { caseFlipId } from "../model/flip-id";
 import type { ResolvedCase } from "../model/schema";
 
 type CaseCardProps = {
@@ -17,9 +18,9 @@ export function CaseCard({ item, index, total, featured = false, className }: Ca
   const status = item.nda ? "badgeNda" : item.links.length > 0 ? "badgeLive" : "badgeClosed";
 
   return (
-    <Link
+    <FlipLink
       href={`/work/${item.slug}`}
-      data-flip-id={`case-${item.slug}`}
+      flipId={caseFlipId(item.slug)}
       className={cn(
         "flood group border-border flex flex-col justify-between border-2 p-5 md:p-8",
         featured ? "min-h-[20rem] md:min-h-[24rem]" : "min-h-60 md:min-h-64",
@@ -42,7 +43,10 @@ export function CaseCard({ item, index, total, featured = false, className }: Ca
 
       <div className="mt-10">
         <div className="flex items-start justify-between gap-4">
-          <h3 className={cn("display text-balance", featured ? "text-h1" : "text-h2")}>
+          <h3
+            data-flip-id={caseFlipId(item.slug)}
+            className={cn("display text-balance", featured ? "text-h1" : "text-h2")}
+          >
             {item.title}
           </h3>
           <ArrowUpRight
@@ -65,6 +69,6 @@ export function CaseCard({ item, index, total, featured = false, className }: Ca
           <span className="text-muted group-hover:text-on-accent">{item.period}</span>
         </div>
       </div>
-    </Link>
+    </FlipLink>
   );
 }

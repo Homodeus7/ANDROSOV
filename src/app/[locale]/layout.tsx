@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider, useTranslations } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { getCases } from "@/entities/case";
 import { CommandPalette } from "@/features/command-palette";
 import { ThemeScript } from "@/features/theme";
 import { site } from "@/shared/config";
@@ -51,6 +52,19 @@ export default async function LocaleLayout({ children, params }: LayoutProps) {
 
   setRequestLocale(locale);
 
+  // В палитру уходят только заголовки: полный контент кейсов в клиентский бандл не нужен
+  const paletteCases = getCases(locale).map(({ slug, title, tagline }) => ({
+    slug,
+    title,
+    tagline,
+  }));
+
+  const paletteLinks = [
+    { label: "GitHub", href: site.github },
+    { label: "Telegram", href: site.telegram },
+    { label: "LinkedIn", href: site.linkedin },
+  ];
+
   return (
     <html lang={locale} data-theme="dark" className={fontClassName} suppressHydrationWarning>
       <head>
@@ -61,7 +75,7 @@ export default async function LocaleLayout({ children, params }: LayoutProps) {
           <SkipLink />
           <SmoothScroll />
           <GridOverlay />
-          <CommandPalette />
+          <CommandPalette cases={paletteCases} links={paletteLinks} />
           <SiteHeader />
           <main id="main">{children}</main>
           <SiteFooter />

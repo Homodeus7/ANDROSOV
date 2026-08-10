@@ -42,3 +42,15 @@ export function getCase(slug: string, locale: Locale): ResolvedCase | undefined 
 export function getCaseSlugs(): string[] {
   return cases.map((record) => record.slug);
 }
+
+export function getCaseNeighbours(slug: string, locale: Locale) {
+  const index = cases.findIndex((item) => item.slug === slug);
+  if (index === -1) return { previous: undefined, next: undefined };
+
+  const at = (offset: number) => {
+    const record = cases.at((index + offset + cases.length) % cases.length);
+    return record && record.slug !== slug ? resolve(record, locale) : undefined;
+  };
+
+  return { previous: at(-1), next: at(1) };
+}

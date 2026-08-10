@@ -2,7 +2,7 @@
 
 import { Moon, Sun } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { setTheme, useTheme } from "../model/theme-store";
+import { setTheme, useTheme } from "@/shared/theme";
 
 export function ThemeToggle() {
   const t = useTranslations("nav");
