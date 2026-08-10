@@ -1,11 +1,13 @@
 import { useTranslations } from "next-intl";
 import type { DemoId } from "@/entities/case";
+import { CanvasFpsDemo } from "../canvas-fps";
 import { UndoRedoDemo } from "../undo-redo";
 
 type DemoEntry = { component: () => React.ReactNode; messages: string };
 
 const DEMOS: Partial<Record<DemoId, DemoEntry>> = {
   "undo-redo": { component: UndoRedoDemo, messages: "undoRedo" },
+  "canvas-fps": { component: CanvasFpsDemo, messages: "canvasFps" },
 };
 
 export function DemoSlot({ demo }: { demo: DemoId }) {

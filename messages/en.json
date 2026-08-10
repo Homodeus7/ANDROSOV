@@ -94,13 +94,7 @@
     "undoRedo": {
       "title": "Undo buffer",
       "lead": "Drag the blocks, add one, delete one, rename one. Every gesture writes actions into a single buffer, and the buffer collapses before it is sent.",
-      "seedNames": [
-        "Request",
-        "Validate",
-        "Route",
-        "Notify",
-        "Archive"
-      ],
+      "seedNames": ["Request", "Validate", "Route", "Notify", "Archive"],
       "newBlockName": "Step",
       "add": "Add",
       "connect": "Link",
@@ -124,6 +118,31 @@
         "lastWrite": "superseded"
       },
       "signals": "Raw input events"
+    },
+    "canvasFps": {
+      "title": "The frame budget",
+      "lead": "One scene, one animation, two ways of getting a frame onto the screen. Flip the mode and watch the counter: the difference is not the machine, it is what the code finds to do between frames.",
+      "canvas": "A field of blocks and links",
+      "naive": "Naive",
+      "budget": "Frame budget",
+      "blocks": "Blocks",
+      "pause": "Pause",
+      "resume": "Run",
+      "reset": "Reset",
+      "fps": "Frames per second",
+      "p95": "p95 frame, ms",
+      "dropped": "Frames lost",
+      "reads": "DOM reads per frame",
+      "loop": "Loop",
+      "awake": "running",
+      "asleep": "asleep",
+      "wasted": "frames for nothing:",
+      "measured": "Measured",
+      "waiting": "not measured",
+      "ms": "ms",
+      "hint": "The modes are measured one at a time: there is a single main thread, and two scenes side by side would fight over it. The first thirty frames after a switch are thrown away as warm-up. Hit pause and compare the “loop” line.",
+      "naiveNote": "Block positions live in reactive state, and the frame repaints the whole scene through left/top — properties that go through layout. Then a pass over the links reads each block's rectangle and immediately places a link from it: measure, write, measure, write. Every write dirties layout, and every next measurement makes the browser recompute it synchronously, in the middle of the frame.",
+      "budgetNote": "Same work — every block and every link is repositioned, with no cleverness about updating only what changed. Two things differ: coordinates come from the array instead of being read back off the DOM, so nothing forces a layout mid-pass; and only transform is written, which reaches the compositor without going through layout. While paused, no frame is scheduled at all."
     }
   }
 }

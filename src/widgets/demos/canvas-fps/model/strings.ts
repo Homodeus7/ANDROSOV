@@ -1,0 +1,23 @@
+export type FpsDemoStrings = {
+  canvas: string;
+  naive: string;
+  budget: string;
+  blocks: string;
+  pause: string;
+  resume: string;
+  reset: string;
+  fps: string;
+  p95: string;
+  dropped: string;
+  reads: string;
+  loop: string;
+  awake: string;
+  asleep: string;
+  wasted: string;
+  measured: string;
+  waiting: string;
+  ms: string;
+  hint: string;
+  naiveNote: string;
+  budgetNote: string;
+};

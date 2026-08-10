@@ -1,13 +1,6 @@
-import {
-  computed,
-  defineComponent,
-  h,
-  onBeforeUnmount,
-  onMounted,
-  ref,
-  type PropType,
-} from "vue";
+import { computed, defineComponent, h, type PropType } from "vue";
 import { CANVAS_SPAN, type Block } from "@/entities/flow";
+import { useBoxSize } from "../../vue/use-box-size";
 import type { FlowDemoState } from "./use-flow-demo";
 
 const BLOCK_HEIGHT = 52;
@@ -22,21 +15,7 @@ export const FlowCanvas = defineComponent({
     label: { type: String, required: true },
   },
   setup(props) {
-    const box = ref<HTMLElement | null>(null);
-    const width = ref(0);
-    const height = ref(0);
-    let observer: ResizeObserver | null = null;
-
-    onMounted(() => {
-      if (!box.value) return;
-      observer = new ResizeObserver(([entry]) => {
-        width.value = entry!.contentRect.width;
-        height.value = entry!.contentRect.height;
-      });
-      observer.observe(box.value);
-    });
-
-    onBeforeUnmount(() => observer?.disconnect());
+    const { box, width, height } = useBoxSize();
 
     const blockWidth = computed(() => Math.max(96, Math.min(140, width.value * 0.3)));
     const travelX = computed(() => Math.max(1, width.value - blockWidth.value));
