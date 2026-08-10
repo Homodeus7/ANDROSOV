@@ -29,10 +29,7 @@ export function WorkIndex({ cases }: { cases: ResolvedCase[] }) {
 
         <Reveal as="ul" className="grid-page mt-10 gap-y-4" stagger={0.06}>
           {cases.map((item, index) => (
-            <li
-              key={item.slug}
-              className={cn("col-span-full", LAYOUT[index % LAYOUT.length])}
-            >
+            <li key={item.slug} className={cn("col-span-full", LAYOUT[index % LAYOUT.length])}>
               <CaseCard
                 item={item}
                 index={index}

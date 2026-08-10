@@ -106,9 +106,17 @@ export const foodiq: CaseRecord = {
       period: "2026 — present",
       metrics: [
         { value: "13 619", label: "reference rows", detail: "USDA FNDDS, SR and Foundation" },
-        { value: "78%", label: "of diary entries matched", detail: "to a measured reference row" },
+        {
+          value: "78%",
+          label: "of diary entries matched",
+          detail: "to a measured reference row",
+        },
         { value: "1049 KB", label: "entry bundle", detail: "down from 2139 KB" },
-        { value: "3", label: "queries per day view", detail: "regardless of how much was eaten" },
+        {
+          value: "3",
+          label: "queries per day view",
+          detail: "regardless of how much was eaten",
+        },
         { value: "0", label: "type drift", detail: "client generated from the OpenAPI schema" },
         { value: "2", label: "clients", detail: "web and React Native from one contract" },
       ],
@@ -195,7 +203,11 @@ export const foodiq: CaseRecord = {
       period: "2026 — настоящее время",
       metrics: [
         { value: "13 619", label: "строк справочника", detail: "USDA FNDDS, SR и Foundation" },
-        { value: "78%", label: "записей дневника связаны", detail: "с измеренной строкой справочника" },
+        {
+          value: "78%",
+          label: "записей дневника связаны",
+          detail: "с измеренной строкой справочника",
+        },
         { value: "1049 КБ", label: "входной бандл", detail: "было 2139 КБ" },
         { value: "3", label: "запроса на день", detail: "сколько бы ни было съедено" },
         { value: "0", label: "расхождений типов", detail: "клиент генерируется из OpenAPI" },

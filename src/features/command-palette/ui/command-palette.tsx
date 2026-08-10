@@ -79,10 +79,7 @@ export function CommandPalette({ cases, links }: CommandPaletteProps) {
             {t("paletteEmpty")}
           </Command.Empty>
 
-          <Command.Group
-            heading={t("groupCases")}
-            className={groupClass}
-          >
+          <Command.Group heading={t("groupCases")} className={groupClass}>
             {cases.map((item) => (
               <Command.Item
                 key={item.slug}
@@ -96,10 +93,7 @@ export function CommandPalette({ cases, links }: CommandPaletteProps) {
             ))}
           </Command.Group>
 
-          <Command.Group
-            heading={t("groupPages")}
-            className={groupClass}
-          >
+          <Command.Group heading={t("groupPages")} className={groupClass}>
             {ROUTES.map((route) => (
               <Command.Item
                 key={route.href}
@@ -112,10 +106,7 @@ export function CommandPalette({ cases, links }: CommandPaletteProps) {
             ))}
           </Command.Group>
 
-          <Command.Group
-            heading={t("groupActions")}
-            className={groupClass}
-          >
+          <Command.Group heading={t("groupActions")} className={groupClass}>
             <Command.Item
               value={t("toggleTheme")}
               onSelect={() => run(() => setTheme(theme === "dark" ? "light" : "dark"))}

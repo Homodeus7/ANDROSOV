@@ -36,10 +36,7 @@ export function Headline({ lines, className }: { lines: HeadlineLine[]; classNam
           ) : null}
           <span
             data-hero-text
-            className={cn(
-              "relative block whitespace-nowrap",
-              line.invert && "text-on-accent",
-            )}
+            className={cn("relative block whitespace-nowrap", line.invert && "text-on-accent")}
           >
             {line.text}
           </span>

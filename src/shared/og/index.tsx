@@ -34,74 +34,72 @@ export function renderOgImage({ eyebrow, title, tagline, footer, badge }: OgFram
   const titleSize = title.length > 22 ? 84 : title.length > 14 ? 108 : 136;
 
   return new ImageResponse(
-    (
-      <div
-        style={{
-          width: "100%",
-          height: "100%",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-between",
-          background: COLOR.bg,
-          color: COLOR.fg,
-          padding: 64,
-          border: `4px solid ${COLOR.border}`,
-          fontFamily: "JetBrains Mono",
-        }}
-      >
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-          <span style={{ fontSize: 24, letterSpacing: 4, color: COLOR.muted }}>
-            {eyebrow.toUpperCase()}
-          </span>
-          {badge ? (
-            <span
-              style={{
-                fontSize: 24,
-                letterSpacing: 4,
-                padding: "8px 20px",
-                background: COLOR.accent,
-                color: COLOR.onAccent,
-              }}
-            >
-              {badge.toUpperCase()}
-            </span>
-          ) : null}
-        </div>
-
-        <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+    <div
+      style={{
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+        background: COLOR.bg,
+        color: COLOR.fg,
+        padding: 64,
+        border: `4px solid ${COLOR.border}`,
+        fontFamily: "JetBrains Mono",
+      }}
+    >
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <span style={{ fontSize: 24, letterSpacing: 4, color: COLOR.muted }}>
+          {eyebrow.toUpperCase()}
+        </span>
+        {badge ? (
           <span
             style={{
-              fontFamily: "Unbounded",
-              fontSize: titleSize,
-              lineHeight: 1.05,
-              letterSpacing: -4,
-              textTransform: "uppercase",
+              fontSize: 24,
+              letterSpacing: 4,
+              padding: "8px 20px",
+              background: COLOR.accent,
+              color: COLOR.onAccent,
             }}
           >
-            {title}
+            {badge.toUpperCase()}
           </span>
-          <span style={{ fontSize: 30, lineHeight: 1.4, color: COLOR.muted, maxWidth: 900 }}>
-            {tagline}
-          </span>
-        </div>
+        ) : null}
+      </div>
 
-        <div
+      <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+        <span
           style={{
-            display: "flex",
-            gap: 32,
-            paddingTop: 28,
-            borderTop: `4px solid ${COLOR.accent}`,
-            fontSize: 22,
-            letterSpacing: 2,
-            color: COLOR.muted,
+            fontFamily: "Unbounded",
+            fontSize: titleSize,
+            lineHeight: 1.05,
+            letterSpacing: -4,
+            textTransform: "uppercase",
           }}
         >
-          {footer.map((entry) => (
-            <span key={entry}>{entry.toUpperCase()}</span>
-          ))}
-        </div>
+          {title}
+        </span>
+        <span style={{ fontSize: 30, lineHeight: 1.4, color: COLOR.muted, maxWidth: 900 }}>
+          {tagline}
+        </span>
       </div>
-    ),
+
+      <div
+        style={{
+          display: "flex",
+          gap: 32,
+          paddingTop: 28,
+          borderTop: `4px solid ${COLOR.accent}`,
+          fontSize: 22,
+          letterSpacing: 2,
+          color: COLOR.muted,
+        }}
+      >
+        {footer.map((entry) => (
+          <span key={entry}>{entry.toUpperCase()}</span>
+        ))}
+      </div>
+    </div>,
     {
       ...OG_SIZE,
       fonts: [

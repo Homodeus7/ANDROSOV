@@ -18,7 +18,7 @@ export function ContactBand() {
             <span className="display text-h2 max-w-4xl text-balance">{t("headline")}</span>
             <ArrowUpRight
               aria-hidden
-              className="size-8 shrink-0 transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1 md:size-10"
+              className="size-8 shrink-0 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 md:size-10"
             />
           </span>
           <span className="spec flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">

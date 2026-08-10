@@ -27,7 +27,11 @@ export const paymentGateways: CaseRecord = {
       period: "Apr 2025 — Jan 2026",
       metrics: [
         { value: "−30", label: "% load on billing", detail: "measured on server metrics" },
-        { value: "500+", label: "transactions per view", detail: "scrolled without dropped frames" },
+        {
+          value: "500+",
+          label: "transactions per view",
+          detail: "scrolled without dropped frames",
+        },
         { value: "50+", label: "modules", detail: "three apps, one FSD codebase" },
       ],
       sections: [
@@ -73,7 +77,11 @@ export const paymentGateways: CaseRecord = {
       period: "апр 2025 — янв 2026",
       metrics: [
         { value: "−30", label: "% нагрузки на биллинг", detail: "замер по серверным метрикам" },
-        { value: "500+", label: "транзакций на экране", detail: "листаются без просадки кадра" },
+        {
+          value: "500+",
+          label: "транзакций на экране",
+          detail: "листаются без просадки кадра",
+        },
         { value: "50+", label: "модулей", detail: "три приложения, одна база на FSD" },
       ],
       sections: [

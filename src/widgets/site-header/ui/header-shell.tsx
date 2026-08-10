@@ -8,7 +8,10 @@ export function HeaderShell({ children }: { children: ReactNode }) {
 
   useGSAP(
     () => {
-      const shift = gsap.quickTo(root.current, "yPercent", { duration: 0.3, ease: "power2.out" });
+      const shift = gsap.quickTo(root.current, "yPercent", {
+        duration: 0.3,
+        ease: "power2.out",
+      });
 
       const trigger = ScrollTrigger.create({
         start: "top -=200",

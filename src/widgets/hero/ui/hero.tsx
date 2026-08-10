@@ -3,7 +3,15 @@
 import { useRef } from "react";
 import { useTranslations } from "next-intl";
 import { ArrowDown } from "lucide-react";
-import { DUR, EASE, STAGGER, SplitText, gsap, useGSAP, useReducedMotion } from "@/shared/motion";
+import {
+  DUR,
+  EASE,
+  STAGGER,
+  SplitText,
+  gsap,
+  useGSAP,
+  useReducedMotion,
+} from "@/shared/motion";
 import { Container, SectionLabel } from "@/shared/ui";
 import { HEADLINE, Headline } from "./headline";
 
@@ -51,7 +59,8 @@ export function Hero() {
 
           const boxes = glyphs.map((glyph) => glyph.getBoundingClientRect());
           const natural =
-            Math.max(...boxes.map((box) => box.right)) - Math.min(...boxes.map((box) => box.left));
+            Math.max(...boxes.map((box) => box.right)) -
+            Math.min(...boxes.map((box) => box.left));
 
           line.style.fontSize = natural > 0 ? `${(100 * target) / natural}px` : "";
         }
