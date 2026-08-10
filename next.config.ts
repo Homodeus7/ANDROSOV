@@ -1,7 +1,12 @@
 import type { NextConfig } from "next";
+import createNextIntlPlugin from "next-intl/plugin";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  reactStrictMode: true,
+  turbopack: { root: import.meta.dirname },
+  experimental: {
+    optimizePackageImports: ["lucide-react", "motion"],
+  },
 };
 
-export default nextConfig;
+export default createNextIntlPlugin("./src/shared/i18n/request.ts")(nextConfig);

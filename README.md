@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# portfolio-site
 
-## Getting Started
+Personal portfolio for Viacheslav Androsov. Every claim on the site is backed by a runnable demo
+rebuilt from the feature it describes — NDA hides the client's code, not the engineering.
 
-First, run the development server:
+**Stack:** Next.js 16 (App Router) · React 19 · TypeScript · Tailwind v4 · GSAP · next-intl (EN/RU)
+· Zod · Vitest · Playwright
+
+## Commands
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run dev          # dev server
+npm run build        # production build
+npm run typecheck    # tsc --noEmit
+npm run lint         # eslint
+npm run test:run     # vitest
+npm run test:e2e     # playwright (builds and serves on :3100)
+npm run format       # prettier
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Architecture
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Feature-Sliced Design. Layers, from top to bottom:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+src/app/        Next.js routing only — thin page.tsx + metadata
+src/views/      page components with business logic
+src/widgets/    composite blocks (header, footer, palette, grid overlay)
+src/features/   theme, locale switcher
+src/entities/   domain models (case)
+src/shared/     config, fonts, i18n, lib, motion, styles, ui
+src/content/    authored case content, validated by Zod at import time
+```
 
-## Learn More
+Two lint rules keep the layering honest, and both are verified to fail on violation:
 
-To learn more about Next.js, take a look at the following resources:
+- a layer may only import from layers below it;
+- a slice may only be imported through its `index.ts` public API.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Content
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Cases live in `src/content/cases/*.ts` as typed modules with `en` and `ru` bodies. They are parsed
+by `caseSchema` when `@/entities/case` first loads, so a malformed or half-translated case fails
+the build rather than shipping.
 
-## Deploy on Vercel
+## Design
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Kinetic Brutalism: zero radius, 2px borders, one acid accent (`#dfe104`), Unbounded for display,
+Manrope for body, JetBrains Mono for data. Dark is the default; light mode is the same palette
+inverted. Full spec lives in the Obsidian vault under `projects/portfolio-site/architecture`.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Press `G` for the 12-column grid overlay, `⌘K` for the command palette.

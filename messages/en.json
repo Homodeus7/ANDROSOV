@@ -1,0 +1,56 @@
+{
+  "meta": {
+    "title": "Viacheslav Androsov — Frontend Engineer",
+    "description": "Frontend engineer. React, Vue, TypeScript. Every claim on this site is a demo you can run."
+  },
+  "nav": {
+    "work": "Work",
+    "lab": "Lab",
+    "about": "About",
+    "resume": "Resume",
+    "openPalette": "Open command palette",
+    "toggleTheme": "Toggle theme",
+    "switchLocale": "Switch language",
+    "skipToContent": "Skip to content"
+  },
+  "home": {
+    "role": "Frontend Engineer",
+    "location": "Vietnam — remote",
+    "manifestoTitle": "NDA hides the code, not the engineering",
+    "manifesto": "Most of what I have built is under NDA and cannot be linked. So instead of screenshots, the feature itself is rebuilt here — runnable, in the browser, with the numbers on screen.",
+    "workTitle": "Selected work",
+    "metricsTitle": "Numbers"
+  },
+  "case": {
+    "spec": "Spec",
+    "role": "Role",
+    "period": "Period",
+    "stack": "Stack",
+    "metrics": "Metrics",
+    "links": "Links",
+    "nda": "Under NDA — client name, screenshots and business logic are not disclosed.",
+    "demoPending": "Interactive demo lands in a later phase.",
+    "problem": "Problem",
+    "constraint": "Constraint",
+    "solution": "Solution",
+    "result": "Result"
+  },
+  "lab": {
+    "title": "Lab",
+    "lead": "Each demo rebuilds one feature from a real project. Standalone, linkable, runnable.",
+    "empty": "Demos arrive in phase 3."
+  },
+  "about": {
+    "title": "About",
+    "lead": "Placeholder."
+  },
+  "resume": {
+    "title": "Resume",
+    "download": "Download PDF",
+    "lead": "Placeholder."
+  },
+  "footer": {
+    "builtWith": "Built with Next.js, GSAP and a strict grid.",
+    "grid": "Press G for the grid"
+  }
+}
