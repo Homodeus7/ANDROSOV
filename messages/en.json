@@ -91,6 +91,7 @@
     "loading": "Loading the demo…",
     "pending": "Interactive demo lands in a later phase.",
     "vueNote": "This demo runs as a real Vue 3 island inside a React page — its own chunk, loaded on sight.",
+    "reactNote": "This demo is React, like the original. Its own chunk too, loaded on sight.",
     "undoRedo": {
       "title": "Undo buffer",
       "lead": "Drag the blocks, add one, delete one, rename one. Every gesture writes actions into a single buffer, and the buffer collapses before it is sent.",
@@ -143,6 +144,37 @@
       "hint": "The modes are measured one at a time: there is a single main thread, and two scenes side by side would fight over it. The first thirty frames after a switch are thrown away as warm-up. Hit pause and compare the “loop” line.",
       "naiveNote": "Block positions live in reactive state, and the frame repaints the whole scene through left/top — properties that go through layout. Then a pass over the links reads each block's rectangle and immediately places a link from it: measure, write, measure, write. Every write dirties layout, and every next measurement makes the browser recompute it synchronously, in the middle of the frame.",
       "budgetNote": "Same work — every block and every link is repositioned, with no cleverness about updating only what changed. Two things differ: coordinates come from the array instead of being read back off the DOM, so nothing forces a layout mid-pass; and only transform is written, which reaches the compositor without going through layout. While paused, no frame is scheduled at all."
+    },
+    "txTable": {
+      "title": "A table under live data",
+      "lead": "Five hundred transactions, and a mock socket changing statuses every second. The highlight is not decoration: a row lights up at the exact moment React repainted it. Turn virtualisation or memoisation off and watch what lights up.",
+      "table": "Transactions",
+      "virtual": "Virtualised",
+      "memo": "Row memo",
+      "pause": "Pause",
+      "resume": "Run",
+      "reset": "Reset",
+      "columns": {
+        "id": "Transaction",
+        "merchant": "Merchant",
+        "method": "Method",
+        "amount": "Amount",
+        "status": "Status"
+      },
+      "statuses": {
+        "pending": "pending",
+        "authorised": "authorised",
+        "captured": "captured",
+        "refunded": "refunded",
+        "failed": "failed"
+      },
+      "rowsInDom": "Rows in the DOM",
+      "rowsTotal": "of",
+      "renders": "Row repaints per second",
+      "messages": "Messages per second",
+      "fps": "Frames per second",
+      "hint": "The data is synthetic: merchant ids are generated, amounts are random. What is closed is the client's code, not the render strategy.",
+      "note": "Virtualisation keeps a couple of dozen rows in the DOM instead of five hundred, so scrolling stops depending on the length of the list. Memoisation solves the other half: a status update repaints one row rather than the grid. It only works because the update leaves untouched rows as the very same objects — memo on top of a fresh copy of the array would not save a single render."
     }
   }
 }

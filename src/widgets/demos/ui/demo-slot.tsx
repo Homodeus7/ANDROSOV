@@ -1,13 +1,15 @@
 import { useTranslations } from "next-intl";
 import type { DemoId } from "@/entities/case";
 import { CanvasFpsDemo } from "../canvas-fps";
+import { TxTableDemo } from "../tx-table";
 import { UndoRedoDemo } from "../undo-redo";
 
-type DemoEntry = { component: () => React.ReactNode; messages: string };
+type DemoEntry = { component: () => React.ReactNode; messages: string; note: string };
 
 const DEMOS: Partial<Record<DemoId, DemoEntry>> = {
-  "undo-redo": { component: UndoRedoDemo, messages: "undoRedo" },
-  "canvas-fps": { component: CanvasFpsDemo, messages: "canvasFps" },
+  "undo-redo": { component: UndoRedoDemo, messages: "undoRedo", note: "vueNote" },
+  "canvas-fps": { component: CanvasFpsDemo, messages: "canvasFps", note: "vueNote" },
+  "tx-table": { component: TxTableDemo, messages: "txTable", note: "reactNote" },
 };
 
 export function DemoSlot({ demo }: { demo: DemoId }) {
@@ -31,7 +33,7 @@ export function DemoSlot({ demo }: { demo: DemoId }) {
       <div className="mt-10">
         <Demo />
       </div>
-      <p className="spec text-muted mt-6 max-w-prose normal-case">{t("vueNote")}</p>
+      <p className="spec text-muted mt-6 max-w-prose normal-case">{t(entry.note)}</p>
     </div>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useInView } from "@/shared/in-view";
 import { cn } from "@/shared/lib";
 
 export type IslandLoader = () => Promise<(host: HTMLElement) => () => void>;
@@ -17,6 +18,7 @@ type VueIslandProps = {
  * целиком владеет Vue, иначе два рантайма правили бы один и тот же DOM.
  */
 export function VueIsland({ load, fallback, className }: VueIslandProps) {
+  const { ref, inView } = useInView<HTMLDivElement>();
   const host = useRef<HTMLDivElement>(null);
   const loader = useRef(load);
   const [mounted, setMounted] = useState(false);
@@ -26,38 +28,26 @@ export function VueIsland({ load, fallback, className }: VueIslandProps) {
   });
 
   useEffect(() => {
-    const node = host.current;
-    if (!node) return;
+    if (!inView) return;
 
     let unmount: (() => void) | undefined;
     let cancelled = false;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (!entries.some((entry) => entry.isIntersecting)) return;
-        observer.disconnect();
-
-        void loader.current().then((mount) => {
-          if (cancelled || !host.current) return;
-          unmount = mount(host.current);
-          setMounted(true);
-        });
-      },
-      { rootMargin: "200px" },
-    );
-
-    observer.observe(node);
+    void loader.current().then((mount) => {
+      if (cancelled || !host.current) return;
+      unmount = mount(host.current);
+      setMounted(true);
+    });
 
     return () => {
       cancelled = true;
-      observer.disconnect();
       unmount?.();
       setMounted(false);
     };
-  }, []);
+  }, [inView]);
 
   return (
-    <div className={cn("relative", className)}>
+    <div ref={ref} className={cn("relative", className)}>
       <div ref={host} />
       {mounted ? null : fallback}
     </div>
