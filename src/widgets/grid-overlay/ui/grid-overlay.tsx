@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { cn } from "@/shared/lib";
 import { Container } from "@/shared/ui";
 
 export function GridOverlay() {
@@ -31,9 +32,13 @@ export function GridOverlay() {
         {Array.from({ length: 12 }, (_, index) => (
           <div
             key={index}
-            className="bg-accent/10 border-accent/30 h-full border-x lg:block"
+            // Столько же колонок, сколько у grid-page на этом брейкпоинте:
+            // лишние не спрятать, а перенести на второй ряд
+            className={cn(
+              "bg-accent/10 border-accent/30 h-full border-x",
+              index >= 8 ? "hidden lg:block" : index >= 4 ? "hidden md:block" : null,
+            )}
             data-col={index + 1}
-            style={index >= 4 ? { display: "var(--grid-col-display, none)" } : undefined}
           />
         ))}
       </Container>
