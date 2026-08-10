@@ -76,12 +76,32 @@
   },
   "about": {
     "title": "About",
-    "lead": "Placeholder."
+    "headline": "I take the half of the frontend that usually breaks",
+    "body": [
+      "I am Viacheslav Androsov, a frontend engineer with four years of production experience. I started with Web3 interfaces on outsourcing, moved through B2B and FinTech products, and now work on the core of a corporate low-code platform: the editor engine, undo across operations, the frame budget.",
+      "What interests me is not the mockup but what sits behind it: how the state is arranged, what happens between frames, why a table starts stuttering at five hundred rows and what to do about it. I work in both React and Vue — not \"familiar with both\", but two production codebases I had to switch between mid-week.",
+      "Almost everything I have built is under NDA and cannot be linked. So this site is arranged differently: every claim that carries a number is rebuilt as a demo you can run right here and watch the counter."
+    ],
+    "principlesTitle": "How I work",
+    "principles": [
+      {
+        "title": "Measure first, then write",
+        "body": "Optimising without measuring is guessing. Twice while building these demos the measurement showed that the \"slow\" version was in fact fast, and the demo had to be rewritten rather than the wording adjusted."
+      },
+      {
+        "title": "Boundaries over polish",
+        "body": "FSD, public APIs per slice, a linter that catches an import going upwards. Fifty modules and three teams in one repository survive on hard boundaries; they do not survive on agreements."
+      },
+      {
+        "title": "Tests where mistakes are expensive",
+        "body": "Not for a coverage number. A buffer collapse that quietly changes data is caught only by a property over generated sessions; a panel printing the wrong schema, only by a test tying it to the validator."
+      }
+    ]
   },
   "resume": {
     "title": "Resume",
-    "download": "Download PDF",
-    "lead": "Placeholder."
+    "download": "Print / PDF",
+    "caseLink": "Read the case"
   },
   "footer": {
     "builtWith": "Built with Next.js, GSAP and a strict grid.",

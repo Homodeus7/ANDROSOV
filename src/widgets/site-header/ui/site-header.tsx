@@ -7,6 +7,8 @@ import { Container } from "@/shared/ui";
 import { HeaderShell } from "./header-shell";
 
 const NAV = [
+  // Грид работ живёт на главной, отдельной страницы под него нет
+  { href: "/#work", key: "work" },
   { href: "/lab", key: "lab" },
   { href: "/about", key: "about" },
   { href: "/resume", key: "resume" },

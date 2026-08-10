@@ -204,3 +204,38 @@
     opacity: 1;
   }
 }
+
+/* Резюме печатается браузером, поэтому печатная версия — та же разметка без
+   хрома страницы: отдельная вёрстка под PDF разошлась бы с экранной */
+@media print {
+  :root {
+    --bg: #ffffff;
+    --surface: #ffffff;
+    --fg: #000000;
+    --muted: #444444;
+    --border: #999999;
+    --accent-ink: #000000;
+  }
+
+  header[data-site-header],
+  footer[data-site-footer] {
+    display: none;
+  }
+
+  body {
+    background: #ffffff;
+  }
+
+  section {
+    border: none !important;
+    padding-block: 0.75rem !important;
+  }
+
+  a[href^="mailto:"]::after {
+    content: none;
+  }
+
+  @page {
+    margin: 14mm;
+  }
+}

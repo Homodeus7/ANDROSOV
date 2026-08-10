@@ -28,6 +28,7 @@ export function HeaderShell({ children }: { children: ReactNode }) {
   return (
     <header
       ref={root}
+      data-site-header
       className="border-border bg-bg sticky top-0 z-50 border-b-2 will-change-transform"
     >
       {children}
