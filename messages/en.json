@@ -175,6 +175,55 @@
       "fps": "Frames per second",
       "hint": "The data is synthetic: merchant ids are generated, amounts are random. What is closed is the client's code, not the render strategy.",
       "note": "Virtualisation keeps a couple of dozen rows in the DOM instead of five hundred, so scrolling stops depending on the length of the list. Memoisation solves the other half: a status update repaints one row rather than the grid. It only works because the update leaves untouched rows as the very same objects — memo on top of a fresh copy of the array would not save a single render."
+    },
+    "dynamicForm": {
+      "title": "A form that knows its own rules",
+      "lead": "Switch the payout method and it is not just the field set that changes — so does the schema the form validates against. It is printed in full on the right: not a picture of the schema, but its source, built from the same rules the validation runs on.",
+      "form": "Payout request",
+      "methods": {
+        "card": "Card",
+        "sepa": "SEPA",
+        "swift": "SWIFT",
+        "crypto": "Crypto"
+      },
+      "labels": {
+        "amount": "Amount",
+        "currency": "Currency",
+        "cardNumber": "Card number",
+        "iban": "IBAN",
+        "account": "Account",
+        "bic": "BIC",
+        "holder": "Beneficiary",
+        "network": "Network",
+        "wallet": "Wallet address"
+      },
+      "placeholders": {
+        "amount": "250",
+        "cardNumber": "4111111111111111",
+        "iban": "DE89370400440532013000",
+        "account": "12345678",
+        "bic": "DEUTDEFF",
+        "holder": "Acme Ltd",
+        "wallet": "0x…"
+      },
+      "errors": {
+        "too_small": "Below the limit",
+        "too_big": "Above the limit",
+        "invalid_format": "Does not match the format",
+        "invalid_type": "Fill this in",
+        "invalid_value": "Not an allowed value"
+      },
+      "fallbackError": "Fails validation",
+      "schema": "Schema right now",
+      "fields": "fields",
+      "rules": "rules",
+      "valid": "The schema accepts these values",
+      "invalid": "The schema rejects these values",
+      "payload": "What goes to the backend",
+      "submit": "Submit",
+      "reset": "Reset",
+      "hint": "The schema follows more than the method: for a crypto payout the address is checked against the network you picked — change it and watch the pattern. Values the new schema has no place for are dropped: an IBAN must not travel along with a card payout.",
+      "note": "The rules are written once, as a list. Both the Zod object that validates and the text beside it are built from that list. There is nowhere for them to drift apart — and a test holds it: the panel must print every rule the schema validates by."
     }
   }
 }
