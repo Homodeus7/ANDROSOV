@@ -250,6 +250,30 @@
       "reset": "Reset",
       "hint": "The schema follows more than the method: for a crypto payout the address is checked against the network you picked — change it and watch the pattern. Values the new schema has no place for are dropped: an IBAN must not travel along with a card payout.",
       "note": "The rules are written once, as a list. Both the Zod object that validates and the text beside it are built from that list. There is nowhere for them to drift apart — and a test holds it: the panel must print every rule the schema validates by."
+    },
+    "liveRollup": {
+      "title": "Numbers that survive a change of scale",
+      "lead": "One stream of events, two roll-ups. One rebuilds every bucket from the raw events; the other folds the level below it, the way most dashboards do. Switch the granularity and watch which metrics stay identical and which quietly drift.",
+      "chart": "Two roll-ups of one stream, drawn over the same window",
+      "clock": "×60 virtual clock",
+      "decomposable": "decomposable",
+      "notDecomposable": "not decomposable",
+      "fromRaw": "from raw",
+      "fromBuckets": "from buckets",
+      "plotted": "Sum of the plotted points",
+      "identical": "identical",
+      "offBy": "off by",
+      "bucket": "Bucket",
+      "events": "Events per second",
+      "drift": "Drift",
+      "worstDrift": "Worst drift",
+      "late": "Late events",
+      "gap": "Gap in the stream",
+      "pause": "Pause",
+      "resume": "Run",
+      "reset": "Reset",
+      "hint": "Turn on the gap and the raw roll-up leaves a hole where the folded one draws a zero. Nobody measured nothing — the same lie a food tracker tells when it prints 0 mg for a nutrient it never had.",
+      "note": "Sum and count are decomposable: a minute is the sum of its twelve five-second buckets, and no arrangement of buckets changes the answer. An average is not — it needs the weights, and the fold has already thrown them away. A percentile is not decomposable at all: there is no operation on twelve p95 values that yields the p95 of the minute. The dashed line is not an approximation. It is a different question, answered confidently."
     }
   }
 }

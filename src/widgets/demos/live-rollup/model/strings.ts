@@ -1,0 +1,22 @@
+export type LiveRollupStrings = {
+  chart: string;
+  clock: string;
+  decomposable: string;
+  notDecomposable: string;
+  fromRaw: string;
+  fromBuckets: string;
+  plotted: string;
+  identical: string;
+  offBy: string;
+  bucket: string;
+  events: string;
+  drift: string;
+  worstDrift: string;
+  late: string;
+  gap: string;
+  pause: string;
+  resume: string;
+  reset: string;
+  hint: string;
+  note: string;
+};

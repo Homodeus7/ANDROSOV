@@ -2,6 +2,7 @@ import { useTranslations } from "next-intl";
 import type { DemoId } from "@/entities/case";
 import { CanvasFpsDemo } from "../canvas-fps";
 import { DynamicFormDemo } from "../dynamic-form";
+import { LiveRollupDemo } from "../live-rollup";
 import { TxTableDemo } from "../tx-table";
 import { UndoRedoDemo } from "../undo-redo";
 
@@ -12,6 +13,7 @@ const DEMOS: Partial<Record<DemoId, DemoEntry>> = {
   "canvas-fps": { component: CanvasFpsDemo, messages: "canvasFps", note: "vueNote" },
   "tx-table": { component: TxTableDemo, messages: "txTable", note: "reactNote" },
   "dynamic-form": { component: DynamicFormDemo, messages: "dynamicForm", note: "reactNote" },
+  "live-rollup": { component: LiveRollupDemo, messages: "liveRollup", note: "reactNote" },
 };
 
 export function DemoSlot({ demo }: { demo: DemoId }) {
