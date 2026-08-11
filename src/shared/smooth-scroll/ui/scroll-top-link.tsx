@@ -1,19 +1,18 @@
 "use client";
 
 import type { ComponentProps, MouseEvent } from "react";
-import { Link, useRouter } from "@/shared/i18n";
+import { Link } from "@/shared/i18n";
 import { prefersReducedMotion } from "@/shared/lib";
-import { scrollPageToTop } from "../model/page-scroll";
+import { useScrollTopNavigate } from "../lib/use-scroll-top-navigate";
 
-type ScrollTopLinkProps = ComponentProps<typeof Link> & { href: string };
+type ScrollTopLinkProps = ComponentProps<typeof Link> & {
+  href: string;
+  /** Вызывается, когда переход остаётся за нами: после всех отказов, до подъёма */
+  onNavigate?: () => void;
+};
 
-/**
- * Переход после прокрутки, а не одновременно с ней. Если сначала уйти на новую
- * страницу, браузер схлопнет позицию до её высоты — с длинного кейса на
- * короткий это скачок почти в тысячу пикселей, и только потом поедет плавно.
- */
-export function ScrollTopLink({ href, onClick, ...props }: ScrollTopLinkProps) {
-  const router = useRouter();
+export function ScrollTopLink({ href, onClick, onNavigate, ...props }: ScrollTopLinkProps) {
+  const navigate = useScrollTopNavigate();
 
   return (
     <Link
@@ -33,7 +32,8 @@ export function ScrollTopLink({ href, onClick, ...props }: ScrollTopLinkProps) {
         if (modified) return;
 
         event.preventDefault();
-        void scrollPageToTop().then(() => router.push(href));
+        onNavigate?.();
+        navigate(href);
       }}
     />
   );

@@ -1,8 +1,7 @@
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { caseFlipId, type ResolvedCase } from "@/entities/case";
+import { CaseLink, caseFlipId, type ResolvedCase } from "@/entities/case";
 import { cn } from "@/shared/lib";
-import { ScrollTopLink } from "@/shared/smooth-scroll";
 
 type CaseNavProps = {
   previous?: ResolvedCase;
@@ -21,8 +20,8 @@ function NavCard({
   const Arrow = direction === "previous" ? ArrowLeft : ArrowRight;
 
   return (
-    <ScrollTopLink
-      href={`/work/${item.slug}`}
+    <CaseLink
+      slug={item.slug}
       className={cn(
         "flood group bg-bg flex flex-col justify-between gap-8 p-6 md:p-10",
         direction === "next" && "md:items-end md:text-right",
@@ -48,7 +47,7 @@ function NavCard({
       <span data-flip-id={caseFlipId(item.slug)} className="display text-h2 text-balance">
         {item.title}
       </span>
-    </ScrollTopLink>
+    </CaseLink>
   );
 }
 

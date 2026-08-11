@@ -1,9 +1,9 @@
 import { ArrowUpRight } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { cn } from "@/shared/lib";
-import { FlipLink } from "@/shared/motion";
-import { caseFlipId } from "../model/flip-id";
+import { caseFlipId } from "../model/route";
 import type { ResolvedCase } from "../model/schema";
+import { CaseLink } from "./case-link";
 
 type CaseCardProps = {
   item: ResolvedCase;
@@ -18,9 +18,8 @@ export function CaseCard({ item, index, total, featured = false, className }: Ca
   const status = item.nda ? "badgeNda" : item.links.length > 0 ? "badgeLive" : "badgeClosed";
 
   return (
-    <FlipLink
-      href={`/work/${item.slug}`}
-      flipId={caseFlipId(item.slug)}
+    <CaseLink
+      slug={item.slug}
       className={cn(
         "flood group border-border flex flex-col justify-between border-2 p-5 md:p-8",
         featured ? "min-h-[20rem] md:min-h-[24rem]" : "min-h-60 md:min-h-64",
@@ -71,6 +70,6 @@ export function CaseCard({ item, index, total, featured = false, className }: Ca
           <span className="text-muted group-hover:text-on-accent">{item.period}</span>
         </div>
       </div>
-    </FlipLink>
+    </CaseLink>
   );
 }

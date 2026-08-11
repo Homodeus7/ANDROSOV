@@ -1,6 +1,6 @@
 import { useLocale, useTranslations } from "next-intl";
-import { Link } from "@/shared/i18n";
 import type { Locale } from "@/shared/i18n";
+import { CaseLink } from "@/entities/case";
 import { getResume, resumeFile, type ResumeJob } from "@/entities/resume";
 import { site } from "@/shared/config";
 import { Container, SectionLabel } from "@/shared/ui";
@@ -26,12 +26,12 @@ function Job({ job, caseLabel }: { job: ResumeJob; caseLabel: string }) {
       <p className="spec text-muted mt-4">{job.stack.join(" · ")}</p>
 
       {job.case ? (
-        <Link
-          href={`/work/${job.case}`}
+        <CaseLink
+          slug={job.case}
           className="spec text-accent-ink mt-4 inline-block print:hidden"
         >
           {caseLabel} →
-        </Link>
+        </CaseLink>
       ) : null}
     </article>
   );
