@@ -1,4 +1,4 @@
-import { createRandom, type Random } from "./random";
+import { createRandom, type Random } from "@/shared/lib";
 import type { Transaction, TxStatus, TxUpdate } from "./types";
 
 const METHODS = ["CARD", "SEPA", "SWIFT", "CRYPTO"] as const;

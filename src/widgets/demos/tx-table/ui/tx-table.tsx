@@ -2,13 +2,8 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { createSampler } from "@/entities/frame";
-import {
-  applyUpdates,
-  createLedger,
-  createRandom,
-  nextUpdate,
-  type Transaction,
-} from "@/entities/ledger";
+import { applyUpdates, createLedger, nextUpdate, type Transaction } from "@/entities/ledger";
+import { createRandom } from "@/shared/lib";
 import { useVirtualRows } from "@/shared/virtual";
 import { toolClass } from "../../model/tool-class";
 import type { TxTableStrings } from "../model/strings";

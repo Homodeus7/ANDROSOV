@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { applyUpdate, applyUpdates, createLedger, nextUpdate } from "./ledger";
-import { createRandom } from "./random";
+import { createRandom } from "@/shared/lib";
 import { TX_STATUSES } from "./types";
 
 describe("ledger", () => {
