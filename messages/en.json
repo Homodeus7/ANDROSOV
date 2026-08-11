@@ -25,9 +25,9 @@
     "availability": "Open to work",
     "lead": "Four years of production frontend. React, Vue, TypeScript — and every number on this page is a demo you can run.",
     "scroll": "Scroll",
-    "manifestoTitle": "NDA hides the code, not the engineering",
-    "manifesto": "Most of what I have built is under NDA and cannot be linked. So instead of screenshots, the feature itself is rebuilt here — runnable, in the browser, with the numbers on screen.",
-    "manifestoNote": "Client code stays closed. The engineering decision does not: an undo buffer, a frame budget, a virtualised table — all of it can be reconstructed from scratch and shipped as something you can click.",
+    "manifestoTitle": "Why demos",
+    "manifesto": "The code is closed. The mechanism is not.",
+    "manifestoNote": "Almost everything I have shipped is under NDA, so there is nothing to link. Every number on this site is rebuilt as a demo instead — the undo buffer, the frame budget, a five-hundred-row table. They open right here and they run.",
     "workTitle": "Selected work",
     "workCount": "projects"
   },

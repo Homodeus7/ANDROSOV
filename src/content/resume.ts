@@ -7,7 +7,11 @@ export const resume: ResumeRecord = {
       headline: "Frontend Developer (React / Vue / TypeScript)",
       summary:
         "Frontend developer with 4+ years of commercial experience. Started with outsourced Web3 interfaces, then moved to product teams: a B2B/FinTech platform and an enterprise low-code tool. My main specialisation is complex SPAs on React and Vue 3 with TypeScript: I design the frontend architecture (FSD) and put legacy code back in order. I work with AI tools daily (Claude Code, agentic pipelines): prototypes, tests, reviews, documentation — I ship features faster without losing quality.",
-      sections: { skills: "Core skills", experience: "Work experience", projects: "Own projects" },
+      sections: {
+        skills: "Core skills",
+        experience: "Work experience",
+        projects: "Own projects",
+      },
       skills: [
         {
           label: "Frontend",
@@ -183,7 +187,7 @@ export const resume: ResumeRecord = {
             "GSAP",
             "three.js",
           ],
-          case: "stardex",
+          case: "web3-terminal",
         },
         {
           kind: "project",
@@ -217,7 +221,11 @@ export const resume: ResumeRecord = {
       headline: "Frontend-разработчик (React / Vue / TypeScript)",
       summary:
         "Frontend-разработчик с 4+ годами коммерческого опыта. Начинал с аутсорс-разработки Web3-интерфейсов, дальше — продуктовые команды: B2B/FinTech-платформа и корпоративный low-code инструмент. Основная специализация — сложные SPA на React и Vue 3 с TypeScript: проектирую архитектуру фронтенда (FSD), привожу в порядок legacy-код. Ежедневно работаю с AI-инструментами (Claude Code, агентные пайплайны): прототипы, тесты, ревью, документация — быстрее выпускаю фичи без потери качества.",
-      sections: { skills: "Ключевые навыки", experience: "Опыт работы", projects: "Свои проекты" },
+      sections: {
+        skills: "Ключевые навыки",
+        experience: "Опыт работы",
+        projects: "Свои проекты",
+      },
       skills: [
         {
           label: "Frontend",
@@ -393,7 +401,7 @@ export const resume: ResumeRecord = {
             "GSAP",
             "three.js",
           ],
-          case: "stardex",
+          case: "web3-terminal",
         },
         {
           kind: "project",

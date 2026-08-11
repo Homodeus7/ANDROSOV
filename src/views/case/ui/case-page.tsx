@@ -1,6 +1,7 @@
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { caseFlipId, type ResolvedCase } from "@/entities/case";
+import { CodeBlock } from "@/shared/code";
 import { Link } from "@/shared/i18n";
 import { cn } from "@/shared/lib";
 import { FlipTarget, Reveal } from "@/shared/motion";
@@ -151,21 +152,9 @@ export function CasePage({ item, index, total, previous, next }: CasePageProps) 
                 </p>
               ))}
               {section.code ? (
-                <figure className="border-border mt-8 border-2">
-                  {section.code.caption ? (
-                    <figcaption className="spec text-muted border-border flex items-baseline justify-between gap-4 border-b-2 px-4 py-3 normal-case">
-                      <span>{section.code.caption}</span>
-                      <span className="shrink-0">{section.code.lang}</span>
-                    </figcaption>
-                  ) : null}
-                  <pre
-                    data-clip
-                    tabIndex={0}
-                    className="overflow-x-auto p-4 font-mono text-xs leading-relaxed md:p-6"
-                  >
-                    <code>{section.code.source}</code>
-                  </pre>
-                </figure>
+                <div className="mt-8">
+                  <CodeBlock {...section.code} />
+                </div>
               ) : null}
             </Reveal>
           ))}

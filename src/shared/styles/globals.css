@@ -16,6 +16,9 @@
   --accent: #dfe104;
   --accent-ink: #dfe104;
   --on-accent: #000000;
+  /* Литералы в коде — тот же тон, что и акцент, но приглушённый: рядом с
+     ключевым словом он должен читаться как другой класс, а не как второй акцент */
+  --code: #b0b177;
 }
 
 :root[data-theme="light"] {
@@ -29,6 +32,7 @@
      светлом даёт 1.6:1. Для набора берётся притемнённый тот же тон — 6.7:1 */
   --accent-ink: #5c5d00;
   --on-accent: #000000;
+  --code: #6b6c33;
 }
 
 @theme inline {
@@ -40,6 +44,7 @@
   --color-accent: var(--accent);
   --color-accent-ink: var(--accent-ink);
   --color-on-accent: var(--on-accent);
+  --color-code: var(--code);
 
   --font-display: var(--stack-display);
   --font-body: var(--stack-body);
@@ -215,6 +220,7 @@
     --muted: #444444;
     --border: #999999;
     --accent-ink: #000000;
+    --code: #000000;
   }
 
   header[data-site-header],

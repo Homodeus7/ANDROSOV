@@ -10,7 +10,7 @@ const ROUTES = [
   "/en/work/blocks-editor",
   "/en/work/payment-gateways",
   "/en/work/property-ops",
-  "/en/work/stardex",
+  "/en/work/web3-terminal",
 ];
 
 test.describe("smoke", () => {
