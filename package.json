@@ -17,7 +17,9 @@
     "resume:pdf": "node scripts/resume-pdf.mjs"
   },
   "dependencies": {
+    "@casl/ability": "^7.0.1",
     "@gsap/react": "^2.1.2",
+    "@vercel/speed-insights": "^2.0.0",
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
     "gsap": "^3.15.0",

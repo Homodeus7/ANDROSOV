@@ -312,7 +312,11 @@
       "stopped": "The diff does not go in. It is not a review that stopped it — the build does not produce an artefact.",
       "passed": "Every gate is silent, and the diff goes in. A wall that never opens is not a gate, it is a wall.",
       "advice": "No gate has an opinion about this one, so it goes in. Only the instruction file asked otherwise — which is exactly what an instruction can do, and exactly why anything costlier than this does not live there.",
-      "levels": { "advice": "advice", "hook": "hook", "build": "build" },
+      "levels": {
+        "advice": "advice",
+        "hook": "hook",
+        "build": "build"
+      },
       "gateNames": {
         "layers": "FSD layers",
         "content": "case schema",
@@ -352,6 +356,63 @@
       },
       "hint": "The messages are the ones the real gates print, in the language the tooling prints them — an English lint message does not become Russian because you are reading the site in Russian.",
       "note": "An instruction is advice: a model can forget it, and a long instruction file stops being read whole. A gate is not. So anything costlier than a typo lives in something that fails — a lint rule, a schema parsed at import, a test that greps the module it belongs to, a payload ceiling in the end-to-end suite. This demo runs the rules, not the toolchain: there is no eslint and no tsc in your browser, and the file tree is a fixture. What is real is the rules themselves, and a test that holds each of these diffs against exactly the gates it claims — a guard nobody has seen trigger is not a guard."
+    },
+    "accessMatrix": {
+      "title": "The row decides, not the role",
+      "lead": "Four roles over one queue of tickets. Every action asks the same question — is this allowed — and the answer depends on the row it is asked about: whose flat it is, who it is assigned to, whether the work is done. Switch the verdict over to a role check written in the component and it agrees with the rules right up to the first ticket belonging to somebody else.",
+      "naive": "Role in the component",
+      "roles": {
+        "operator": "Operator",
+        "dispatcher": "Dispatcher",
+        "accountant": "Accountant",
+        "resident": "Resident"
+      },
+      "actions": {
+        "read": "Read",
+        "assign": "Assign",
+        "close": "Close",
+        "invoice": "Invoice"
+      },
+      "kinds": {
+        "leak": "Water leak",
+        "heating": "No heating",
+        "lift": "Lift stuck",
+        "noise": "Noise complaint"
+      },
+      "statuses": {
+        "new": "new",
+        "assigned": "assigned",
+        "done": "done"
+      },
+      "columns": {
+        "id": "Ticket",
+        "flat": "Flat",
+        "kind": "Subject",
+        "status": "Status",
+        "assignee": "Assignee"
+      },
+      "rules": {
+        "operatorRead": "An operator reads every ticket in the queue.",
+        "operatorAssign": "An operator assigns a ticket while it is still new.",
+        "dispatcherRead": "A dispatcher reads every ticket in the queue.",
+        "dispatcherAssign": "A dispatcher assigns any ticket, at any point.",
+        "dispatcherClose": "A dispatcher closes a ticket that is assigned to them.",
+        "accountantRead": "An accountant reads every ticket in the queue.",
+        "accountantInvoice": "An accountant invoices a ticket once the work is done.",
+        "residentRead": "A resident reads tickets from their own flat.",
+        "residentClose": "A resident confirms work done in their own flat."
+      },
+      "unassigned": "nobody",
+      "redacted": "not visible",
+      "ask": "Press an action on a row — that is the component asking whether it is allowed.",
+      "allowed": "Allowed",
+      "denied": "Denied",
+      "noRule": "No rule grants it, and that is the whole answer. Nothing here was forbidden; nothing was permitted either.",
+      "byRole": "Role check says",
+      "visible": "rows readable",
+      "diverges": "answers the role check gets wrong",
+      "hint": "A dispatcher and a resident may both close a ticket — the role says so, and the role is right. Which ticket is a different question, and only the row can answer it.",
+      "note": "The rules are one file: nine calls to can, one branch per role, so a new role is a branch rather than a search through components. The panel does not map verdicts to explanations by hand — it asks CASL which rule matched, so an explanation cannot drift away from the rule that produced it. The role check beside it is deliberately given no ticket to look at: that is the defect being shown, not a simplification of it. Where the two disagree is pinned by a unit test, because a divergence nobody counted is not evidence."
     }
   }
 }

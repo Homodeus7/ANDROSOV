@@ -17,6 +17,7 @@ export const propertyOps: CaseRecord = {
     "MSW",
     "Vite",
   ],
+  demos: ["access-matrix"],
   links: [],
   content: {
     en: {
