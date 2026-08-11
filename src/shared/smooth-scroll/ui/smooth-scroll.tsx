@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { useReducedMotion } from "@/shared/lib";
+import { bindPageScrollLock } from "../model/page-scroll-lock";
 
 /**
  * Lenis и GSAP приезжают отдельным чанком уже из эффекта. Статический импорт
@@ -28,7 +29,13 @@ export function SmoothScroll() {
         gsap.ticker.add(update);
         gsap.ticker.lagSmoothing(0);
 
+        const unbind = bindPageScrollLock((locked) => {
+          if (locked) lenis.stop();
+          else lenis.start();
+        });
+
         dispose = () => {
+          unbind();
           gsap.ticker.remove(update);
           lenis.destroy();
         };

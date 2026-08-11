@@ -5,6 +5,7 @@ import { Command } from "cmdk";
 import { ArrowUpRight, Contrast, Languages } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { locales, usePathname, useRouter, type Locale } from "@/shared/i18n";
+import { usePageScrollLock } from "@/shared/smooth-scroll";
 import { setTheme, useTheme } from "@/shared/theme";
 import { PALETTE_OPEN_EVENT } from "../lib/open-event";
 
@@ -37,6 +38,8 @@ export function CommandPalette({ cases, links }: CommandPaletteProps) {
   const locale = useLocale() as Locale;
   const theme = useTheme();
   const [open, setOpen] = useState(false);
+
+  usePageScrollLock(open);
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
@@ -74,7 +77,10 @@ export function CommandPalette({ cases, links }: CommandPaletteProps) {
           placeholder={t("palettePlaceholder")}
           className="spec placeholder:text-muted border-border w-full border-b-2 bg-transparent px-4 py-4 outline-none"
         />
-        <Command.List className="max-h-[60vh] overflow-y-auto">
+        {/* Остановленный Lenis гасит колесо целиком, включая события внутри
+            модалки; этот атрибут — единственный путь, на котором он отдаёт
+            событие браузеру, поэтому список прокручивается сам */}
+        <Command.List data-lenis-prevent className="max-h-[60vh] overflow-y-auto">
           <Command.Empty className="spec text-muted px-4 py-6">
             {t("paletteEmpty")}
           </Command.Empty>
