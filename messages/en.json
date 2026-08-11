@@ -70,6 +70,12 @@
     "nextCase": "Next case",
     "demo": "Demo"
   },
+  "notFound": {
+    "label": "404",
+    "title": "There is nothing here",
+    "lead": "The link points at nothing: the address was renamed, or it never existed. Everything the site does have is below.",
+    "hint": "Or press <kbd>⌘K</kbd> — the palette searches cases and pages at once."
+  },
   "lab": {
     "title": "Lab",
     "lead": "Each demo rebuilds one feature from a real project. Standalone, linkable, runnable."

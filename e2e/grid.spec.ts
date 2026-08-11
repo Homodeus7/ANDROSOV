@@ -2,7 +2,22 @@ import { test, expect } from "@playwright/test";
 
 test("the grid overlay spans every column of the page grid", async ({ page }, testInfo) => {
   await page.goto("/en");
-  await page.keyboard.press("g");
+
+  // Слушатель клавиши вешается в useEffect, то есть после гидратации. Нажатие
+  // до неё — просто ничто, поэтому жмём, пока оверлей не появится, и
+  // проверяем перед каждым нажатием, чтобы не выключить его обратно
+  const column = page.locator("[data-col]").first();
+  await expect
+    .poll(
+      async () => {
+        if (await column.isVisible()) return true;
+        await page.keyboard.press("g");
+        await page.waitForTimeout(100);
+        return column.isVisible();
+      },
+      { timeout: 10000 },
+    )
+    .toBe(true);
 
   const measured = await page.locator("[data-col]").evaluateAll((nodes) => {
     const boxes = nodes

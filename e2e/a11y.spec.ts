@@ -8,6 +8,7 @@ const ROUTES = [
   "/en/resume",
   "/en/work/blocks-editor",
   "/en/work/foodiq",
+  "/en/nope",
 ];
 
 // Демо монтируются по появлению во вьюпорте, поэтому до прокрутки axe их

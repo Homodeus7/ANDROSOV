@@ -48,16 +48,28 @@ test.describe("case page", () => {
 
     await page.goto("/en/work/blocks-editor", { waitUntil: "load" });
     await page.waitForTimeout(1000);
-    await page
-      .locator("nav[aria-label]")
-      .evaluate((node) => node.scrollIntoView({ block: "end" }));
-    await page.waitForTimeout(1200);
 
-    const start = await page.evaluate(() => Math.round(window.scrollY));
+    // Колесом, а не `scrollIntoView`: тот прокручивает мимо Lenis, и подъём
+    // потом стартует с его внутренней позиции — на замере это скачок в 182 px,
+    // которого у живого пользователя нет
+    for (let turn = 0; turn < 25; turn += 1) {
+      await page.mouse.wheel(0, 400);
+      await page.waitForTimeout(60);
+    }
+
+    // Затухающий хвост Lenis длится тем дольше, чем длиннее страница: секунды
+    // перестало хватать, как только у кейса появилось второе демо
+    let start = -1;
+    for (let attempt = 0; attempt < 60; attempt += 1) {
+      const current = await page.evaluate(() => Math.round(window.scrollY));
+      if (current === start) break;
+      start = current;
+      await page.waitForTimeout(150);
+    }
     expect(start).toBeGreaterThan(1000);
 
     await page.locator("nav[aria-label] a").last().click();
-    await page.waitForTimeout(150);
+    await page.waitForTimeout(250);
 
     expect(page.url(), "страница едет вверх раньше перехода").toContain("blocks-editor");
     const moving = await page.evaluate(() => Math.round(window.scrollY));
