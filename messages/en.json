@@ -435,7 +435,7 @@
       "note": "The rules are one file: nine calls to can, one branch per role, so a new role is a branch rather than a search through components. The panel does not map verdicts to explanations by hand — it asks CASL which rule matched, so an explanation cannot drift away from the rule that produced it. The role check beside it is deliberately given no ticket to look at: that is the defect being shown, not a simplification of it. Where the two disagree is pinned by a unit test, because a divergence nobody counted is not evidence."
     },
     "walletState": {
-      "title": "You be the wallet",
+      "title": "The state around the wallet",
       "lead": "The left panel is the wallet, and you are holding it: approve, refuse, answer that a request is already open, move the network under a connected app. The right panel is the application answering. No extension is asked for and no wallet is connected — what is on show is the state the application keeps, and what it says when a provider hands it a number.",
       "wallet": "Wallet",
       "app": "Application",

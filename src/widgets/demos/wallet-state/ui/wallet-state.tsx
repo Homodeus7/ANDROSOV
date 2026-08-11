@@ -1,41 +1,58 @@
 "use client";
 
-import { useState } from "react";
-import { TRANSITIONS, initialState, reduce, type EventName } from "@/entities/wallet";
+import { useReducer } from "react";
+import {
+  TRANSITIONS,
+  initialState,
+  reduce,
+  type EventName,
+  type WalletEvent,
+  type WalletState as Wallet,
+} from "@/entities/wallet";
 import type { WalletStateStrings } from "../model/strings";
 import { AppPanel } from "./app-panel";
 import { WalletPanel } from "./wallet-panel";
 
 type Step = { key: number; from: string; event: EventName; to: string };
+type Log = { wallet: Wallet; trail: Step[] };
 
 const TRAIL = 4;
 
+function advance(log: Log, event: WalletEvent): Log {
+  const wallet = reduce(log.wallet, event);
+  if (wallet === log.wallet) return log;
+
+  const entry = {
+    key: (log.trail[0]?.key ?? 0) + 1,
+    from: log.wallet.status,
+    event: event.name,
+    to: wallet.status,
+  };
+  return { wallet, trail: [entry, ...log.trail].slice(0, TRAIL) };
+}
+
 export function WalletState({ strings }: { strings: WalletStateStrings }) {
-  const [state, setState] = useState(initialState);
-  const [trail, setTrail] = useState<Step[]>([]);
+  const [{ wallet, trail }, send] = useReducer(advance, { wallet: initialState, trail: [] });
 
   // Кнопка включена ровно тогда, когда переход существует. Та же таблица,
   // которую проверяет тест, — второго списка «что сейчас можно» нет
-  const can = (name: EventName) => TRANSITIONS[state.status][name] !== undefined;
-
-  function send(name: EventName, chainId?: number) {
-    const next = reduce(state, { name, chainId });
-    if (next === state) return;
-
-    setState(next);
-    setTrail((steps) =>
-      [{ key: steps.length, from: state.status, event: name, to: next.status }, ...steps].slice(
-        0,
-        TRAIL,
-      ),
-    );
-  }
+  const can = (name: EventName) => TRANSITIONS[wallet.status][name] !== undefined;
 
   return (
     <div className="flex flex-col gap-4">
       <div className="grid gap-4 lg:grid-cols-2">
-        <WalletPanel state={state} can={can} onEvent={send} strings={strings} />
-        <AppPanel state={state} can={can} onEvent={send} strings={strings} />
+        <WalletPanel
+          state={wallet}
+          can={can}
+          onEvent={(name, chainId) => send({ name, chainId })}
+          strings={strings}
+        />
+        <AppPanel
+          state={wallet}
+          can={can}
+          onEvent={(name) => send({ name })}
+          strings={strings}
+        />
       </div>
 
       <div className="border-border bg-surface border-2 p-3">
