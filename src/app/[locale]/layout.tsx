@@ -66,13 +66,17 @@ export default async function LocaleLayout({ children, params }: LayoutProps) {
     { label: "LinkedIn", href: site.linkedin },
   ];
 
+  // data-theme здесь нет намеренно: атрибутом владеет рантайм — скрипт темы и
+  // стор. Стоило вписать его в разметку, и React возвращал бы тёмную при каждой
+  // сборке layout заново, то есть на каждой смене языка. Без атрибута работает
+  // тёмная по умолчанию из `:root`
+  //
   // data-scroll-behavior возвращает поведение до Next 16: на время перехода
   // `scroll-behavior` гасится. Без него прокрутка к началу новой страницы едет
   // анимацией поверх наших собственных переходов — перелёта заголовка и подъёма
   return (
     <html
       lang={locale}
-      data-theme="dark"
       data-scroll-behavior="smooth"
       className={fontClassName}
       suppressHydrationWarning
