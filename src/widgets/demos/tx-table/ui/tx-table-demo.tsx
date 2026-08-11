@@ -2,7 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { useLocale, useTranslations } from "next-intl";
-import { useInView } from "@/shared/in-view";
+import { DemoFrame } from "../../ui/demo-frame";
 import type { TxTableStrings } from "../model/strings";
 
 const TxTable = dynamic(() => import("./tx-table").then((module) => module.TxTable), {
@@ -11,9 +11,7 @@ const TxTable = dynamic(() => import("./tx-table").then((module) => module.TxTab
 
 export function TxTableDemo() {
   const t = useTranslations("demos.txTable");
-  const tDemos = useTranslations("demos");
   const locale = useLocale();
-  const { ref, inView } = useInView<HTMLDivElement>();
 
   const strings: TxTableStrings = {
     table: t("table"),
@@ -46,14 +44,8 @@ export function TxTableDemo() {
   };
 
   return (
-    <div ref={ref} className="relative min-h-[34rem] lg:min-h-[28rem]">
-      {inView ? (
-        <TxTable strings={strings} locale={locale} />
-      ) : (
-        <p className="spec text-muted absolute inset-0 flex items-center justify-center">
-          {tDemos("loading")}
-        </p>
-      )}
-    </div>
+    <DemoFrame className="lg:min-h-[28rem]">
+      <TxTable strings={strings} locale={locale} />
+    </DemoFrame>
   );
 }

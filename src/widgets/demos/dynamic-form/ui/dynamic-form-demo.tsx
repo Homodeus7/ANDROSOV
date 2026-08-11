@@ -2,7 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { useTranslations } from "next-intl";
-import { useInView } from "@/shared/in-view";
+import { DemoFrame } from "../../ui/demo-frame";
 import type { DynamicFormStrings } from "../model/strings";
 
 const PayoutForm = dynamic(() => import("./payout-form").then((module) => module.PayoutForm), {
@@ -11,8 +11,6 @@ const PayoutForm = dynamic(() => import("./payout-form").then((module) => module
 
 export function DynamicFormDemo() {
   const t = useTranslations("demos.dynamicForm");
-  const tDemos = useTranslations("demos");
-  const { ref, inView } = useInView<HTMLDivElement>();
 
   const strings: DynamicFormStrings = {
     form: t("form"),
@@ -39,14 +37,8 @@ export function DynamicFormDemo() {
   };
 
   return (
-    <div ref={ref} className="relative min-h-[34rem] lg:min-h-[26rem]">
-      {inView ? (
-        <PayoutForm strings={strings} />
-      ) : (
-        <p className="spec text-muted absolute inset-0 flex items-center justify-center">
-          {tDemos("loading")}
-        </p>
-      )}
-    </div>
+    <DemoFrame className="lg:min-h-[26rem]">
+      <PayoutForm strings={strings} />
+    </DemoFrame>
   );
 }
