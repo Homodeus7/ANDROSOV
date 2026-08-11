@@ -1,3 +1,4 @@
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider, useTranslations } from "next-intl";
@@ -93,6 +94,7 @@ export default async function LocaleLayout({ children, params }: LayoutProps) {
             {children}
           </main>
           <SiteFooter />
+          <SpeedInsights />
         </NextIntlClientProvider>
       </body>
     </html>
