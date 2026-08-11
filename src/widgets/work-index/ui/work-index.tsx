@@ -4,12 +4,13 @@ import { cn } from "@/shared/lib";
 import { Reveal } from "@/shared/motion";
 import { Container, SectionLabel } from "@/shared/ui";
 
+// Ряд собирается из пары 7 + 5 и следом зеркальной 5 + 7: цикл кратен ряду,
+// поэтому колонки сходятся при любом чётном числе кейсов
 const LAYOUT = [
   "md:col-span-8 lg:col-span-7",
   "md:col-span-8 lg:col-span-5",
   "md:col-span-4 lg:col-span-5",
   "md:col-span-4 lg:col-span-7",
-  "md:col-span-8 lg:col-span-12",
 ];
 
 export function WorkIndex({ cases }: { cases: ResolvedCase[] }) {
