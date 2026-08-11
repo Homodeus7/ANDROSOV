@@ -274,6 +274,35 @@
       "reset": "Reset",
       "hint": "Turn on the gap and the raw roll-up leaves a hole where the folded one draws a zero. Nobody measured nothing — the same lie a food tracker tells when it prints 0 mg for a nutrient it never had.",
       "note": "Sum and count are decomposable: a minute is the sum of its twelve five-second buckets, and no arrangement of buckets changes the answer. An average is not — it needs the weights, and the fold has already thrown them away. A percentile is not decomposable at all: there is no operation on twelve p95 values that yields the p95 of the minute. The dashed line is not an approximation. It is a different question, answered confidently."
+    },
+    "foodMatch": {
+      "title": "The row you pick is the answer",
+      "lead": "Type a food. The same rows of the USDA corpus, ranked twice: once by the obvious rule — the shortest name, the most measurements — and once by the rule the product actually ships. They disagree by a factor of three, and the panel on the right names the tie-break that did it.",
+      "search": "Food",
+      "placeholder": "buckwheat",
+      "naive": "Naive",
+      "ranked": "Ranked",
+      "why": "Why",
+      "substring": "read the name as a substring",
+      "eatenCooked": "this food is eaten cooked",
+      "filteredOut": "filtered out",
+      "divergeHere": "the two answers part here",
+      "agree": "both rules agree",
+      "kcal": "kcal per 100 g",
+      "rows": "rows in this family",
+      "nothing": "No food by that name in this slice of the corpus.",
+      "rules": {
+        "standIn": "stand-in",
+        "unqualified": "unqualified",
+        "dataset": "dataset",
+        "processing": "processing",
+        "aspect": "aspect",
+        "qualifiers": "qualifiers",
+        "measured": "measurements",
+        "id": "id"
+      },
+      "hint": "“Buckwheat” is 343 kcal and “Buckwheat groats” is 118. Both names are beyond reproach, and the corpus cannot tell you which one a person meant — only the food group can. So the caller states whether this is a food eaten cooked, and the ranking follows. An apple is raw and stays raw: turn the flag on for it and watch the answer get worse.",
+      "note": "The ranking is a sort with eight tie-breaks, and no model takes part in it: choosing the row is choosing the nutrients, and that decision has to be reproducible and reviewable. The rules read a name as whole comma-segments rather than words — “Cheese, Parmesan, dry grated” is grated parmesan, and a word search calls it dry. This code runs here exactly as it runs in production. What is cut is the corpus: 154 rows across 18 foods, so the demo can list every candidate it ranks."
     }
   }
 }
