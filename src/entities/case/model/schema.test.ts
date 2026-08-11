@@ -40,6 +40,10 @@ describe("caseSchema", () => {
     );
   });
 
+  it("rejects a demo id that no demo answers to", () => {
+    expect(caseSchema.safeParse({ ...valid, demos: ["tx-table", "nope"] }).success).toBe(false);
+  });
+
   it("rejects a non-url link", () => {
     expect(
       caseSchema.safeParse({ ...valid, links: [{ label: "x", href: "not-a-url" }] }).success,

@@ -1,7 +1,15 @@
 import { z } from "zod";
 import { locales } from "@/shared/config";
 
-export const demoIds = ["undo-redo", "canvas-fps", "tx-table", "dynamic-form"] as const;
+export const demoIds = [
+  "undo-redo",
+  "canvas-fps",
+  "tx-table",
+  "dynamic-form",
+  "live-rollup",
+  "food-match",
+  "guardrails",
+] as const;
 
 const metricSchema = z.object({
   value: z.string().min(1),
@@ -39,7 +47,7 @@ export const caseSchema = z.object({
   order: z.number().int().nonnegative(),
   nda: z.boolean(),
   stack: z.array(z.string().min(1)).min(1),
-  demo: z.enum(demoIds).optional(),
+  demos: z.array(z.enum(demoIds)).optional(),
   links: z.array(z.object({ label: z.string().min(1), href: z.url() })),
   content: z.object(
     Object.fromEntries(locales.map((locale) => [locale, localizedSchema])) as Record<

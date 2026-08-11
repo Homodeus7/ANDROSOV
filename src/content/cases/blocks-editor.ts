@@ -4,7 +4,7 @@ export const blocksEditor: CaseRecord = {
   slug: "blocks-editor",
   order: 1,
   nda: true,
-  demo: "undo-redo",
+  demos: ["undo-redo", "canvas-fps"],
   stack: [
     "Vue 3",
     "TypeScript",

@@ -30,6 +30,7 @@ export function CasePage({ item, index, total, previous, next }: CasePageProps) 
   const t = useTranslations("case");
   const tNav = useTranslations("nav");
   const status = item.nda ? "badgeNda" : item.links.length > 0 ? "badgeLive" : "badgeClosed";
+  const demos = item.demos ?? [];
 
   return (
     <>
@@ -161,16 +162,21 @@ export function CasePage({ item, index, total, previous, next }: CasePageProps) 
         </div>
       </Container>
 
-      {item.demo ? (
-        <section className="border-border border-t-2 py-16 md:py-24">
+      {demos.map((demo, demoIndex) => (
+        <section key={demo} id={demo} className="border-border border-t-2 py-16 md:py-24">
           <Container>
-            <SectionLabel>{t("demo")}</SectionLabel>
+            <SectionLabel
+              index={demos.length > 1 ? demoIndex + 1 : undefined}
+              total={demos.length > 1 ? demos.length : undefined}
+            >
+              {t("demo")}
+            </SectionLabel>
             <div className="mt-6">
-              <DemoSlot demo={item.demo} />
+              <DemoSlot demo={demo} />
             </div>
           </Container>
         </section>
-      ) : null}
+      ))}
 
       <CaseNav previous={previous} next={next} />
     </>

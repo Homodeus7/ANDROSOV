@@ -4,7 +4,7 @@ export const paymentGateways: CaseRecord = {
   slug: "payment-gateways",
   order: 2,
   nda: true,
-  demo: "tx-table",
+  demos: ["tx-table", "dynamic-form", "live-rollup"],
   stack: [
     "React",
     "TypeScript",
