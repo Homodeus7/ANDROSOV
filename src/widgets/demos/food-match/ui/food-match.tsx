@@ -126,8 +126,8 @@ export function FoodMatch({ strings, locale }: { strings: FoodMatchStrings; loca
         </button>
       </div>
 
-      <div className="grid gap-4 lg:grid-cols-[2fr_1fr]">
-        <div className="grid min-w-0 gap-4 sm:grid-cols-2">
+      <div className="grid gap-4 lg:grid-cols-12">
+        <div className="col-span-full grid min-w-0 gap-4 sm:grid-cols-2 lg:col-span-8">
           <CandidateList
             title={strings.naive}
             rows={naive}
@@ -142,6 +142,7 @@ export function FoodMatch({ strings, locale }: { strings: FoodMatchStrings; loca
         </div>
 
         <RuleLadder
+          className="col-span-full lg:col-span-4"
           steps={steps}
           diverging={diverging}
           selected={rule}

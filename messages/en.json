@@ -115,12 +115,12 @@
   },
   "demos": {
     "loading": "Loading the demo…",
-    "vueNote": "This demo runs as a real Vue 3 island inside a React page. Vue sits in its own chunk and is not part of the initial payload: the browser picks it up after the page has rendered, and the island mounts once the demo reaches the screen.",
-    "reactNote": "This demo is React, like the original. Its own chunk too, out of the initial payload, mounted once it reaches the screen.",
-    "portNote": "This demo is React; the original was Vue 3, so what is on show is the model rather than the framework. Its own chunk too, out of the initial payload, mounted once it reaches the screen.",
+    "vueNote": "This demo is real Vue 3 running inside a React page. The Vue code sits in a separate file and does not load with the page: the browser fetches it later, and the demo starts once you have scrolled down to it.",
+    "reactNote": "This demo is React, same as the original project. Its code sits in a separate file too, does not load with the page, and starts once you have scrolled down to it.",
+    "portNote": "This demo is React; in the project it was Vue 3. What matters here is the mechanism, not the framework. The code sits in a separate file too and starts once you have scrolled down to it.",
     "undoRedo": {
       "title": "Undo buffer",
-      "lead": "Drag the blocks, add one, delete one, rename one. Every gesture writes actions into a single buffer, and the buffer collapses before it is sent.",
+      "lead": "Drag the blocks, add one, delete one, rename one. Every action goes into one shared list. Before anything is sent to the server that list is squeezed: what travels is the result of your work, not every twitch of the mouse.",
       "seedNames": [
         "Request",
         "Validate",
@@ -138,23 +138,23 @@
       "redo": "Redo",
       "reset": "Reset",
       "canvas": "Process canvas",
-      "hint": "Drag a block, or tap one to select it. A whole drag is one action — ⌘Z undoes the gesture, not a frame of it.",
+      "hint": "Drag a block, or tap one to select it. A whole drag counts as one action — ⌘Z undoes the entire gesture, not its last millimetre.",
       "buffer": "Buffer",
       "saved": "Requests saved",
       "empty": "The buffer is empty.",
       "earlier": "earlier",
       "timeline": "Position in history",
-      "coverage": "Six action types here, forty-odd in the editor. The mechanism does not count them.",
+      "coverage": "Six action types here, over forty in the real editor. The mechanism does not care how many there are.",
       "rules": {
-        "ephemeral": "never existed",
+        "ephemeral": "came and went",
         "paired": "undone",
-        "lastWrite": "superseded"
+        "lastWrite": "overwritten"
       },
-      "signals": "Raw input events"
+      "signals": "Mouse and keyboard events"
     },
     "canvasFps": {
       "title": "The frame budget",
-      "lead": "One scene, one animation, two ways of getting a frame onto the screen. Flip the mode and watch the counter: the difference is not the machine, it is what the code finds to do between frames.",
+      "lead": "The same picture and the same animation, drawn on screen two different ways. Flip the mode and watch the frame counter: the difference is not your machine, it is how much extra work the code does between frames.",
       "canvas": "A field of blocks and links",
       "naive": "Naive",
       "budget": "Frame budget",
@@ -163,9 +163,9 @@
       "resume": "Run",
       "reset": "Reset",
       "fps": "Frames per second",
-      "p95": "p95 frame, ms",
+      "p95": "Slow frame (p95), ms",
       "dropped": "Frames lost",
-      "reads": "DOM reads per frame",
+      "reads": "Questions to the browser per frame",
       "loop": "Loop",
       "awake": "running",
       "asleep": "asleep",
@@ -173,13 +173,13 @@
       "measured": "Measured",
       "waiting": "not measured",
       "ms": "ms",
-      "hint": "The modes are measured one at a time: there is a single main thread, and two scenes side by side would fight over it. The first thirty frames after a switch are thrown away as warm-up. Hit pause and compare the “loop” line.",
-      "naiveNote": "Block positions live in reactive state, and the frame repaints the whole scene through left/top — properties that go through layout. Then a pass over the links reads each block's rectangle and immediately places a link from it: measure, write, measure, write. Every write dirties layout, and every next measurement makes the browser recompute it synchronously, in the middle of the frame.",
-      "budgetNote": "Same work — every block and every link is repositioned, with no cleverness about updating only what changed. Two things differ: coordinates come from the array instead of being read back off the DOM, so nothing forces a layout mid-pass; and only transform is written, which reaches the compositor without going through layout. While paused, no frame is scheduled at all."
+      "hint": "The modes are measured one at a time: the browser paints on a single thread, and two scenes side by side would fight over it. The first thirty frames after a switch do not count — they are warm-up. Hit pause and compare the “loop” line.",
+      "naiveNote": "The naive mode moves blocks with the left/top properties, which make the browser recompute the page layout. Worse, the code alternates: it asks the browser where a block is now, then immediately moves it. Every question asked right after a move forces the browser to redo the layout on the spot, mid-frame, dozens of times in a row. The frame misses its 16 millisecond budget and the picture stutters.",
+      "budgetNote": "Exactly the same work: every block and every link is repositioned, with no cleverness about updating only what changed. Two things differ. The code takes coordinates from its own memory instead of asking the browser, so nothing forces a layout mid-frame. And it moves blocks with transform, which the browser hands to the graphics card without touching layout. While paused, no frame is drawn at all."
     },
     "txTable": {
       "title": "A table under live data",
-      "lead": "Five hundred transactions, and a mock socket changing statuses every second. The highlight is not decoration: a row lights up at the exact moment React repainted it. Turn virtualisation or memoisation off and watch what lights up.",
+      "lead": "Five hundred transactions, with statuses changing every second as if a server were pushing them. The highlight is not decoration: a row lights up at the exact moment the browser repainted it. Turn either checkbox off and watch how many rows light up instead of one.",
       "table": "Transactions",
       "virtual": "Virtualised",
       "memo": "Row memo",
@@ -200,17 +200,17 @@
         "refunded": "refunded",
         "failed": "failed"
       },
-      "rowsInDom": "Rows in the DOM",
+      "rowsInDom": "Rows actually drawn",
       "rowsTotal": "of",
       "renders": "Row repaints per second",
       "messages": "Messages per second",
       "fps": "Frames per second",
-      "hint": "The data is synthetic: merchant ids are generated, amounts are random. What is closed is the client's code, not the render strategy.",
-      "note": "Virtualisation keeps a couple of dozen rows in the DOM instead of five hundred, so scrolling stops depending on the length of the list. Memoisation solves the other half: a status update repaints one row rather than the grid. It only works because the update leaves untouched rows as the very same objects — memo on top of a fresh copy of the array would not save a single render."
+      "hint": "The data is made up: merchant names are generated, amounts are random. What the NDA covers is the client's code, not how a table is rendered.",
+      "note": "Virtualisation means drawing only what fits in the window: a couple of dozen rows live in the page instead of five hundred, so scrolling no longer slows down as the list grows. Memoisation solves the other half: when one status changes, one row is repainted rather than the whole table. It only works because the untouched rows stay the very same objects in memory. Copy the whole list on every message and memoisation saves nothing."
     },
     "dynamicForm": {
       "title": "A form that knows its own rules",
-      "lead": "Switch the payout method and it is not just the field set that changes — so does the schema the form validates against. It is printed in full on the right: not a picture of the schema, but its source, built from the same rules the validation runs on.",
+      "lead": "Switch the payout method and it is not just the fields that change — the validation rules change too. They are printed in full on the right: not an illustration, but the actual code that is checking the form right now.",
       "form": "Payout request",
       "methods": {
         "card": "Card",
@@ -246,30 +246,30 @@
         "invalid_value": "Not an allowed value"
       },
       "fallbackError": "Fails validation",
-      "schema": "Schema right now",
+      "schema": "Validation rules right now",
       "fields": "fields",
       "rules": "rules",
-      "valid": "The schema accepts these values",
-      "invalid": "The schema rejects these values",
+      "valid": "The rules accept these values",
+      "invalid": "The rules reject these values",
       "payload": "What goes to the backend",
       "submit": "Submit",
       "reset": "Reset",
-      "hint": "The schema follows more than the method: for a crypto payout the address is checked against the network you picked — change it and watch the pattern. Values the new schema has no place for are dropped: an IBAN must not travel along with a card payout.",
-      "note": "The rules are written once, as a list. Both the Zod object that validates and the text beside it are built from that list. There is nowhere for them to drift apart — and a test holds it: the panel must print every rule the schema validates by."
+      "hint": "The rules follow more than the method: for a crypto payout the address is checked against the network you picked — change it and watch the address pattern change. Values the new rules have no place for are dropped: an IBAN must not travel to the server alongside a card payout.",
+      "note": "The rules are written once, as a single list. Both the validation itself and the text beside the form are built from that list, so there is nowhere for them to drift apart. A test holds it: the panel must show every rule the form actually checks against."
     },
     "liveRollup": {
       "title": "Numbers that survive a change of scale",
-      "lead": "One stream of events, two roll-ups. One rebuilds every bucket from the raw events; the other folds the level below it, the way most dashboards do. Switch the granularity and watch which metrics stay identical and which quietly drift.",
-      "chart": "Two roll-ups of one stream, drawn over the same window",
-      "clock": "×60 virtual clock",
-      "decomposable": "decomposable",
-      "notDecomposable": "not decomposable",
-      "fromRaw": "from raw",
-      "fromBuckets": "from buckets",
+      "lead": "One stream of events and two ways of computing the same number from it. The first recounts every event from scratch — honest and expensive. The second adds up ready-made five-second totals — cheap, and what almost every dashboard does. Switch the scale (5 seconds, a minute, 5 minutes) and watch which numbers stay identical and which quietly drift apart.",
+      "chart": "Two ways of counting one stream, over the same window",
+      "clock": "clock runs 60× faster",
+      "decomposable": "adds up",
+      "notDecomposable": "does not add up",
+      "fromRaw": "from every event",
+      "fromBuckets": "from ready-made totals",
       "plotted": "Sum of the plotted points",
       "identical": "identical",
       "offBy": "off by",
-      "bucket": "Bucket",
+      "bucket": "Step on the chart",
       "events": "Events per second",
       "drift": "Drift",
       "worstDrift": "Worst drift",
@@ -278,41 +278,41 @@
       "pause": "Pause",
       "resume": "Run",
       "reset": "Reset",
-      "hint": "Turn on the gap and the raw roll-up leaves a hole where the folded one draws a zero. Nobody measured nothing — the same lie a food tracker tells when it prints 0 mg for a nutrient it never had.",
-      "note": "Sum and count are decomposable: a minute is the sum of its twelve five-second buckets, and no arrangement of buckets changes the answer. An average is not — it needs the weights, and the fold has already thrown them away. A percentile is not decomposable at all: there is no operation on twelve p95 values that yields the p95 of the minute. The dashed line is not an approximation. It is a different question, answered confidently."
+      "hint": "Turn on the gap in the stream: the honest count leaves a hole in the chart, the cheap one draws a zero. But a zero and “we measured nothing” are different things. That is exactly the lie a food tracker tells when it prints 0 mg for a nutrient nobody ever measured.",
+      "note": "Sums and counts can be added up: a minute is the sum of its twelve five-second pieces, and no regrouping changes the answer. Averages already cannot: to combine two averages you need to know how many events stand behind each, and those counts are gone once the totals are stored. p95 cannot be combined at all. p95 is the line below which 95% of the values fall — to find it you need the values themselves, not somebody else's totals. No formula turns twelve stored p95 values into the p95 of the minute. So the dashed line on the chart is not an approximate answer. It is a confident answer to a different question."
     },
     "foodMatch": {
       "title": "The row you pick is the answer",
-      "lead": "Type a food. The same rows of the USDA corpus, ranked twice: once by the obvious rule — the shortest name, the most measurements — and once by the rule the product actually ships. They disagree by a factor of three, and the panel on the right names the tie-break that did it.",
+      "lead": "Type a food. The same rows from the USDA reference, sorted two ways: the obvious one — shortest name, most measurements — and the one the product actually ships. The calories at the top differ by a factor of three, and the panel on the right shows which rule the two answers parted on.",
       "search": "Food",
       "placeholder": "buckwheat",
       "naive": "Naive",
       "ranked": "Ranked",
       "why": "Why",
-      "substring": "read the name as a substring",
+      "substring": "match the name as a fragment",
       "eatenCooked": "this food is eaten cooked",
       "filteredOut": "filtered out",
       "divergeHere": "the two answers part here",
-      "agree": "both rules agree",
+      "agree": "both ways agree",
       "kcal": "kcal per 100 g",
-      "rows": "rows in this family",
-      "nothing": "No food by that name in this slice of the corpus.",
+      "rows": "rows about this food",
+      "nothing": "No food by that name in this slice of the reference.",
       "rules": {
-        "standIn": "stand-in",
-        "unqualified": "unqualified",
-        "dataset": "dataset",
-        "processing": "processing",
-        "aspect": "aspect",
-        "qualifiers": "qualifiers",
-        "measured": "measurements",
-        "id": "id"
+        "standIn": "imitations and baby food go last",
+        "unqualified": "a plain name, with no qualifiers, wins",
+        "dataset": "the source closer to everyday speech",
+        "processing": "the right form: raw or cooked",
+        "aspect": "“part not specified” means the whole food",
+        "qualifiers": "fewer qualifiers after the commas",
+        "measured": "more nutrients actually measured",
+        "id": "row id, so the order never wobbles"
       },
-      "hint": "“Buckwheat” is 343 kcal and “Buckwheat groats” is 118. Both names are beyond reproach, and the corpus cannot tell you which one a person meant — only the food group can. So the caller states whether this is a food eaten cooked, and the ranking follows. An apple is raw and stays raw: turn the flag on for it and watch the answer get worse.",
-      "note": "The ranking is a sort with eight tie-breaks, and no model takes part in it: choosing the row is choosing the nutrients, and that decision has to be reproducible and reviewable. The rules read a name as whole comma-segments rather than words — “Cheese, Parmesan, dry grated” is grated parmesan, and a word search calls it dry. This code runs here exactly as it runs in production. What is cut is the corpus: 154 rows across 18 foods, so the demo can list every candidate it ranks."
+      "hint": "“Buckwheat” is 343 kcal; “Buckwheat groats” is 118. Neither name is wrong, and the reference cannot tell you which one a person meant. Only the kind of food can: buckwheat is eaten cooked, an apple is eaten raw. So the code doing the asking states “this food is eaten cooked”, and the sorting takes that into account. Turn the same flag on for an apple and watch the answer get worse.",
+      "note": "There is no model here: the row is picked by an ordinary sort over eight rules in sequence. If two rows tie on the first rule, the second decides, then the third, and so on. That is deliberate: picking the row means picking the calories and the protein, so the decision has to come out the same every time and be explainable by a list of rules. The rules read the name in whole chunks between commas rather than as separate words: “Cheese, Parmesan, dry grated” is grated parmesan, while a search for the word “dry” calls it dry cheese. The code here is the same code that runs in production. Only the reference is cut down — 154 rows across 18 foods — so every candidate being sorted fits on screen."
     },
     "guardrails": {
       "title": "What holds a rule up",
-      "lead": "Eight diffs an agent might hand you on the FoodIQ frontend, and three tiers that meet them. A tier does not answer whether the diff is bad; it answers what finding out costs. The build answers for free and always the same way. A meter names a number. A chain of four reviewers thinks — and thinking costs model calls.",
+      "lead": "Eight edits an AI agent might propose on the FoodIQ frontend, and three levels of checking that meet them. A level does not answer whether the edit is bad; it answers what finding out costs. The build answers for free and always the same way. A meter names a number. A chain of four AI reviewers thinks — and every answer it gives costs money.",
       "proposes": "The diff an agent proposes",
       "files": "Files it touches",
       "tiers": {
@@ -322,13 +322,13 @@
       },
       "calls": "model calls",
       "gateNames": {
-        "boundary": "layer boundaries",
-        "contract": "client against schema",
-        "lint": "the debt ratchet"
+        "boundary": "which code may use which",
+        "contract": "request code against the API spec",
+        "lint": "tech debt is not growing"
       },
       "meterNames": {
-        "specs": "logic modules with no test",
-        "size": "largest slice"
+        "specs": "modules with logic but no tests",
+        "size": "largest chunk of code"
       },
       "linkNames": {
         "responsibility": "responsibility",
@@ -339,13 +339,13 @@
       "noCeiling": "no ceiling",
       "ceiling": "ceiling",
       "silent": "silent",
-      "notReached": "Not run: the diff was stopped a tier below.",
+      "notReached": "Not run: the edit was stopped at an earlier level.",
       "outcomes": {
-        "build": "The diff does not go in. It is not a review that stopped it — the build simply does not produce an artefact.",
-        "threshold": "The number is over the ceiling, and the diff does not go in. A ceiling is not truth, it is a budget: it stands so that the increase gets noticed the day it is made.",
-        "chain": "The gates are silent; a link objects. It cannot reject the diff — only name a price somebody would otherwise pay without looking."
+        "build": "The edit does not go in, and no reviewer decided that: the project simply does not build with it.",
+        "threshold": "The number is over the limit, and the edit does not go in. A limit is not truth, it is a budget: it stands so that the increase gets noticed the day it is made.",
+        "chain": "The automated checks are silent; an AI reviewer objects. It cannot reject the edit — only name a price somebody would otherwise pay without looking."
       },
-      "passed": "All three tiers are silent, and the diff goes in. A wall that never opens is not a gate, it is a wall.",
+      "passed": "All three levels are silent, and the edit goes in. A check that never lets anything through is not a check, it is a wall.",
       "diffs": {
         "import-up": {
           "title": "A feature's dialog reaches for a widget",
@@ -380,12 +380,12 @@
           "body": "The card takes a callback; the state lives where the flow does."
         }
       },
-      "hint": "The objections are printed as the reviewers wrote them, in the language they read this codebase in — a Russian objection does not become English because you are reading the site in English.",
-      "note": "An instruction is advice. On the FoodIQ frontend it weighs 129 KB across 3,360 lines in fourteen files, and no model holds that in its head on every edit. So the question is not whether to write rules, it is where to put each one. The costliest example is right here: the layer rules in this repository were written out in full — and nothing ever ran them, because they sat in .eslintrc.json, which ESLint 9 no longer reads. A written rule and a running rule are different things, and the difference surfaces on exactly the day somebody goes looking. What is decidable goes down into the build and stops being prose: porting the config surfaced 358 errors, 179 of them about entry points and 13 about layers; today it is 30 and 2. What is measurable becomes a number — though neither meter here has a ceiling, and that is not a gap in the demo but the state of the repository. The remainder goes to the chain, where it costs money — which is why there are four links and not one: a reviewer holding every rule at once approves everything. The build has its own blind spot too: boundaries does not parse import(), so a dynamic pull from a neighbouring feature passes in silence — only a link catches it. This demo runs the rules, not the toolchain: there is no vitest and no eslint in your browser, and the file tree is a fixture. What is real is the rules, the numbers, and the objections — they came out of an actual run of the agents that live in this frontend's .claude/agents/."
+      "hint": "The objections appear exactly as the reviewers wrote them, in the language they read this codebase in — a Russian objection does not turn English because you opened the site in English.",
+      "note": "An instruction for an agent is only advice. On the FoodIQ frontend it runs to 129 KB and 3,360 lines across fourteen files, and no model holds that in its head on every edit. So the question is not whether to write rules, it is where to put each one. The costliest example is right here: the rules about which code may use which were written out in full and were not running at all, because they sat in an old-format config that the current linter no longer reads. A written rule and a running rule are different things, and the difference surfaces on exactly the day somebody goes looking. Whatever a machine can decide goes down into the build and stops being prose: porting the config surfaced 358 violations, and today there are 30. Whatever can be measured becomes a number somebody watches. Everything else goes to the AI reviewers, and that is where checking starts costing money. There are four reviewers rather than one because a single reviewer holding every rule at once approves everything. The build has its own blind spot too: it does not see code pulled in on the fly, so only a reviewer catches that edit. The demo runs the rules, not the tooling: there is no linter and no test runner in your browser, and the file tree is a fixture. What is real is the rules, the numbers and the objections — they came out of an actual run of the agents on that project."
     },
     "accessMatrix": {
-      "title": "The row decides, not the role",
-      "lead": "Four roles over one queue of tickets. Every action asks the same question — is this allowed — and the answer depends on the row it is asked about: whose flat it is, who it is assigned to, whether the work is done. Switch the verdict over to a role check written in the component and it agrees with the rules right up to the first ticket belonging to somebody else.",
+      "title": "Permissions live in one place",
+      "lead": "Four roles over one queue of tickets. Every access rule lives in a single module: the interface knows none of them and only asks the question — may this person do this to this ticket? The answer depends not on the role in general but on the particular row: whose flat it is, who it is assigned to, whether the work is done. Switch to the familiar “just check the role inside the button” and it agrees with the rules right up to the first ticket belonging to somebody else.",
       "naive": "Role in the component",
       "roles": {
         "operator": "Operator",
@@ -430,19 +430,19 @@
       },
       "unassigned": "nobody",
       "redacted": "not visible",
-      "ask": "Press an action on a row — that is the component asking whether it is allowed.",
+      "ask": "Press an action on a row — that is the interface asking whether it is allowed.",
       "allowed": "Allowed",
       "denied": "Denied",
-      "noRule": "No rule grants it, and that is the whole answer. Nothing here was forbidden; nothing was permitted either.",
+      "noRule": "No rule grants it, and that is the whole answer. Nothing was forbidden here specifically — everything is denied by default until a rule allows it.",
       "byRole": "Role check says",
       "visible": "rows readable",
       "diverges": "answers the role check gets wrong",
-      "hint": "A dispatcher and a resident may both close a ticket — the role says so, and the role is right. Which ticket is a different question, and only the row can answer it.",
-      "note": "The rules are one file: nine calls to can, one branch per role, so a new role is a branch rather than a search through components. The panel does not map verdicts to explanations by hand — it asks CASL which rule matched, so an explanation cannot drift away from the rule that produced it. The role check beside it is deliberately given no ticket to look at: that is the defect being shown, not a simplification of it. Where the two disagree is pinned by a unit test, because a divergence nobody counted is not evidence."
+      "hint": "A dispatcher and a resident may both close a ticket — the role says so, and the role is right. Which ticket is a different question, and only the row itself can answer it.",
+      "note": "Every rule sits in one file: nine short lines, one branch per role. It is the only place in the project that says who may do what. The interface only asks “is this allowed” and knows nothing about how the answer is produced: a new role means one more branch here, not a hunt for checks scattered across buttons. The rules are written as statements rather than as conditionals sprinkled through the code, so the same list is both applied and shown to the person in the panel on the right. Everything is denied by default: if no rule allowed it, the answer is no. The panel does not match explanations to verdicts by hand — it asks the permissions library (CASL) which rule matched, so the explanation cannot drift away from the decision. The role check beside it is deliberately given no ticket to look at: that is the defect on show. The gap between the two checks is pinned by a test, because a divergence nobody counted is not evidence."
     },
     "walletState": {
       "title": "The state around the wallet",
-      "lead": "The left panel is the wallet, and you are holding it: approve, refuse, answer that a request is already open, move the network under a connected app. The right panel is the application answering. No extension is asked for and no wallet is connected — what is on show is the state the application keeps, and what it says when a provider hands it a number.",
+      "lead": "The left panel is a crypto wallet, and you are holding it: approve, refuse, answer that a request is already open, move the network under a running app. The right panel is the application answering. No extension is needed and no real wallet is connected — what is on show is the states the application keeps inside and what it tells a person in each of them.",
       "wallet": "Wallet",
       "app": "Application",
       "chain": "Network the wallet is on",
@@ -475,16 +475,16 @@
         "chainChanged": "Change network",
         "disconnect": "Disconnect"
       },
-      "raw": "What the provider returned",
+      "raw": "What the wallet answered",
       "quiet": "The wallet is also allowed to say nothing at all: leave a request unanswered and the application stays in its waiting state rather than deciding on your behalf.",
       "signature": "Signature",
       "trail": "Transitions",
       "hint": "Refuse a signature and watch what does not happen: the connection stays, the network stays, and the application returns to the state it was in before it asked.",
-      "note": "The original was ethers.js, and the part worth showing is not the call — it is the state around it. Six statuses and one transition table: an event a status has no transition for does not exist, so it cannot corrupt anything. Buttons on both panels are enabled straight from that table rather than from a second list of what is currently possible, which is why the demo cannot drift out of step with the machine. The provider codes are real ones — 4001 for a refusal, -32002 for a request already open — and the same code deliberately reads differently depending on where it arrives: a refusal while connecting sends you back to the start, a refusal while signing costs you nothing."
+      "note": "The project used ethers.js here, but the interesting part is not the library — it is the state around it. Six states and one transition table: if a state has no answer for an event, that event does not exist for it, so there is nothing to corrupt. Buttons on both panels are enabled straight from that table rather than from a second list of “what can be clicked now”, which is why the interface cannot drift out of step with the logic. The error codes are real ones: 4001 means the person refused, -32002 means a request window is already open. And the same refusal deliberately reads differently depending on where it lands: refusing while connecting sends you back to the start, refusing while signing costs you nothing."
     },
     "referralSplit": {
       "title": "Twelve people and one cent",
-      "lead": "A referral pool split down a team tree, in proportion to what each member turned over. Drag the pool. The total paid holds on the pool at every position, and beside it is what the same split does when each row is rounded on its own and nobody adds the column up.",
+      "lead": "A referral bonus split across a team in proportion to what each member turned over. Drag the slider: the payouts add up to the bonus at every position. Beside it is the same calculation with each row rounded on its own and nobody adding the column up.",
       "pool": "Pool",
       "team": "Team",
       "share": "Share of volume",
@@ -492,9 +492,9 @@
       "subtotal": "branch",
       "paid": "paid out",
       "drift": "cents the row-by-row rounding is off by",
-      "exact": "The first number is the pool, to the cent, at every position of the slider. The second is not money anyone lost — it is money that was never reconciled.",
-      "hint": "A cent is not a rounding error here: it is either paid to somebody or it is not, and the two answers have to be the same number.",
-      "note": "Everything is counted in whole cents, because money in a float is a decision to be wrong later. Shares are cut down to the cent and the remainder is handed out by largest remainder — a sort, once, and the payouts sum to the pool for any pool. Ties are broken by an explicit order, otherwise the same team would be paid differently depending on how the sort felt about equal remainders today. The tree is not decoration: every branch total is the sum of what is under it, and a test holds that against the payouts rather than against another sum computed the same way."
+      "exact": "The first number is the whole bonus, to the cent, at every position of the slider. The second is not money anyone lost — it is money nobody reconciled.",
+      "hint": "A cent is not small change or a rounding error here: it is either paid to somebody or it is not, and both answers have to be the same number.",
+      "note": "Everything is counted in whole cents, because keeping money in fractional numbers is agreeing to be wrong later. Each share is cut down to a whole cent, and the cents left over go to whoever lost the most in the cut. One sort, and the payouts add up to the bonus whatever its size. Equal leftovers are settled by a fixed order, otherwise the same team would be paid differently depending on how the sort happened to fall today. The tree is not decoration: every branch total equals the sum of what sits under it, and a test checks that against the real payouts rather than against another total computed the same way."
     }
   }
 }

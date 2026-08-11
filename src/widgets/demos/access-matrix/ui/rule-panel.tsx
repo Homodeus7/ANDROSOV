@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from "@/shared/lib";
 import type { Verdict } from "@/entities/access";
 import type { AccessMatrixStrings } from "../model/strings";
 import type { Asked } from "./ticket-row";
@@ -12,6 +13,7 @@ export function RulePanel({
   total,
   diverges,
   strings,
+  className,
 }: {
   asked?: Asked;
   verdict?: Verdict;
@@ -20,11 +22,12 @@ export function RulePanel({
   total: number;
   diverges: number;
   strings: AccessMatrixStrings;
+  className?: string;
 }) {
   const allowed = verdict && (naiveMode ? verdict.naive : verdict.allowed);
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className={cn("flex flex-col gap-4", className)}>
       <div className="border-border bg-surface border-2 p-4">
         {asked && verdict ? (
           <>

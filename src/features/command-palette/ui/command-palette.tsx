@@ -5,11 +5,14 @@ import { Command } from "cmdk";
 import { ArrowUpRight, Contrast, Languages } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { locales, usePathname, useRouter, type Locale } from "@/shared/i18n";
-import { usePageScrollLock } from "@/shared/smooth-scroll";
+import { captureFlip } from "@/shared/motion";
+import { usePageScrollLock, useScrollTopNavigate } from "@/shared/smooth-scroll";
 import { setTheme, useTheme } from "@/shared/theme";
 import { PALETTE_OPEN_EVENT } from "../lib/open-event";
 
-export type PaletteCase = { slug: string; title: string; tagline: string };
+// Маршрут и метка перелёта приходят готовыми: сущность кейса тянет за собой весь
+// контент, а палитра висит в корневом макете — в бандл каждой страницы
+export type PaletteCase = { href: string; flipId: string; title: string; tagline: string };
 
 export type PaletteLink = { label: string; href: string };
 
@@ -37,6 +40,7 @@ export function CommandPalette({ cases, links }: CommandPaletteProps) {
   const pathname = usePathname();
   const locale = useLocale() as Locale;
   const theme = useTheme();
+  const openCase = useScrollTopNavigate();
   const [open, setOpen] = useState(false);
 
   usePageScrollLock(open);
@@ -88,9 +92,14 @@ export function CommandPalette({ cases, links }: CommandPaletteProps) {
           <Command.Group heading={t("groupCases")} className={groupClass}>
             {cases.map((item) => (
               <Command.Item
-                key={item.slug}
+                key={item.href}
                 value={`${item.title} ${item.tagline}`}
-                onSelect={() => run(() => router.push(`/work/${item.slug}`))}
+                onSelect={() =>
+                  run(() => {
+                    captureFlip(item.flipId);
+                    openCase(item.href);
+                  })
+                }
                 className={itemClass}
               >
                 <span>{item.title}</span>

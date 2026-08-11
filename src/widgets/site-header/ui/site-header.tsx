@@ -5,13 +5,15 @@ import { ThemeToggle } from "@/features/theme";
 import { Link } from "@/shared/i18n";
 import { Container } from "@/shared/ui";
 import { HeaderShell } from "./header-shell";
+import { NavLink } from "./nav-link";
 
 const NAV = [
-  // Грид работ живёт на главной, отдельной страницы под него нет
-  { href: "/#work", key: "work" },
-  { href: "/lab", key: "lab" },
-  { href: "/about", key: "about" },
-  { href: "/resume", key: "resume" },
+  // Грид работ живёт на главной, отдельной страницы под него нет — поэтому
+  // подсветка не выводится из href: раздел «работы» это и главная, и кейс
+  { href: "/#work", key: "work", match: ["/", "/work"] },
+  { href: "/lab", key: "lab", match: ["/lab"] },
+  { href: "/about", key: "about", match: ["/about"] },
+  { href: "/resume", key: "resume", match: ["/resume"] },
 ] as const;
 
 export function SiteHeader() {
@@ -28,9 +30,9 @@ export function SiteHeader() {
           <ul className="spec mr-3 hidden items-center gap-6 md:flex">
             {NAV.map((item) => (
               <li key={item.href}>
-                <Link href={item.href} className="hover:text-accent-ink">
+                <NavLink href={item.href} match={item.match}>
                   {t(item.key)}
-                </Link>
+                </NavLink>
               </li>
             ))}
           </ul>

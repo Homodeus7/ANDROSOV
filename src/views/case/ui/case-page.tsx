@@ -171,9 +171,7 @@ export function CasePage({ item, index, total, previous, next }: CasePageProps) 
             >
               {t("demo")}
             </SectionLabel>
-            <div className="mt-6">
-              <DemoSlot demo={demo} />
-            </div>
+            <DemoSlot demo={demo} className="mt-6" />
           </Container>
         </section>
       ))}

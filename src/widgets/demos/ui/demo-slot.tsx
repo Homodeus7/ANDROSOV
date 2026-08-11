@@ -1,5 +1,6 @@
 import { useTranslations } from "next-intl";
 import type { DemoId } from "@/entities/case";
+import { cn } from "@/shared/lib";
 import { AccessMatrixDemo } from "../access-matrix";
 import { CanvasFpsDemo } from "../canvas-fps";
 import { DynamicFormDemo } from "../dynamic-form";
@@ -27,19 +28,25 @@ const DEMOS: Record<DemoId, DemoEntry> = {
   "wallet-state": { component: WalletStateDemo, messages: "walletState", note: "portNote" },
 };
 
-export function DemoSlot({ demo }: { demo: DemoId }) {
+export function DemoSlot({ demo, className }: { demo: DemoId; className?: string }) {
   const t = useTranslations("demos");
   const entry = DEMOS[demo];
   const Demo = entry.component;
 
   return (
-    <div>
-      <h2 className="display text-h2 max-w-3xl text-balance">{t(`${entry.messages}.title`)}</h2>
-      <p className="text-muted mt-6 max-w-prose">{t(`${entry.messages}.lead`)}</p>
-      <div className="mt-10">
+    <div className={cn("grid-page gap-y-0", className)}>
+      <h2 className="display text-h2 col-span-full text-balance lg:col-span-8">
+        {t(`${entry.messages}.title`)}
+      </h2>
+      <p className="text-muted col-span-full mt-6 lg:col-span-6">
+        {t(`${entry.messages}.lead`)}
+      </p>
+      <div className="col-span-full mt-10">
         <Demo />
       </div>
-      <p className="spec text-muted mt-6 max-w-prose normal-case">{t(entry.note)}</p>
+      <p className="spec text-muted col-span-full mt-6 normal-case lg:col-span-6">
+        {t(entry.note)}
+      </p>
     </div>
   );
 }

@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider, useTranslations } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { getCases } from "@/entities/case";
+import { caseFlipId, caseHref, getCases } from "@/entities/case";
 import { CommandPalette } from "@/features/command-palette";
 import { ThemeScript } from "@/features/theme";
 import { site } from "@/shared/config";
@@ -53,9 +53,12 @@ export default async function LocaleLayout({ children, params }: LayoutProps) {
 
   setRequestLocale(locale);
 
-  // В палитру уходят только заголовки: полный контент кейсов в клиентский бандл не нужен
+  // В палитру уходят только заголовки: полный контент кейсов в клиентский бандл
+  // не нужен. Маршрут и метка перелёта считаются здесь по той же причине —
+  // палитра лежит в корневом макете и не должна тянуть за собой сущность
   const paletteCases = getCases(locale).map(({ slug, title, tagline }) => ({
-    slug,
+    href: caseHref(slug),
+    flipId: caseFlipId(slug),
     title,
     tagline,
   }));

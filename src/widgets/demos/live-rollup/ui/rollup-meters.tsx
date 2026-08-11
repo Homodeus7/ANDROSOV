@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState, type RefObject } from "react";
+import { cn } from "@/shared/lib";
 import type { LiveRollupStrings } from "../model/strings";
 
 const REPORT_MS = 250;
@@ -24,11 +25,13 @@ export function RollupMeters({
   bucket,
   locale,
   strings,
+  className,
 }: {
   meters: RefObject<Meters>;
   bucket: string;
   locale: string;
   strings: LiveRollupStrings;
+  className?: string;
 }) {
   const [snapshot, setSnapshot] = useState<Snapshot>(EMPTY);
 
@@ -79,7 +82,7 @@ export function RollupMeters({
   ];
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className={cn("flex flex-col gap-4", className)}>
       <div className="border-border bg-surface flex flex-wrap items-baseline gap-x-6 gap-y-2 border-2 p-4">
         <span className="spec text-muted basis-full">{strings.plotted}</span>
         <span className="flex items-baseline gap-2">

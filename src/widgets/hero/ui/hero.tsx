@@ -1,10 +1,10 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { ArrowDown } from "lucide-react";
 import { DUR, EASE, STAGGER, SplitText, gsap, useGSAP } from "@/shared/motion";
-import { useReducedMotion } from "@/shared/lib";
+import { prefersReducedMotion, useReducedMotion } from "@/shared/lib";
 import { Container, SectionLabel } from "@/shared/ui";
 import { HEADLINE, Headline } from "./headline";
 
@@ -14,19 +14,47 @@ const SPEC = [
   ["Base", "Vietnam, UTC+7"],
 ] as const;
 
+// Страховка от зависшей загрузки: первый экран скрыт до готовности шрифта, и
+// без потолка застрявший файл оставил бы заголовок невидимым насовсем
+const FONT_WAIT_MS = 1500;
+
+function useFontsReady() {
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    let live = true;
+    const done = () => {
+      if (live) setReady(true);
+    };
+
+    const timer = setTimeout(done, FONT_WAIT_MS);
+    void document.fonts.ready.then(done);
+
+    return () => {
+      live = false;
+      clearTimeout(timer);
+    };
+  }, []);
+
+  return ready;
+}
+
 export function Hero() {
   const t = useTranslations("home");
   const root = useRef<HTMLElement>(null);
   const rule = useRef<HTMLDivElement>(null);
   const reduced = useReducedMotion();
+  const fontsReady = useFontsReady();
 
   useGSAP(
     () => {
-      if (!root.current) return;
+      if (!root.current || !fontsReady) return;
 
-      // clearProps здесь недопустим: он стирает инлайновый font-size строк,
-      // а первый проход всегда приходит с reduced=true из серверного снапшота
-      if (reduced) return;
+      // Значение читается напрямую, а не из хука: первый проход приходит с
+      // reduced=true из серверного снапшота, и по нему анимация бы отменилась.
+      // clearProps здесь всё равно недопустим — он стирает инлайновый
+      // font-size строк, выставленный замером
+      if (prefersReducedMotion()) return;
 
       const lines = gsap.utils.toArray<HTMLElement>("[data-hero-line]", root.current);
       const meta = gsap.utils.toArray<HTMLElement>("[data-hero-meta]", root.current);
@@ -113,12 +141,17 @@ export function Hero() {
         splits.forEach((split) => split.revert());
       };
     },
-    { scope: root, dependencies: [reduced] },
+    { scope: root, dependencies: [reduced, fontsReady] },
   );
 
+  // data-hero-ready снимает CSS-заглушку. Атрибут приезжает рендером, а прячет
+  // символы layout-эффект внутри useGSAP — он успевает до кадра, поэтому между
+  // показом и стартом анимации браузеру нечего отрисовать
   return (
     <section
       ref={root}
+      data-hero
+      data-hero-ready={fontsReady ? "" : undefined}
       className="border-border relative flex flex-col justify-between overflow-hidden border-b-2 md:min-h-[100svh]"
     >
       <div

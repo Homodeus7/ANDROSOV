@@ -2,7 +2,7 @@ import { test, expect, type Page } from "@playwright/test";
 
 const WAIT = { timeout: 15_000 };
 
-const chart = (page: Page) => page.getByRole("img", { name: /Two roll-ups/ });
+const chart = (page: Page) => page.getByRole("img", { name: /Two ways of counting/ });
 const meter = (page: Page, id: string) => page.locator(`[data-meter="${id}"]`);
 
 const press = (page: Page, name: string) =>
