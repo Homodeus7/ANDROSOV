@@ -115,7 +115,6 @@
   },
   "demos": {
     "loading": "Loading the demo…",
-    "pending": "Interactive demo lands in a later phase.",
     "vueNote": "This demo runs as a real Vue 3 island inside a React page. Vue sits in its own chunk and is not part of the initial payload: the browser picks it up after the page has rendered, and the island mounts once the demo reaches the screen.",
     "reactNote": "This demo is React, like the original. Its own chunk too, out of the initial payload, mounted once it reaches the screen.",
     "undoRedo": {

@@ -10,7 +10,8 @@ import { UndoRedoDemo } from "../undo-redo";
 
 type DemoEntry = { component: () => React.ReactNode; messages: string; note: string };
 
-const DEMOS: Partial<Record<DemoId, DemoEntry>> = {
+/** Полная таблица: демо, обещанного кейсом и не собранного, не бывает — сборка не даст. */
+const DEMOS: Record<DemoId, DemoEntry> = {
   "undo-redo": { component: UndoRedoDemo, messages: "undoRedo", note: "vueNote" },
   "canvas-fps": { component: CanvasFpsDemo, messages: "canvasFps", note: "vueNote" },
   "tx-table": { component: TxTableDemo, messages: "txTable", note: "reactNote" },
@@ -23,15 +24,6 @@ const DEMOS: Partial<Record<DemoId, DemoEntry>> = {
 export function DemoSlot({ demo }: { demo: DemoId }) {
   const t = useTranslations("demos");
   const entry = DEMOS[demo];
-
-  if (!entry) {
-    return (
-      <p className="border-border spec text-muted border-2 border-dashed p-8 normal-case">
-        {t("pending")} — <span className="font-mono">{demo}</span>
-      </p>
-    );
-  }
-
   const Demo = entry.component;
 
   return (
