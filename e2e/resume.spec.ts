@@ -42,7 +42,7 @@ test.describe("resume and about", () => {
   test("says something on the about page", async ({ page }) => {
     await page.goto("/en/about");
 
-    await expect(page.getByRole("heading", { level: 1 })).toContainText("breaks");
+    await expect(page.getByRole("heading", { level: 1 })).toContainText("under load");
     await expect(page.getByRole("heading", { level: 2 })).toHaveCount(3);
   });
 
