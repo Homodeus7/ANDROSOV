@@ -15,13 +15,17 @@ const WIRE_CLASS = "bg-muted/50 absolute top-0 left-0 h-px w-px origin-top-left"
  * когда её пишет кадр.
  */
 export function renderField(field: Field, styleAt: ((index: number) => CSSProperties) | null) {
-  // Связи и блоки — дети одного узла, поэтому ключи не имеют права пересечься:
-  // связь 138 и блок 138 для Vue один узел, и он берётся сравнивать полоску с
-  // блоком. Блоки сдвинуты за последний ключ связи. Числа, а не строки: список
-  // пересобирается каждый кадр, и строковый ключ был бы мусором на каждый блок
+  // Связи и блоки — дети одного узла, и их ключи не имеют права пересечься ни в
+  // одном рендере, включая смену количества. Сдвиг на `count` разводил роли
+  // внутри кадра, но следующий кадр с другим `count` отдавал ключи блоков
+  // связям, и Vue переиспользовал под полоску элемент блока. Инлайновые стили
+  // пишет кадр, Vue про них не знает и не переносит — полоска доставалась с
+  // размерами блока и растягивалась в клин. Ключи связей уведены в минус:
+  // пространства не сходятся ни при каком количестве. Числа, а не строки:
+  // список пересобирается каждый кадр, и строковый ключ был бы мусором на блок
   const blocks = Array.from({ length: field.count }, (_, index) =>
     h("div", {
-      key: field.count + index,
+      key: index,
       "data-fps-block": index,
       class: BLOCK_CLASS,
       style: styleAt ? styleAt(index) : undefined,
@@ -29,7 +33,7 @@ export function renderField(field: Field, styleAt: ((index: number) => CSSProper
   );
 
   const wires = Array.from({ length: edgeCount(field) }, (_, edge) =>
-    h("div", { key: edge, "data-fps-wire": edge, class: WIRE_CLASS }),
+    h("div", { key: -1 - edge, "data-fps-wire": edge, class: WIRE_CLASS }),
   );
 
   return [...wires, ...blocks];
