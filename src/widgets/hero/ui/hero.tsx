@@ -43,6 +43,10 @@ export function Hero() {
           new SplitText(line.querySelector<HTMLElement>("[data-hero-text]")!, {
             type: "chars",
             mask: "chars",
+            // По умолчанию SplitText вешает aria-label на разбитый узел, а это
+            // <span> без роли — атрибут ему запрещён. Имя заголовку и так даёт
+            // aria-label на самом h1
+            aria: "none",
           }),
       );
 

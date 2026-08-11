@@ -77,7 +77,12 @@ export default async function LocaleLayout({ children, params }: LayoutProps) {
           <GridOverlay />
           <CommandPalette cases={paletteCases} links={paletteLinks} />
           <SiteHeader />
-          <main id="main">{children}</main>
+          {/* tabIndex={-1} — без него ссылка «к содержимому» только проматывает
+              страницу, а фокус остаётся в шапке, и клавиатуре приходится
+              проходить всю навигацию заново */}
+          <main id="main" tabIndex={-1} className="outline-none">
+            {children}
+          </main>
           <SiteFooter />
         </NextIntlClientProvider>
       </body>

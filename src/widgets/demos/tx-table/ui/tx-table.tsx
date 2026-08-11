@@ -149,12 +149,15 @@ export function TxTable({ strings, locale }: { strings: TxTableStrings; locale: 
             <span>{strings.columns.status}</span>
           </div>
 
+          {/* Не `role="grid"`: полноценная ARIA-сетка требует ролей на каждой
+              строке и ячейке, а строки здесь виртуальные. Область с именем и
+              с клавиатурной прокруткой честнее полусетки */}
           <div
             ref={ref}
             onScroll={onScroll}
-            role="grid"
+            role="region"
+            tabIndex={0}
             aria-label={strings.table}
-            aria-rowcount={rows.length}
             className="h-[clamp(16rem,34vw,22rem)] overflow-y-auto"
           >
             <div style={{ height: slice.totalHeight, paddingTop: slice.padTop }}>

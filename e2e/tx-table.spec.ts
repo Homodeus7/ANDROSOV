@@ -69,7 +69,9 @@ test.describe("transaction table demo", () => {
     await openDemo(page);
     const first = await rows(page).first().getAttribute("data-tx-row");
 
-    await page.locator('[role="grid"]').evaluate((node) => node.scrollTo({ top: 4000 }));
+    await page
+      .getByRole("region", { name: "Transactions" })
+      .evaluate((node) => node.scrollTo({ top: 4000 }));
 
     await expect
       .poll(async () => rows(page).first().getAttribute("data-tx-row"))
