@@ -17,7 +17,8 @@ async function openDemo(page: Page) {
   await expect(demo(page).locator("[data-member]").first()).toBeVisible();
 }
 
-test.describe("referral split demo", () => {
+// Демо снято с показа: см. `src/widgets/demos/referral-split/index.ts`
+test.describe.skip("referral split demo", () => {
   test("loads only once it reaches the viewport", async ({ page }) => {
     await page.goto("/en/lab");
     await expect(demo(page).locator("[data-member]")).toHaveCount(0);

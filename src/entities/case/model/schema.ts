@@ -13,7 +13,9 @@ export const demoIds = [
   // и в `demos` кейса `agent-harness`, см. `src/widgets/demos/guardrails/index.ts`
   "access-matrix",
   "wallet-state",
-  "referral-split",
+  // "referral-split" — снято с показа: расчёт долей на том проекте делал
+  // бэкенд, показывать его как свою работу нечестно. Код цел,
+  // см. `src/widgets/demos/referral-split/index.ts`
 ] as const;
 
 const metricSchema = z.object({

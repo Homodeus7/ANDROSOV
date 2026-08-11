@@ -5,7 +5,6 @@ import { CanvasFpsDemo } from "../canvas-fps";
 import { DynamicFormDemo } from "../dynamic-form";
 import { FoodMatchDemo } from "../food-match";
 import { LiveRollupDemo } from "../live-rollup";
-import { ReferralSplitDemo } from "../referral-split";
 import { TxTableDemo } from "../tx-table";
 import { UndoRedoDemo } from "../undo-redo";
 import { WalletStateDemo } from "../wallet-state";
@@ -26,11 +25,6 @@ const DEMOS: Record<DemoId, DemoEntry> = {
     note: "reactNote",
   },
   "wallet-state": { component: WalletStateDemo, messages: "walletState", note: "portNote" },
-  "referral-split": {
-    component: ReferralSplitDemo,
-    messages: "referralSplit",
-    note: "portNote",
-  },
 };
 
 export function DemoSlot({ demo }: { demo: DemoId }) {
