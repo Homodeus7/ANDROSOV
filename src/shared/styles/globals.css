@@ -109,6 +109,14 @@
     opacity: 0;
   }
 
+  /* Первый экран ждёт шрифт. Иначе набор успевает мигнуть запасным, переехать
+     на наш и только потом уйти под анимацию — три перерисовки подряд. Замер
+     hero-fit по метрикам запасного шрифта вдобавок врёт: контейнер не меняет
+     ширину при подмене, ResizeObserver молчит, и строка остаётся не по месту */
+  html[data-js] [data-hero]:not([data-hero-ready]) :is([data-hero-line], [data-hero-meta]) {
+    visibility: hidden;
+  }
+
   ::selection {
     background: var(--accent);
     color: var(--on-accent);
