@@ -2,6 +2,7 @@ import { test, expect, type Page } from "@playwright/test";
 
 const demo = (page: Page) => page.locator("#guardrails");
 const gate = (page: Page, id: string) => demo(page).locator(`[data-gate="${id}"]`);
+const tier = (page: Page, id: string) => demo(page).locator(`[data-tier="${id}"]`);
 const outcome = (page: Page) => demo(page).locator("[data-outcome]");
 
 const choose = (page: Page, id: string) => demo(page).locator(`[data-diff="${id}"]`).click();
@@ -9,59 +10,80 @@ const choose = (page: Page, id: string) => demo(page).locator(`[data-diff="${id}
 async function openDemo(page: Page) {
   await page.goto("/en/lab");
   await demo(page).scrollIntoViewIfNeeded();
-  await expect(gate(page, "layers")).toBeVisible();
+  await expect(gate(page, "boundary")).toBeVisible();
 }
 
-test.describe("guardrails demo", () => {
+// Демо снято с показа: см. `src/widgets/demos/guardrails/index.ts`
+test.describe.skip("guardrails demo", () => {
   test("loads only once it reaches the viewport", async ({ page }) => {
     await page.goto("/en/lab");
-    await expect(gate(page, "layers")).toHaveCount(0);
+    await expect(gate(page, "boundary")).toHaveCount(0);
 
     await demo(page).scrollIntoViewIfNeeded();
-    await expect(gate(page, "layers")).toBeVisible();
+    await expect(gate(page, "boundary")).toBeVisible();
   });
 
   // Каждая правка отбивается ровно теми воротами, что заявлены — и никакими другими
-  const cases: [string, string][] = [
-    ["helper-upwards", "layers"],
-    ["english-only", "content"],
-    ["missing-ru-string", "i18n"],
-    ["model-in-resolver", "boundary"],
-    ["heavy-dependency", "budget"],
+  const stoppedByBuild: [string, string][] = [
+    ["import-up", "boundary"],
+    ["hand-edit-generated", "contract"],
+    ["ratchet-grows", "lint"],
   ];
 
-  for (const [diff, caught] of cases) {
+  for (const [diff, caught] of stoppedByBuild) {
     test(`stops "${diff}" at the ${caught} gate and nowhere else`, async ({ page }) => {
       await openDemo(page);
       await choose(page, diff);
 
-      await expect(outcome(page)).toHaveAttribute("data-outcome", "stopped");
+      await expect(outcome(page)).toHaveAttribute("data-outcome", "build");
       await expect(gate(page, caught)).not.toHaveAttribute("data-passed", "");
       await expect(demo(page).locator("[data-gate]:not([data-passed])")).toHaveCount(1);
     });
   }
 
-  test("lets the honest diff through every gate", async ({ page }) => {
+  // Цепочку не зовут по правке, которую уже не пропустила сборка
+  test("spends no model call on a diff the build refused", async ({ page }) => {
     await openDemo(page);
-    await choose(page, "honest");
+    await choose(page, "import-up");
 
-    await expect(outcome(page)).toHaveAttribute("data-outcome", "passed");
-    await expect(demo(page).locator("[data-gate][data-passed]")).toHaveCount(5);
+    await expect(tier(page, "chain")).toContainText("model calls: 0");
+    await expect(demo(page).locator("[data-link]")).toHaveCount(0);
   });
 
-  // Правка, против которой была только инструкция, доезжает — в этом и смысл
-  test("lets through the diff only the instruction file objected to", async ({ page }) => {
+  test("lets the honest diff through all three tiers", async ({ page }) => {
     await openDemo(page);
-    await choose(page, "narrating-comment");
+    await choose(page, "slot-from-above");
 
-    await expect(outcome(page)).toHaveAttribute("data-outcome", "advice");
-    await expect(demo(page).locator("[data-gate][data-passed]")).toHaveCount(5);
+    await expect(outcome(page)).toHaveAttribute("data-outcome", "passed");
+    await expect(demo(page).locator("[data-gate][data-passed]")).toHaveCount(3);
+    await expect(demo(page).locator("[data-link][data-silent]")).toHaveCount(4);
+    await expect(tier(page, "chain")).toContainText("model calls: 4");
+  });
+
+  test("stops at the first link that objects, and charges only for the links that ran", async ({
+    page,
+  }) => {
+    await openDemo(page);
+    await choose(page, "card-fetches");
+
+    await expect(outcome(page)).toHaveAttribute("data-outcome", "chain");
+    await expect(demo(page).locator("[data-gate][data-passed]")).toHaveCount(3);
+    await expect(demo(page).locator("[data-link]:not([data-silent])")).toHaveCount(1);
+    await expect(tier(page, "chain")).toContainText("model calls: 1");
   });
 
   test("prints the message the build would print", async ({ page }) => {
     await openDemo(page);
-    await choose(page, "helper-upwards");
+    await choose(page, "ratchet-grows");
 
-    await expect(gate(page, "layers")).toContainText("imports go downwards only");
+    await expect(gate(page, "lint")).toContainText("debt grew");
+  });
+
+  // Измерение без потолка называет число и пропускает — так в репозитории и есть
+  test("names a number the repository has no ceiling for", async ({ page }) => {
+    await openDemo(page);
+    await choose(page, "slot-from-above");
+
+    await expect(demo(page).locator('[data-meter="size"]')).toContainText("no ceiling");
   });
 });

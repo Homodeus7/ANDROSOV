@@ -4,7 +4,6 @@ import { AccessMatrixDemo } from "../access-matrix";
 import { CanvasFpsDemo } from "../canvas-fps";
 import { DynamicFormDemo } from "../dynamic-form";
 import { FoodMatchDemo } from "../food-match";
-import { GuardrailsDemo } from "../guardrails";
 import { LiveRollupDemo } from "../live-rollup";
 import { ReferralSplitDemo } from "../referral-split";
 import { TxTableDemo } from "../tx-table";
@@ -21,7 +20,6 @@ const DEMOS: Record<DemoId, DemoEntry> = {
   "dynamic-form": { component: DynamicFormDemo, messages: "dynamicForm", note: "reactNote" },
   "live-rollup": { component: LiveRollupDemo, messages: "liveRollup", note: "reactNote" },
   "food-match": { component: FoodMatchDemo, messages: "foodMatch", note: "reactNote" },
-  guardrails: { component: GuardrailsDemo, messages: "guardrails", note: "reactNote" },
   "access-matrix": {
     component: AccessMatrixDemo,
     messages: "accessMatrix",

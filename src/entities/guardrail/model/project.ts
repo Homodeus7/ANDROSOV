@@ -1,87 +1,86 @@
 import type { Project } from "./types";
 
 /**
- * Игрушечное дерево, на котором работают ворота. Файлы сокращены до того, что
- * ворота читают: импорты, ключи локалей, объект кейса и вес чанка.
+ * Срез фронтенда FoodIQ. Файлы сокращены до того, что читают ворота: импорты,
+ * происхождение сгенерированного клиента, шаги CI и число строк. Числа строк —
+ * настоящие, слои — те же, что в `eslint.config.mjs` репозитория.
  */
 export const project: Project = [
   {
-    path: "src/entities/case/index.ts",
-    source: `export { caseSchema, demoIds } from "./model/schema";\nexport { CaseCard } from "./ui/case-card";`,
-    initialKb: 4,
+    // Два оставшихся нарушения слоёв живут не здесь, а строкой в
+    // `lint-baseline.json`: храповик держит долг названным и не даёт ему расти
+    path: "src/features/day-data/create-meal/ui/create-meal-dialog.tsx",
+    source: `import { ResponsiveSheet } from "@/shared/ui";\nimport { CreateMealTabs } from "./create-meal-tabs";`,
+    lines: 153,
   },
   {
-    path: "src/entities/case/ui/case-card.tsx",
-    source: `import { Link } from "@/shared/i18n";\nimport { cn } from "@/shared/lib";`,
-    initialKb: 3,
+    path: "src/features/day-data/create-meal/ui/create-meal-tabs.tsx",
+    source: `import { AiChatView } from "@/features/ai-parse";\nimport { useAiInput } from "../model/ai-input.store";\nimport { CreateMealErrorBoundary } from "./create-meal-error-boundary";`,
+    lines: 144,
   },
   {
-    path: "src/views/lab/ui/lab-page.tsx",
-    source: `import { demoIds } from "@/entities/case";\nimport { Container } from "@/shared/ui";\nimport { DemoSlot } from "@/widgets/demos";`,
-    initialKb: 5,
+    path: "src/features/day-data/create-meal/model/use-create-meal-dialog.ts",
+    source: `import { useAiMealFlow } from "@/features/ai-parse";\nimport { useCreateMeal } from "./use-create-meal";`,
+    lines: 176,
+  },
+  { path: "src/features/day-data/create-meal/model/use-create-meal.test.tsx", source: `` },
+  {
+    // Склеивает три сущности и не знает ни одной фичи: он между ярусами, и это
+    // единственное именованное исключение в конфиге границ
+    path: "src/features/ai-parse/model/use-ai-draft.ts",
+    source: `import { useAuth } from "@/entities/auth";\nimport { useBodyWeightUnit } from "@/entities/preferences";\nimport { useProductSearch } from "@/entities/product";`,
+    lines: 336,
   },
   {
-    path: "src/shared/ui/index.ts",
-    source: `export { Container } from "./container";\nexport { Marquee } from "./marquee";`,
-    initialKb: 6,
+    path: "src/entities/goals/model/use-goals.ts",
+    source: `import { useGetUserGoals } from "@/shared/api";\n\nexport function useGoals() { /* … */ }`,
+    lines: 9,
   },
   {
-    path: "src/widgets/demos/index.ts",
-    source: `export { DemoSlot } from "./ui/demo-slot";`,
-    initialKb: 8,
+    path: "src/features/goals/update-goals/ui/body-card.tsx",
+    source: `import { useGoals } from "@/entities/goals";\nimport { useLatestWeight } from "@/entities/body-weight";`,
+    lines: 205,
   },
   {
-    path: "src/app/[locale]/layout.tsx",
-    source: `import { routing } from "@/shared/i18n";\nimport { SiteHeader } from "@/widgets/site-header";`,
-    initialKb: 202,
+    path: "src/views/settings/ui/goals-section.tsx",
+    source: `import { UpdateGoalsForm } from "@/features/goals";\nimport { LogWeightSheet } from "@/features/body-weight";`,
+    lines: 80,
   },
   {
-    path: "messages/en.json",
-    source: JSON.stringify({ lab: { title: "Lab", lead: "Every demo runs." } }, null, 2),
+    path: "src/entities/body-weight/model/use-latest-weight.ts",
+    source: `import { useGetBodyWeight } from "@/shared/api";\n\nexport function useLatestWeight() { /* … */ }`,
+    lines: 14,
   },
   {
-    path: "messages/ru.json",
-    source: JSON.stringify(
-      { lab: { title: "Лаборатория", lead: "Каждое демо работает." } },
-      null,
-      2,
-    ),
+    path: "src/shared/lib/body-weight.ts",
+    source: `export function kgToUnit(kg: number, unit: Unit): number { /* … */ }\n\nexport function unitToKg(value: number, unit: Unit): number { /* … */ }`,
+    lines: 59,
+  },
+  { path: "src/shared/lib/body-weight.test.ts", source: `` },
+  {
+    // Теста рядом нет — так в репозитории и есть у шестнадцати модулей `lib`,
+    // и ярус порогов это называет, не останавливая
+    path: "src/shared/lib/date.ts",
+    source: `export function getTodayDate(): string { /* … */ }`,
+    lines: 64,
   },
   {
-    path: "src/content/cases/foodiq.ts",
-    source: `import type { CaseRecord } from "@/entities/case";\n\nexport const foodiq: CaseRecord = { /* … */ };`,
-    record: {
-      slug: "foodiq",
-      order: 0,
-      nda: false,
-      stack: ["Next.js"],
-      links: [],
-      content: {
-        en: {
-          title: "FoodIQ",
-          tagline: "A food tracker that refuses to guess",
-          role: "Frontend engineer",
-          period: "2025",
-          metrics: [],
-          sections: [{ kind: "problem", title: "Problem", body: ["A model must not count."] }],
-        },
-        ru: {
-          title: "FoodIQ",
-          tagline: "Трекер еды, который отказывается угадывать",
-          role: "Фронтенд-разработчик",
-          period: "2025",
-          metrics: [],
-          sections: [{ kind: "problem", title: "Задача", body: ["Модель не считает."] }],
-        },
-      },
-    },
+    path: "src/shared/api/schema.yml",
+    source: JSON.stringify({ operations: ["getUserGoals", "getBodyWeight"] }, null, 2),
   },
   {
-    path: "modules/reference-foods/application/resolve-reference.service.ts",
-    source: `import { Injectable } from '@nestjs/common';\nimport { pickRepresentative } from '../domain/concept-representative';`,
+    // Производная от schema.yml: orval стирает каталог и пересобирает целиком
+    path: "src/shared/api/generated/nutriAIAPI.ts",
+    source: `export const useGetUserGoals = () => { /* generated */ };\nexport const useGetBodyWeight = () => { /* generated */ };`,
+    generatedFrom: "src/shared/api/schema.yml",
   },
   {
-    path: "modules/reference-foods/domain/concept-representative.ts",
-    source: `import { CONCEPT_GENERICNESS_RANK } from './reference-dataset';\n\nexport function pickRepresentative(candidates, eatenCooked = false) { /* … */ }`,
+    path: "lint-baseline.json",
+    source: JSON.stringify({ "boundaries/element-types": 2, "boundaries/entry-point": 30 }),
+  },
+  {
+    path: ".github/workflows/ci.yml",
+    // Не `npm run lint`: тот скрипт несёт --fix и тихо переписал бы файлы
+    source: `      - name: Границы слоёв и храповик\n        run: npm run lint:ratchet\n\n      - name: Типы\n        run: npm run typecheck\n\n      - name: Клиент API соответствует schema.yml\n        run: npx orval && git diff --exit-code -- src/shared/api/generated`,
   },
 ];
