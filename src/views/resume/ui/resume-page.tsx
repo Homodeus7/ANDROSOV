@@ -1,9 +1,9 @@
 import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/shared/i18n";
 import type { Locale } from "@/shared/i18n";
-import { getResume, type ResumeJob } from "@/entities/resume";
+import { getResume, resumeFile, type ResumeJob } from "@/entities/resume";
+import { site } from "@/shared/config";
 import { Container, SectionLabel } from "@/shared/ui";
-import { PrintButton } from "./print-button";
 
 function Job({ job, caseLabel }: { job: ResumeJob; caseLabel: string }) {
   return (
@@ -55,10 +55,16 @@ export function ResumePage() {
           <p className="text-muted mt-8 max-w-3xl leading-relaxed">{resume.summary}</p>
 
           <div className="mt-8 flex flex-wrap items-center gap-4">
-            <a href={`mailto:${resume.email}`} className="spec text-accent-ink">
-              {resume.email}
+            <a href={site.telegram} className="spec text-accent-ink">
+              {site.telegramHandle}
             </a>
-            <PrintButton label={t("download")} />
+            <a
+              href={resumeFile(locale)}
+              download
+              className="spec border-border text-fg flood inline-flex min-h-11 items-center border-2 px-3 print:hidden"
+            >
+              {t("download")}
+            </a>
           </div>
         </Container>
       </section>

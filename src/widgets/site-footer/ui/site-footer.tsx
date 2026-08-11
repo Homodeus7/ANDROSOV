@@ -3,7 +3,6 @@ import { site } from "@/shared/config";
 import { Container } from "@/shared/ui";
 
 const CONTACTS = [
-  { label: "Email", href: `mailto:${site.email}` },
   { label: "Telegram", href: site.telegram },
   { label: "GitHub", href: site.github },
   { label: "LinkedIn", href: site.linkedin },

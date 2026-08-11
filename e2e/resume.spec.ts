@@ -6,7 +6,7 @@ test.describe("resume and about", () => {
 
     await expect(page.getByRole("heading", { level: 1 })).toHaveText("Viacheslav Androsov");
     await expect(page.getByRole("heading", { level: 3 })).toHaveCount(5);
-    await expect(page.getByText("Frontend engineer — editor core (Vue)")).toBeVisible();
+    await expect(page.getByText("Frontend Developer (Vue)")).toBeVisible();
   });
 
   // Резюме и кейс говорят об одной работе, и это должно быть проверяемо
@@ -22,14 +22,21 @@ test.describe("resume and about", () => {
     await expect(page.getByRole("heading", { level: 1 })).toHaveText("Вячеслав Андросов");
   });
 
-  test("keeps the print button out of print", async ({ page }) => {
-    await page.goto("/en/resume");
-    const button = page.getByRole("button", { name: "Print / PDF" });
-    await expect(button).toBeVisible();
+  // PDF собран из того же текста, что и страница, поэтому файл обязан лежать
+  // рядом и отдаваться, а не отвечать 404 после переименования
+  test("hands out the pdf of the page's own language", async ({ page, request }) => {
+    for (const [locale, file] of [
+      ["en", "Androsov_Viacheslav_Frontend_EN.pdf"],
+      ["ru", "Androsov_Viacheslav_Frontend_RU.pdf"],
+    ]) {
+      await page.goto(`/${locale}/resume`);
+      const link = page.locator(`a[href="/resume/${file}"]`);
+      await expect(link).toHaveAttribute("download", "");
 
-    await page.emulateMedia({ media: "print" });
-    await expect(button).toBeHidden();
-    await expect(page.locator("[data-site-header]")).toBeHidden();
+      const response = await request.get(`/resume/${file}`);
+      expect(response.status(), file).toBe(200);
+      expect(response.headers()["content-type"]).toContain("pdf");
+    }
   });
 
   test("says something on the about page", async ({ page }) => {

@@ -231,10 +231,6 @@
     padding-block: 0.75rem !important;
   }
 
-  a[href^="mailto:"]::after {
-    content: none;
-  }
-
   @page {
     margin: 14mm;
   }

@@ -32,7 +32,6 @@ const localizedSchema = z.object({
 });
 
 export const resumeSchema = z.object({
-  email: z.email(),
   content: z.object(
     Object.fromEntries(locales.map((locale) => [locale, localizedSchema])) as Record<
       (typeof locales)[number],

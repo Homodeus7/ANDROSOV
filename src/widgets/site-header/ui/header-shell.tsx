@@ -4,6 +4,12 @@ import { useEffect, useRef, type ReactNode } from "react";
 
 const HIDE_AFTER = 200;
 
+// Плавная прокрутка доводит колесо затухающей анимацией, и на её хвосте кадры
+// приходят с долями пикселя в обе стороны. Сравнение «текущая > предыдущей»
+// принимало этот дребезг за смену направления, и шапка успевала выехать на
+// кадр и уехать обратно. Направление считается только после заметного сдвига
+const DIRECTION_THRESHOLD = 12;
+
 /**
  * Шапка прячется на обычном слушателе прокрутки, а не на GSAP. Ради одного
  * этого эффекта библиотека тянулась в общий чанк и её платили все страницы,
@@ -14,7 +20,8 @@ export function HeaderShell({ children }: { children: ReactNode }) {
   const root = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    let previous = window.scrollY;
+    let anchor = window.scrollY;
+    let hidden = false;
     let frame = 0;
 
     const apply = () => {
@@ -23,8 +30,16 @@ export function HeaderShell({ children }: { children: ReactNode }) {
       if (!node) return;
 
       const current = window.scrollY;
-      const hidden = current > HIDE_AFTER && current > previous;
-      previous = current;
+      const delta = current - anchor;
+      // Якорь не двигается, пока сдвиг мал: медленная прокрутка так копится
+      // до порога, а не растворяется в нём
+      if (Math.abs(delta) < DIRECTION_THRESHOLD) return;
+
+      anchor = current;
+      const next = delta > 0 && current > HIDE_AFTER;
+      if (next === hidden) return;
+
+      hidden = next;
       node.style.transform = hidden ? "translateY(-100%)" : "translateY(0)";
     };
 

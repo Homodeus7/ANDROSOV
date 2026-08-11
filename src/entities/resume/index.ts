@@ -1,4 +1,5 @@
 export { getResume } from "./api/resume";
+export { resumeFile } from "./model/file";
 export {
   resumeSchema,
   type ResolvedResume,

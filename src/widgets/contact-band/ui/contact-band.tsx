@@ -11,7 +11,7 @@ export function ContactBand() {
       <Container>
         <SectionLabel>{t("label")}</SectionLabel>
         <a
-          href={`mailto:${site.email}`}
+          href={site.telegram}
           className="flood group border-border mt-6 flex flex-col gap-8 border-2 p-6 md:p-10"
         >
           <span className="flex items-start justify-between gap-6">
@@ -22,7 +22,7 @@ export function ContactBand() {
             />
           </span>
           <span className="spec flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
-            <span>{site.email}</span>
+            <span>{site.telegramHandle}</span>
             <span>{t("timezone")}</span>
           </span>
         </a>
