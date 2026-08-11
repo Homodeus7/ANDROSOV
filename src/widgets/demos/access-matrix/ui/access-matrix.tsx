@@ -48,8 +48,8 @@ export function AccessMatrix({ strings }: { strings: AccessMatrixStrings }) {
         </button>
       </div>
 
-      <div className="grid gap-4 lg:grid-cols-[3fr_2fr]">
-        <div className="border-border bg-bg min-w-0 border-2">
+      <div className="grid gap-4 lg:grid-cols-12">
+        <div className="border-border bg-bg col-span-full min-w-0 border-2 lg:col-span-7">
           <div className={`${ROW_GRID} border-border spec text-muted border-b-2 py-2`}>
             <span>{strings.columns.id}</span>
             <span className={ROW_WIDE}>{strings.columns.flat}</span>
@@ -73,6 +73,7 @@ export function AccessMatrix({ strings }: { strings: AccessMatrixStrings }) {
         </div>
 
         <RulePanel
+          className="col-span-full lg:col-span-5"
           asked={asked}
           verdict={verdict}
           naiveMode={naiveMode}

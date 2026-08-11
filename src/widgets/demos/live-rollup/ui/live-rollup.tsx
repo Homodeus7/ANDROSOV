@@ -131,8 +131,8 @@ export function LiveRollup({
         <span className="spec text-muted ml-auto">{strings.clock}</span>
       </div>
 
-      <div className="grid gap-4 lg:grid-cols-[3fr_2fr]">
-        <div className="flex min-w-0 flex-col gap-3">
+      <div className="grid gap-4 lg:grid-cols-12">
+        <div className="col-span-full flex min-w-0 flex-col gap-3 lg:col-span-7">
           <RollupChart ref={chart} label={strings.chart} />
           <div className="spec text-muted flex flex-wrap items-center gap-x-6 gap-y-1">
             <span className="flex items-center gap-2">
@@ -150,6 +150,7 @@ export function LiveRollup({
         </div>
 
         <RollupMeters
+          className="col-span-full lg:col-span-5"
           meters={meters}
           bucket={bucketLabel(size)}
           locale={locale}

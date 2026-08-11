@@ -9,10 +9,10 @@ export function LabPage() {
   return (
     <>
       <section className="border-border border-b-2 pt-28 pb-12 md:pt-36 md:pb-16">
-        <Container>
-          <SectionLabel>{t("title")}</SectionLabel>
-          <h1 className="display text-h1 mt-6">{t("title")}</h1>
-          <p className="mt-8 max-w-3xl text-xl leading-snug text-balance">{t("lead")}</p>
+        <Container grid className="gap-y-0">
+          <SectionLabel className="col-span-full">{t("title")}</SectionLabel>
+          <h1 className="display text-h1 col-span-full mt-6">{t("title")}</h1>
+          <p className="col-span-full mt-8 text-xl leading-snug lg:col-span-6">{t("lead")}</p>
         </Container>
       </section>
 
@@ -22,13 +22,11 @@ export function LabPage() {
           id={id}
           className="border-border scroll-mt-24 border-b-2 py-16 md:py-24"
         >
-          <Container>
-            <SectionLabel index={index + 1} total={demoIds.length}>
+          <Container grid className="gap-y-0">
+            <SectionLabel index={index + 1} total={demoIds.length} className="col-span-full">
               {id}
             </SectionLabel>
-            <div className="mt-6">
-              <DemoSlot demo={id} />
-            </div>
+            <DemoSlot demo={id} className="col-span-full mt-6" />
           </Container>
         </section>
       ))}

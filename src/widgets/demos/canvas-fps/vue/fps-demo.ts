@@ -38,13 +38,13 @@ export const FpsDemo = defineComponent({
           ]),
         ]),
 
-        h("div", { class: "grid gap-4 lg:grid-cols-[3fr_2fr]" }, [
-          h("div", { class: "min-w-0" }, [
+        h("div", { class: "grid gap-4 lg:grid-cols-12" }, [
+          h("div", { class: "col-span-full min-w-0 lg:col-span-7" }, [
             state.mode.value === "naive"
               ? h(NaiveField, { state, label: s.canvas })
               : h(BudgetField, { state, label: s.canvas }),
           ]),
-          h(FpsReadout, { state, strings: s }),
+          h(FpsReadout, { state, strings: s, class: "col-span-full lg:col-span-5" }),
         ]),
 
         h("p", { class: "spec text-muted normal-case" }, s.hint),

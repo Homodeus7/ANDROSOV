@@ -134,8 +134,8 @@ export function TxTable({ strings, locale }: { strings: TxTableStrings; locale: 
         </div>
       </div>
 
-      <div className="grid gap-4 lg:grid-cols-[3fr_2fr]">
-        <div className="border-border bg-bg min-w-0 border-2">
+      <div className="grid gap-4 lg:grid-cols-12">
+        <div className="border-border bg-bg col-span-full min-w-0 border-2 lg:col-span-7">
           <div className={`${TX_GRID} border-border spec text-muted border-b-2 py-2`}>
             <span>{strings.columns.id}</span>
             <span className={TX_WIDE}>{strings.columns.merchant}</span>
@@ -169,7 +169,7 @@ export function TxTable({ strings, locale }: { strings: TxTableStrings; locale: 
           </div>
         </div>
 
-        <div className="flex flex-col gap-4">
+        <div className="col-span-full flex flex-col gap-4 lg:col-span-5">
           <TxMeters
             meters={meters}
             rowsInDom={visible.length}

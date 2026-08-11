@@ -59,12 +59,12 @@ export const FlowDemo = defineComponent({
           state.connecting.value ? s.connecting : s.hint,
         ),
 
-        h("div", { class: "grid gap-4 lg:grid-cols-[3fr_2fr]" }, [
-          h("div", { class: "flex min-w-0 flex-col gap-3" }, [
+        h("div", { class: "grid gap-4 lg:grid-cols-12" }, [
+          h("div", { class: "col-span-full flex min-w-0 flex-col gap-3 lg:col-span-7" }, [
             h(FlowCanvas, { state, label: s.canvas }),
             h(FlowTimeline, { state, strings: s }),
           ]),
-          h(FlowBuffer, { state, strings: s }),
+          h(FlowBuffer, { state, strings: s, class: "col-span-full lg:col-span-5" }),
         ]),
       ]);
   },

@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from "@/shared/lib";
 import type { LadderStep, RuleId } from "@/entities/reference-food";
 import type { FoodMatchStrings } from "../model/strings";
 
@@ -9,15 +10,17 @@ export function RuleLadder({
   selected,
   onSelect,
   strings,
+  className,
 }: {
   steps: LadderStep[];
   diverging?: RuleId;
   selected?: RuleId;
   onSelect: (rule: RuleId | undefined) => void;
   strings: FoodMatchStrings;
+  className?: string;
 }) {
   return (
-    <div className="border-border bg-surface border-2">
+    <div className={cn("border-border bg-surface border-2", className)}>
       <p className="border-border spec text-muted border-b-2 px-3 py-2">{strings.why}</p>
       <ol>
         {steps.map((step, index) => {
