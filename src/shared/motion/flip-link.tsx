@@ -3,7 +3,7 @@
 import type { ComponentProps, MouseEvent } from "react";
 import { Link } from "@/shared/i18n";
 import { captureFlip } from "./flip-store";
-import { prefersReducedMotion } from "./use-reduced-motion";
+import { prefersReducedMotion } from "@/shared/lib";
 
 type FlipLinkProps = ComponentProps<typeof Link> & { flipId: string };
 

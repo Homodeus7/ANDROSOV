@@ -3,15 +3,8 @@
 import { useRef } from "react";
 import { useTranslations } from "next-intl";
 import { ArrowDown } from "lucide-react";
-import {
-  DUR,
-  EASE,
-  STAGGER,
-  SplitText,
-  gsap,
-  useGSAP,
-  useReducedMotion,
-} from "@/shared/motion";
+import { DUR, EASE, STAGGER, SplitText, gsap, useGSAP } from "@/shared/motion";
+import { useReducedMotion } from "@/shared/lib";
 import { Container, SectionLabel } from "@/shared/ui";
 import { HEADLINE, Headline } from "./headline";
 

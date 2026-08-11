@@ -4,7 +4,7 @@ import { useRef, type ElementType, type ReactNode } from "react";
 import { cn } from "@/shared/lib";
 import { gsap, useGSAP } from "./gsap";
 import { DUR, EASE, STAGGER } from "./presets";
-import { useReducedMotion } from "./use-reduced-motion";
+import { useReducedMotion } from "@/shared/lib";
 
 type RevealProps = {
   as?: ElementType;

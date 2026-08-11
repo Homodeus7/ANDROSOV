@@ -8,7 +8,7 @@ import { ThemeScript } from "@/features/theme";
 import { site } from "@/shared/config";
 import { fontClassName } from "@/shared/fonts";
 import { routing } from "@/shared/i18n";
-import { SmoothScroll } from "@/shared/motion";
+import { SmoothScroll } from "@/shared/smooth-scroll";
 import { GridOverlay } from "@/widgets/grid-overlay";
 import { SiteFooter } from "@/widgets/site-footer";
 import { SiteHeader } from "@/widgets/site-header";

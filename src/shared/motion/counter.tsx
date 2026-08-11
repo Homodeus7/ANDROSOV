@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import { gsap, useGSAP } from "./gsap";
 import { DUR, EASE } from "./presets";
-import { useReducedMotion } from "./use-reduced-motion";
+import { useReducedMotion } from "@/shared/lib";
 
 type CounterProps = {
   from?: number;
