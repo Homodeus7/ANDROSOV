@@ -11,6 +11,7 @@ export const demoIds = [
   "guardrails",
   "access-matrix",
   "wallet-state",
+  "referral-split",
 ] as const;
 
 const metricSchema = z.object({

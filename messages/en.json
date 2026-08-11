@@ -305,58 +305,77 @@
       "note": "The ranking is a sort with eight tie-breaks, and no model takes part in it: choosing the row is choosing the nutrients, and that decision has to be reproducible and reviewable. The rules read a name as whole comma-segments rather than words — “Cheese, Parmesan, dry grated” is grated parmesan, and a word search calls it dry. This code runs here exactly as it runs in production. What is cut is the corpus: 154 rows across 18 foods, so the demo can list every candidate it ranks."
     },
     "guardrails": {
-      "title": "The agent proposes, the build disposes",
-      "lead": "Seven diffs an agent might hand you. Five gates decide. Four of the five are this project's own rules — the same lint patterns, the same Zod schema, the same locale check, the same regex the backend greps itself with — running here on a toy file tree.",
+      "title": "What holds a rule up",
+      "lead": "Eight diffs an agent might hand you on the FoodIQ backend, and three tiers that meet them. A tier does not answer whether the diff is bad; it answers what finding out costs. The build answers for free and always the same way. A meter names a number. A chain of four reviewers thinks — and thinking costs model calls.",
       "proposes": "The diff an agent proposes",
-      "gates": "Gates",
       "files": "Files it touches",
-      "stopped": "The diff does not go in. It is not a review that stopped it — the build does not produce an artefact.",
-      "passed": "Every gate is silent, and the diff goes in. A wall that never opens is not a gate, it is a wall.",
-      "advice": "No gate has an opinion about this one, so it goes in. Only the instruction file asked otherwise — which is exactly what an instruction can do, and exactly why anything costlier than this does not live there.",
-      "levels": {
-        "advice": "advice",
-        "hook": "hook",
-        "build": "build"
+      "tiers": {
+        "build": "Build",
+        "threshold": "Meter",
+        "chain": "Chain"
       },
+      "calls": "model calls",
       "gateNames": {
-        "layers": "FSD layers",
-        "content": "case schema",
-        "i18n": "locale parity",
         "boundary": "module boundary",
-        "budget": "payload budget"
+        "contract": "API contract",
+        "lint": "the lint step in CI"
       },
+      "meterNames": {
+        "specs": "logic files with no spec",
+        "size": "largest service"
+      },
+      "linkNames": {
+        "responsibility": "responsibility",
+        "repeat": "repeat",
+        "simplicity": "simplicity",
+        "cost": "cost"
+      },
+      "noCeiling": "no ceiling",
+      "ceiling": "ceiling",
+      "silent": "silent",
+      "notReached": "Not run: the diff was stopped a tier below.",
+      "outcomes": {
+        "build": "The diff does not go in. It is not a review that stopped it — the build simply does not produce an artefact.",
+        "threshold": "The number is over the ceiling, and the diff does not go in. A ceiling is not truth, it is a budget: it stands so that the increase gets noticed the day it is made.",
+        "chain": "The gates are silent; a link objects. It cannot reject the diff — only name a price somebody would otherwise pay without looking."
+      },
+      "passed": "All three tiers are silent, and the diff goes in. A wall that never opens is not a gate, it is a wall.",
       "diffs": {
-        "helper-upwards": {
-          "title": "A helper in entities/case that imports from widgets",
-          "body": "The shortest path to reuse, and it points upwards."
-        },
-        "english-only": {
-          "title": "A new case with only the English half written",
-          "body": "The Russian half is a to-do in a comment."
-        },
-        "missing-ru-string": {
-          "title": "A string added to en.json alone",
-          "body": "Nothing crashes: the interface shows the key instead."
-        },
         "model-in-resolver": {
           "title": "The resolver asks a model for the calories",
           "body": "One import, and a deterministic path stops being deterministic."
         },
-        "heavy-dependency": {
-          "title": "date-fns imported into the root layout",
-          "body": "For one formatted date on one page."
+        "stale-contract": {
+          "title": "A new route, and the contract not regenerated",
+          "body": "Nothing fails locally. The frontend's client is generated from that file."
         },
-        "narrating-comment": {
-          "title": "A comment restating what the code says",
-          "body": "Nothing breaks. It is the noise the instruction file asked not to write."
+        "lint-fix-in-ci": {
+          "title": "The lint step in CI replaced with “npm run lint”",
+          "body": "That script carries --fix: the gate starts repairing instead of failing."
         },
-        "honest": {
-          "title": "A section label extracted into shared/ui",
-          "body": "Downwards, through the public API, two kilobytes."
+        "three-jobs": {
+          "title": "A method that reads, computes and assembles the response",
+          "body": "Sixty lines into a service that already holds seven hundred and eighteen."
+        },
+        "own-threshold": {
+          "title": "A private name-similarity threshold in products",
+          "body": "0.82, next door to the module where that threshold is already settled once for everyone."
+        },
+        "port-for-one": {
+          "title": "A port with one method, one implementor and one consumer",
+          "body": "Modelled on a real port that earns its place in products."
+        },
+        "weekly-breakdown": {
+          "title": "A weekly breakdown: a new dependency and a query per day",
+          "body": "It goes to the database in a loop over the range."
+        },
+        "concept-synonyms": {
+          "title": "Concept synonyms: a domain function with its spec beside it",
+          "body": "Downwards, no borrowed dependencies, like its eleven neighbours."
         }
       },
-      "hint": "The messages are the ones the real gates print, in the language the tooling prints them — an English lint message does not become Russian because you are reading the site in Russian.",
-      "note": "An instruction is advice: a model can forget it, and a long instruction file stops being read whole. A gate is not. So anything costlier than a typo lives in something that fails — a lint rule, a schema parsed at import, a test that greps the module it belongs to, a payload ceiling in the end-to-end suite. This demo runs the rules, not the toolchain: there is no eslint and no tsc in your browser, and the file tree is a fixture. What is real is the rules themselves, and a test that holds each of these diffs against exactly the gates it claims — a guard nobody has seen trigger is not a guard."
+      "hint": "The objections are printed as the reviewers wrote them, in the language they read this codebase in — an English objection does not become Russian because you are reading the site in Russian.",
+      "note": "An instruction is advice. In FoodIQ it weighs 163 KB across 5,958 lines: forty-two rules in ten categories, and no model holds that in its head on every edit. So the question is not whether to write rules, it is where to put each one. What is decidable goes down into the build and stops being prose. What is measurable becomes a number — though neither meter here has a ceiling, and that is not a gap in the demo but the state of the repository: the rule is written, no gate was ever put on it. The remainder goes to the chain, where it costs money — which is why there are four links and not one: a reviewer holding forty-two rules is the same god service that arch-single-responsibility argues against. This demo runs the rules, not the toolchain: there is no jest and no eslint in your browser, and the file tree is a fixture. What is real is the rules, the numbers, and the objections — they came out of an actual run of four agents that live in that backend's .claude/agents/."
     },
     "accessMatrix": {
       "title": "The row decides, not the role",
@@ -456,6 +475,20 @@
       "trail": "Transitions",
       "hint": "Refuse a signature and watch what does not happen: the connection stays, the network stays, and the application returns to the state it was in before it asked.",
       "note": "The original was ethers.js, and the part worth showing is not the call — it is the state around it. Six statuses and one transition table: an event a status has no transition for does not exist, so it cannot corrupt anything. Buttons on both panels are enabled straight from that table rather than from a second list of what is currently possible, which is why the demo cannot drift out of step with the machine. The provider codes are real ones — 4001 for a refusal, -32002 for a request already open — and the same code deliberately reads differently depending on where it arrives: a refusal while connecting sends you back to the start, a refusal while signing costs you nothing."
+    },
+    "referralSplit": {
+      "title": "Twelve people and one cent",
+      "lead": "A referral pool split down a team tree, in proportion to what each member turned over. Drag the pool. The total paid holds on the pool at every position, and beside it is what the same split does when each row is rounded on its own and nobody adds the column up.",
+      "pool": "Pool",
+      "team": "Team",
+      "share": "Share of volume",
+      "payout": "Payout",
+      "subtotal": "branch",
+      "paid": "paid out",
+      "drift": "cents the row-by-row rounding is off by",
+      "exact": "The first number is the pool, to the cent, at every position of the slider. The second is not money anyone lost — it is money that was never reconciled.",
+      "hint": "A cent is not a rounding error here: it is either paid to somebody or it is not, and the two answers have to be the same number.",
+      "note": "Everything is counted in whole cents, because money in a float is a decision to be wrong later. Shares are cut down to the cent and the remainder is handed out by largest remainder — a sort, once, and the payouts sum to the pool for any pool. Ties are broken by an explicit order, otherwise the same team would be paid differently depending on how the sort felt about equal remainders today. The tree is not decoration: every branch total is the sum of what is under it, and a test holds that against the payouts rather than against another sum computed the same way."
     }
   }
 }

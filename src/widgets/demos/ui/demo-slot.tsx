@@ -6,61 +6,31 @@ import { DynamicFormDemo } from "../dynamic-form";
 import { FoodMatchDemo } from "../food-match";
 import { GuardrailsDemo } from "../guardrails";
 import { LiveRollupDemo } from "../live-rollup";
+import { ReferralSplitDemo } from "../referral-split";
 import { TxTableDemo } from "../tx-table";
 import { UndoRedoDemo } from "../undo-redo";
 import { WalletStateDemo } from "../wallet-state";
 
-type DemoEntry = {
-  component: () => React.ReactNode;
-  messages: string;
-  note: string;
-};
+type DemoEntry = { component: () => React.ReactNode; messages: string; note: string };
 
 /** Полная таблица: демо, обещанного кейсом и не собранного, не бывает — сборка не даст. */
 const DEMOS: Record<DemoId, DemoEntry> = {
-  "undo-redo": {
-    component: UndoRedoDemo,
-    messages: "undoRedo",
-    note: "vueNote",
-  },
-  "canvas-fps": {
-    component: CanvasFpsDemo,
-    messages: "canvasFps",
-    note: "vueNote",
-  },
-  "tx-table": {
-    component: TxTableDemo,
-    messages: "txTable",
-    note: "reactNote",
-  },
-  "dynamic-form": {
-    component: DynamicFormDemo,
-    messages: "dynamicForm",
-    note: "reactNote",
-  },
-  "live-rollup": {
-    component: LiveRollupDemo,
-    messages: "liveRollup",
-    note: "reactNote",
-  },
-  "food-match": {
-    component: FoodMatchDemo,
-    messages: "foodMatch",
-    note: "reactNote",
-  },
-  guardrails: {
-    component: GuardrailsDemo,
-    messages: "guardrails",
-    note: "reactNote",
-  },
+  "undo-redo": { component: UndoRedoDemo, messages: "undoRedo", note: "vueNote" },
+  "canvas-fps": { component: CanvasFpsDemo, messages: "canvasFps", note: "vueNote" },
+  "tx-table": { component: TxTableDemo, messages: "txTable", note: "reactNote" },
+  "dynamic-form": { component: DynamicFormDemo, messages: "dynamicForm", note: "reactNote" },
+  "live-rollup": { component: LiveRollupDemo, messages: "liveRollup", note: "reactNote" },
+  "food-match": { component: FoodMatchDemo, messages: "foodMatch", note: "reactNote" },
+  guardrails: { component: GuardrailsDemo, messages: "guardrails", note: "reactNote" },
   "access-matrix": {
     component: AccessMatrixDemo,
     messages: "accessMatrix",
     note: "reactNote",
   },
-  "wallet-state": {
-    component: WalletStateDemo,
-    messages: "walletState",
+  "wallet-state": { component: WalletStateDemo, messages: "walletState", note: "portNote" },
+  "referral-split": {
+    component: ReferralSplitDemo,
+    messages: "referralSplit",
     note: "portNote",
   },
 };

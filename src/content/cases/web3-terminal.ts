@@ -16,7 +16,7 @@ export const web3Terminal: CaseRecord = {
     "three.js",
     "Vite",
   ],
-  demos: ["wallet-state"],
+  demos: ["wallet-state", "referral-split"],
   links: [],
   content: {
     en: {
