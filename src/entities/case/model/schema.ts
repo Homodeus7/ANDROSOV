@@ -10,6 +10,7 @@ export const demoIds = [
   "food-match",
   "guardrails",
   "access-matrix",
+  "wallet-state",
 ] as const;
 
 const metricSchema = z.object({

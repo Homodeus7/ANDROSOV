@@ -117,6 +117,7 @@
     "loading": "Loading the demo…",
     "vueNote": "This demo runs as a real Vue 3 island inside a React page. Vue sits in its own chunk and is not part of the initial payload: the browser picks it up after the page has rendered, and the island mounts once the demo reaches the screen.",
     "reactNote": "This demo is React, like the original. Its own chunk too, out of the initial payload, mounted once it reaches the screen.",
+    "portNote": "This demo is React; the original was Vue 3, so what is on show is the model rather than the framework. Its own chunk too, out of the initial payload, mounted once it reaches the screen.",
     "undoRedo": {
       "title": "Undo buffer",
       "lead": "Drag the blocks, add one, delete one, rename one. Every gesture writes actions into a single buffer, and the buffer collapses before it is sent.",
@@ -413,6 +414,48 @@
       "diverges": "answers the role check gets wrong",
       "hint": "A dispatcher and a resident may both close a ticket — the role says so, and the role is right. Which ticket is a different question, and only the row can answer it.",
       "note": "The rules are one file: nine calls to can, one branch per role, so a new role is a branch rather than a search through components. The panel does not map verdicts to explanations by hand — it asks CASL which rule matched, so an explanation cannot drift away from the rule that produced it. The role check beside it is deliberately given no ticket to look at: that is the defect being shown, not a simplification of it. Where the two disagree is pinned by a unit test, because a divergence nobody counted is not evidence."
+    },
+    "walletState": {
+      "title": "You be the wallet",
+      "lead": "The left panel is the wallet, and you are holding it: approve, refuse, answer that a request is already open, move the network under a connected app. The right panel is the application answering. No extension is asked for and no wallet is connected — what is on show is the state the application keeps, and what it says when a provider hands it a number.",
+      "wallet": "Wallet",
+      "app": "Application",
+      "chain": "Network the wallet is on",
+      "statuses": {
+        "disconnected": "Not connected",
+        "connecting": "Waiting for the wallet",
+        "wrongChain": "Wrong network",
+        "switching": "Waiting for the switch",
+        "ready": "Connected",
+        "signing": "Waiting for a signature"
+      },
+      "advice": {
+        "idle": "Nothing has been asked of the wallet yet.",
+        "connecting": "The request is open in the wallet. There will be no second window — this one is waiting for you, possibly behind the browser.",
+        "wrongChain": "The wallet is on a network this application does not work in. The connection is intact; the network is not.",
+        "switching": "The wallet is being asked to switch networks. It can refuse, and refusing changes nothing that already works.",
+        "ready": "Connected, on the right network, and nothing is pending.",
+        "signing": "The signature request is open in the wallet.",
+        "rejected": "The wallet refused. Nothing was sent and nothing was spent — you can ask again.",
+        "pending": "A request of this kind is already open. Asking again opens nothing: the answer is in the window that is already there.",
+        "signed": "Signed. The signature is in the application and the connection stayed where it was."
+      },
+      "events": {
+        "connect": "Connect",
+        "switch": "Switch network",
+        "sign": "Sign",
+        "approve": "Approve",
+        "reject": "Refuse",
+        "busy": "Already pending",
+        "chainChanged": "Change network",
+        "disconnect": "Disconnect"
+      },
+      "raw": "What the provider returned",
+      "quiet": "The wallet is also allowed to say nothing at all: leave a request unanswered and the application stays in its waiting state rather than deciding on your behalf.",
+      "signature": "Signature",
+      "trail": "Transitions",
+      "hint": "Refuse a signature and watch what does not happen: the connection stays, the network stays, and the application returns to the state it was in before it asked.",
+      "note": "The original was ethers.js, and the part worth showing is not the call — it is the state around it. Six statuses and one transition table: an event a status has no transition for does not exist, so it cannot corrupt anything. Buttons on both panels are enabled straight from that table rather than from a second list of what is currently possible, which is why the demo cannot drift out of step with the machine. The provider codes are real ones — 4001 for a refusal, -32002 for a request already open — and the same code deliberately reads differently depending on where it arrives: a refusal while connecting sends you back to the start, a refusal while signing costs you nothing."
     }
   }
 }

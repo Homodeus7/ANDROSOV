@@ -8,6 +8,7 @@ import { GuardrailsDemo } from "../guardrails";
 import { LiveRollupDemo } from "../live-rollup";
 import { TxTableDemo } from "../tx-table";
 import { UndoRedoDemo } from "../undo-redo";
+import { WalletStateDemo } from "../wallet-state";
 
 type DemoEntry = {
   component: () => React.ReactNode;
@@ -56,6 +57,11 @@ const DEMOS: Record<DemoId, DemoEntry> = {
     component: AccessMatrixDemo,
     messages: "accessMatrix",
     note: "reactNote",
+  },
+  "wallet-state": {
+    component: WalletStateDemo,
+    messages: "walletState",
+    note: "portNote",
   },
 };
 
