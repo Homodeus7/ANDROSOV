@@ -3,6 +3,7 @@ import type { DemoId } from "@/entities/case";
 import { CanvasFpsDemo } from "../canvas-fps";
 import { DynamicFormDemo } from "../dynamic-form";
 import { FoodMatchDemo } from "../food-match";
+import { GuardrailsDemo } from "../guardrails";
 import { LiveRollupDemo } from "../live-rollup";
 import { TxTableDemo } from "../tx-table";
 import { UndoRedoDemo } from "../undo-redo";
@@ -16,6 +17,7 @@ const DEMOS: Partial<Record<DemoId, DemoEntry>> = {
   "dynamic-form": { component: DynamicFormDemo, messages: "dynamicForm", note: "reactNote" },
   "live-rollup": { component: LiveRollupDemo, messages: "liveRollup", note: "reactNote" },
   "food-match": { component: FoodMatchDemo, messages: "foodMatch", note: "reactNote" },
+  guardrails: { component: GuardrailsDemo, messages: "guardrails", note: "reactNote" },
 };
 
 export function DemoSlot({ demo }: { demo: DemoId }) {

@@ -303,6 +303,56 @@
       },
       "hint": "“Buckwheat” is 343 kcal and “Buckwheat groats” is 118. Both names are beyond reproach, and the corpus cannot tell you which one a person meant — only the food group can. So the caller states whether this is a food eaten cooked, and the ranking follows. An apple is raw and stays raw: turn the flag on for it and watch the answer get worse.",
       "note": "The ranking is a sort with eight tie-breaks, and no model takes part in it: choosing the row is choosing the nutrients, and that decision has to be reproducible and reviewable. The rules read a name as whole comma-segments rather than words — “Cheese, Parmesan, dry grated” is grated parmesan, and a word search calls it dry. This code runs here exactly as it runs in production. What is cut is the corpus: 154 rows across 18 foods, so the demo can list every candidate it ranks."
+    },
+    "guardrails": {
+      "title": "The agent proposes, the build disposes",
+      "lead": "Seven diffs an agent might hand you. Five gates decide. Four of the five are this project's own rules — the same lint patterns, the same Zod schema, the same locale check, the same regex the backend greps itself with — running here on a toy file tree.",
+      "proposes": "The diff an agent proposes",
+      "gates": "Gates",
+      "files": "Files it touches",
+      "stopped": "The diff does not go in. It is not a review that stopped it — the build does not produce an artefact.",
+      "passed": "Every gate is silent, and the diff goes in. A wall that never opens is not a gate, it is a wall.",
+      "advice": "No gate has an opinion about this one, so it goes in. Only the instruction file asked otherwise — which is exactly what an instruction can do, and exactly why anything costlier than this does not live there.",
+      "levels": { "advice": "advice", "hook": "hook", "build": "build" },
+      "gateNames": {
+        "layers": "FSD layers",
+        "content": "case schema",
+        "i18n": "locale parity",
+        "boundary": "module boundary",
+        "budget": "payload budget"
+      },
+      "diffs": {
+        "helper-upwards": {
+          "title": "A helper in entities/case that imports from widgets",
+          "body": "The shortest path to reuse, and it points upwards."
+        },
+        "english-only": {
+          "title": "A new case with only the English half written",
+          "body": "The Russian half is a to-do in a comment."
+        },
+        "missing-ru-string": {
+          "title": "A string added to en.json alone",
+          "body": "Nothing crashes: the interface shows the key instead."
+        },
+        "model-in-resolver": {
+          "title": "The resolver asks a model for the calories",
+          "body": "One import, and a deterministic path stops being deterministic."
+        },
+        "heavy-dependency": {
+          "title": "date-fns imported into the root layout",
+          "body": "For one formatted date on one page."
+        },
+        "narrating-comment": {
+          "title": "A comment restating what the code says",
+          "body": "Nothing breaks. It is the noise the instruction file asked not to write."
+        },
+        "honest": {
+          "title": "A section label extracted into shared/ui",
+          "body": "Downwards, through the public API, two kilobytes."
+        }
+      },
+      "hint": "The messages are the ones the real gates print, in the language the tooling prints them — an English lint message does not become Russian because you are reading the site in Russian.",
+      "note": "An instruction is advice: a model can forget it, and a long instruction file stops being read whole. A gate is not. So anything costlier than a typo lives in something that fails — a lint rule, a schema parsed at import, a test that greps the module it belongs to, a payload ceiling in the end-to-end suite. This demo runs the rules, not the toolchain: there is no eslint and no tsc in your browser, and the file tree is a fixture. What is real is the rules themselves, and a test that holds each of these diffs against exactly the gates it claims — a guard nobody has seen trigger is not a guard."
     }
   }
 }
