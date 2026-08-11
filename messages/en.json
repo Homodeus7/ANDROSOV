@@ -322,13 +322,13 @@
       },
       "calls": "model calls",
       "gateNames": {
-        "boundary": "layer boundaries",
-        "contract": "client against schema",
-        "lint": "the debt ratchet"
+        "boundary": "which code may use which",
+        "contract": "request code against the API spec",
+        "lint": "tech debt is not growing"
       },
       "meterNames": {
-        "specs": "logic modules with no test",
-        "size": "largest slice"
+        "specs": "modules with logic but no tests",
+        "size": "largest chunk of code"
       },
       "linkNames": {
         "responsibility": "responsibility",
@@ -339,13 +339,13 @@
       "noCeiling": "no ceiling",
       "ceiling": "ceiling",
       "silent": "silent",
-      "notReached": "Not run: the diff was stopped a tier below.",
+      "notReached": "Not run: the edit was stopped at an earlier level.",
       "outcomes": {
-        "build": "The diff does not go in. It is not a review that stopped it — the build simply does not produce an artefact.",
-        "threshold": "The number is over the ceiling, and the diff does not go in. A ceiling is not truth, it is a budget: it stands so that the increase gets noticed the day it is made.",
-        "chain": "The gates are silent; a link objects. It cannot reject the diff — only name a price somebody would otherwise pay without looking."
+        "build": "The edit does not go in, and no reviewer decided that: the project simply does not build with it.",
+        "threshold": "The number is over the limit, and the edit does not go in. A limit is not truth, it is a budget: it stands so that the increase gets noticed the day it is made.",
+        "chain": "The automated checks are silent; an AI reviewer objects. It cannot reject the edit — only name a price somebody would otherwise pay without looking."
       },
-      "passed": "All three tiers are silent, and the diff goes in. A wall that never opens is not a gate, it is a wall.",
+      "passed": "All three levels are silent, and the edit goes in. A check that never lets anything through is not a check, it is a wall.",
       "diffs": {
         "import-up": {
           "title": "A feature's dialog reaches for a widget",
@@ -380,8 +380,8 @@
           "body": "The card takes a callback; the state lives where the flow does."
         }
       },
-      "hint": "The objections are printed as the reviewers wrote them, in the language they read this codebase in — a Russian objection does not become English because you are reading the site in English.",
-      "note": "An instruction is advice. On the FoodIQ frontend it weighs 129 KB across 3,360 lines in fourteen files, and no model holds that in its head on every edit. So the question is not whether to write rules, it is where to put each one. The costliest example is right here: the layer rules in this repository were written out in full — and nothing ever ran them, because they sat in .eslintrc.json, which ESLint 9 no longer reads. A written rule and a running rule are different things, and the difference surfaces on exactly the day somebody goes looking. What is decidable goes down into the build and stops being prose: porting the config surfaced 358 errors, 179 of them about entry points and 13 about layers; today it is 30 and 2. What is measurable becomes a number — though neither meter here has a ceiling, and that is not a gap in the demo but the state of the repository. The remainder goes to the chain, where it costs money — which is why there are four links and not one: a reviewer holding every rule at once approves everything. The build has its own blind spot too: boundaries does not parse import(), so a dynamic pull from a neighbouring feature passes in silence — only a link catches it. This demo runs the rules, not the toolchain: there is no vitest and no eslint in your browser, and the file tree is a fixture. What is real is the rules, the numbers, and the objections — they came out of an actual run of the agents that live in this frontend's .claude/agents/."
+      "hint": "The objections appear exactly as the reviewers wrote them, in the language they read this codebase in — a Russian objection does not turn English because you opened the site in English.",
+      "note": "An instruction for an agent is only advice. On the FoodIQ frontend it runs to 129 KB and 3,360 lines across fourteen files, and no model holds that in its head on every edit. So the question is not whether to write rules, it is where to put each one. The costliest example is right here: the rules about which code may use which were written out in full and were not running at all, because they sat in an old-format config that the current linter no longer reads. A written rule and a running rule are different things, and the difference surfaces on exactly the day somebody goes looking. Whatever a machine can decide goes down into the build and stops being prose: porting the config surfaced 358 violations, and today there are 30. Whatever can be measured becomes a number somebody watches. Everything else goes to the AI reviewers, and that is where checking starts costing money. There are four reviewers rather than one because a single reviewer holding every rule at once approves everything. The build has its own blind spot too: it does not see code pulled in on the fly, so only a reviewer catches that edit. The demo runs the rules, not the tooling: there is no linter and no test runner in your browser, and the file tree is a fixture. What is real is the rules, the numbers and the objections — they came out of an actual run of the agents on that project."
     },
     "accessMatrix": {
       "title": "Permissions live in one place",

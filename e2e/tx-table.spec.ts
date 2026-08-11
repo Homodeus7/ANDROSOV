@@ -30,7 +30,7 @@ test.describe("transaction table demo", () => {
     const windowed = await rows(page).count();
     expect(windowed).toBeGreaterThan(0);
     expect(windowed).toBeLessThan(60);
-    await expect(meter(page, "Rows in the DOM")).toContainText("500");
+    await expect(meter(page, "Rows actually drawn")).toContainText("500");
 
     await press(page, "Virtualised");
     await expect(rows(page)).toHaveCount(500);

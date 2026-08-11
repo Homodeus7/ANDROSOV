@@ -57,7 +57,7 @@ test.describe("food match demo", () => {
     const whole = await chosen(page).nth(1).innerText();
     expect(whole).toContain("dry grated");
 
-    await press(page, "read the name as a substring");
+    await press(page, "match the name as a fragment");
     await expect(chosen(page).nth(1)).not.toContainText("dry grated");
   });
 
