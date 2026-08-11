@@ -1,15 +1,15 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { blocked, diffs, review, type Diff } from "@/entities/guardrail";
+import { diffs, review, type Diff } from "@/entities/guardrail";
 import type { GuardrailsStrings } from "../model/strings";
-import { GatePanel } from "./gate-panel";
+import { VerdictPanel } from "./verdict-panel";
 
 export function Guardrails({ strings }: { strings: GuardrailsStrings }) {
   const [selected, setSelected] = useState<Diff>(diffs[0]!);
 
-  const verdicts = useMemo(() => review(selected), [selected]);
-  const stopped = blocked(verdicts);
+  const result = useMemo(() => review(selected), [selected]);
+  const { stoppedAt } = result;
 
   return (
     <div className="grid gap-4 lg:grid-cols-[3fr_2fr]">
@@ -48,24 +48,6 @@ export function Guardrails({ strings }: { strings: GuardrailsStrings }) {
           </ul>
         </div>
 
-        <p className="spec text-muted normal-case">{strings.hint}</p>
-      </div>
-
-      <div className="flex flex-col gap-4">
-        <GatePanel verdicts={verdicts} strings={strings} />
-
-        <p
-          data-outcome={stopped ? "stopped" : selected.advice ? "advice" : "passed"}
-          className={`border-2 p-4 text-sm ${
-            stopped
-              ? "border-accent-ink text-accent-ink"
-              : // Пунктир: правка прошла, но чистой её назвать нельзя
-                `border-border text-muted ${selected.advice ? "border-dashed" : ""}`
-          }`}
-        >
-          {stopped ? strings.stopped : selected.advice ? strings.advice : strings.passed}
-        </p>
-
         <div className="border-border bg-surface border-2 p-3">
           <p className="spec text-muted">{strings.files}</p>
           <ul className="mt-2 flex flex-col gap-1">
@@ -76,6 +58,24 @@ export function Guardrails({ strings }: { strings: GuardrailsStrings }) {
             ))}
           </ul>
         </div>
+
+        <p className="spec text-muted normal-case">{strings.hint}</p>
+      </div>
+
+      <div className="flex flex-col gap-4">
+        <VerdictPanel result={result} strings={strings} />
+
+        <p
+          data-outcome={stoppedAt ?? "passed"}
+          className={`border-2 p-4 text-sm ${
+            stoppedAt === undefined
+              ? "border-border text-muted"
+              : // Пунктир: правку остановил не отказ сборки, а возражение
+                `border-accent-ink text-accent-ink ${stoppedAt === "chain" ? "border-dashed" : ""}`
+          }`}
+        >
+          {stoppedAt ? strings.outcomes[stoppedAt] : strings.passed}
+        </p>
 
         <p className="text-muted max-w-prose text-xs">{strings.note}</p>
       </div>

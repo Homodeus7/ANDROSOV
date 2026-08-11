@@ -1,129 +1,160 @@
-import { caseSchema } from "@/entities/case";
-import { keyPaths } from "@/shared/lib";
-import type { Gate, Project, ProjectFile } from "./types";
+import type { Gate, Meter, Project, ProjectFile } from "./types";
 
-/** Те же слои и в том же порядке, что в `eslint.config.mjs`. Сверено тестом. */
-export const LAYERS = ["app", "views", "widgets", "features", "entities", "shared"];
+/** Ярусы FSD сверху вниз, как в `boundaries/elements` конфига репозитория. */
+const LAYERS = ["app", "views", "widgets", "features", "entities", "shared"] as const;
 
-/** Потолок начального JS из `e2e/budget.spec.ts`. */
-export const INITIAL_JS_KB = 260;
+type Layer = (typeof LAYERS)[number];
 
-/** Регулярки из `reference-foods.boundaries.spec.ts`, дословно. */
-const FORBIDDEN = [/from\s+'openai'/, /from\s+'@anthropic-ai\//, /from\s+'[^']*\/ai\//];
+/**
+ * `ai-parse` склеивает три сущности и не знает ни одной фичи: он между
+ * ярусами, а такого яруса в FSD нет. Единственное именованное исключение.
+ */
+const EXCEPTION = "ai-parse";
 
-const SLICE_LAYERS = LAYERS.filter((layer) => layer !== "app").join("|");
-const DEEP_IMPORT = new RegExp(`^@/(?:${SLICE_LAYERS})/[^/]+/.+`);
-const STYLES = /^@\/shared\/styles\//;
+const LAYER_OF = /^src\/(app|views|widgets|features|entities|shared)\//;
+
+const rank = (layer: Layer): number => LAYERS.indexOf(layer);
+
+const layerOf = (path: string): Layer | undefined =>
+  LAYER_OF.exec(path)?.[1] as Layer | undefined;
+
+const sliceOf = (path: string): string | undefined => path.split("/")[2];
 
 const imports = (file: ProjectFile): string[] =>
   [...file.source.matchAll(/from\s+["']([^"']+)["']/g)].map((match) => match[1]!);
 
-const layerOf = (path: string): string | undefined =>
-  LAYERS.find((layer) => path.startsWith(`src/${layer}/`));
-
-function checkLayers(project: Project): string | undefined {
-  for (const file of project) {
-    const layer = layerOf(file.path);
-    if (!layer) continue;
-
-    const above = LAYERS.slice(0, LAYERS.indexOf(layer));
-
-    for (const target of imports(file)) {
-      if (DEEP_IMPORT.test(target) && !STYLES.test(target)) {
-        return "FSD: import a slice through its public API (index.ts) only.";
-      }
-
-      const upper = above.find(
-        (name) => target === `@/${name}` || target.startsWith(`@/${name}/`),
-      );
-
-      if (upper) {
-        return `FSD: "${layer}" may not import from "${above.join('", "')}" — imports go downwards only.`;
-      }
-    }
-  }
-
-  return undefined;
-}
-
-function checkContent(project: Project): string | undefined {
-  for (const file of project) {
-    if (file.record === undefined) continue;
-
-    const result = caseSchema.safeParse(file.record);
-    if (!result.success) {
-      const issue = result.error.issues[0];
-      return `Invalid case: ${issue?.path.join(".")} — ${issue?.message}`;
-    }
-  }
-
-  return undefined;
-}
-
-function isBlank(value: unknown): boolean {
-  if (typeof value === "string") return value.trim() === "";
-  if (value === null || typeof value !== "object") return false;
-  return Object.values(value).some(isBlank);
-}
-
-function checkI18n(project: Project): string | undefined {
-  const read = (name: string) => {
-    const file = project.find((item) => item.path === `messages/${name}.json`);
-    return file ? (JSON.parse(file.source) as unknown) : undefined;
-  };
-
-  const locales = { en: read("en"), ru: read("ru") };
-  if (locales.en === undefined || locales.ru === undefined) return "A locale file is missing.";
-
-  const en = keyPaths(locales.en);
-  const ru = keyPaths(locales.ru);
-
-  const missing = en.filter((path) => !ru.includes(path));
-  if (missing.length > 0) return `Locale "ru" is missing ${missing.join(", ")}.`;
-
-  const extra = ru.filter((path) => !en.includes(path));
-  if (extra.length > 0) return `Locale "en" is missing ${extra.join(", ")}.`;
-
-  for (const [locale, messages] of Object.entries(locales)) {
-    if (isBlank(messages)) return `Locale "${locale}" has an empty string.`;
-  }
-
-  return undefined;
-}
+const read = (project: Project, path: string): ProjectFile | undefined =>
+  project.find((file) => file.path === path);
 
 function checkBoundary(project: Project): string | undefined {
   for (const file of project) {
-    if (!file.path.startsWith("modules/reference-foods/")) continue;
+    const from = layerOf(file.path);
+    if (!from) continue;
 
-    if (FORBIDDEN.some((pattern) => pattern.test(file.source))) {
-      return `${file.path} reaches a language model from the request path.`;
+    for (const target of imports(file)) {
+      const alias = /^@\/(app|views|widgets|features|entities|shared)\/([^/"]+)/.exec(target);
+      if (!alias) continue;
+
+      const to = alias[1] as Layer;
+      const slice = alias[2]!;
+
+      if (rank(to) < rank(from)) {
+        return `${file.path} imports upwards: ${from} → ${to}.`;
+      }
+
+      // У `shared` публичного API нет и сегменты зовут друг друга напрямую:
+      // правило соседства действует от `entities` и выше
+      if (from === "shared") continue;
+
+      if (to === from && slice !== sliceOf(file.path) && slice !== EXCEPTION) {
+        return `${file.path} imports a sibling ${from.slice(0, -1)} (${slice}).`;
+      }
     }
-
-    const sibling = imports(file).find(
-      (target) => target.startsWith("../../") && !target.includes("reference-foods"),
-    );
-
-    if (sibling) return `${file.path} imports a sibling module (${sibling}).`;
   }
 
   return undefined;
 }
 
-function checkBudget(project: Project): string | undefined {
-  const kilobytes = project.reduce((total, file) => total + (file.initialKb ?? 0), 0);
-  return kilobytes < INITIAL_JS_KB
-    ? undefined
-    : `${kilobytes} KB of javascript before load, over the ${INITIAL_JS_KB} KB budget.`;
+/**
+ * Клиент API — производная от схемы, а не источник правды. Ворота ловят ровно
+ * то, что в CI ловит `npx orval && git diff --exit-code`: правку руками.
+ */
+function checkContract(project: Project): string | undefined {
+  for (const file of project) {
+    if (!file.generatedFrom) continue;
+
+    const schema = read(project, file.generatedFrom);
+    if (!schema) return `${file.generatedFrom} is missing.`;
+
+    const declared = (JSON.parse(schema.source) as { operations: string[] }).operations;
+    const exported = [...file.source.matchAll(/export const (\w+)/g)].map((match) => match[1]!);
+
+    const stray = exported.find(
+      (name) => !declared.some((operation) => name.toLowerCase().includes(operation.toLowerCase())),
+    );
+
+    if (stray) {
+      return `${file.path} is generated, but ${stray} is not in ${file.generatedFrom}.`;
+    }
+  }
+
+  return undefined;
+}
+
+/** Долг, записанный в базу на текущем HEAD. Правка сравнивается с ним. */
+const BASELINE_AT_HEAD: Record<string, number> = {
+  "boundaries/element-types": 2,
+  "boundaries/entry-point": 30,
+};
+
+/** Храповик: долг по линту не обязан быть нулём, но не имеет права расти. */
+function checkLint(project: Project): string | undefined {
+  const ci = read(project, ".github/workflows/ci.yml");
+  if (!ci) return "The workflow is missing.";
+
+  // Не `\b`: после `lint` в `lint:ratchet` стоит двоеточие, и граница слова там есть
+  if (/run:\s*npm run lint(?![:\w-])/.test(ci.source)) {
+    return "CI runs `npm run lint`, which carries --fix and rewrites files instead of failing.";
+  }
+
+  if (!/npm run lint:ratchet/.test(ci.source)) return "CI does not run the ratchet.";
+
+  const baseline = read(project, "lint-baseline.json");
+  if (!baseline) return "lint-baseline.json is missing: the ratchet has nothing to hold.";
+
+  const allowed = JSON.parse(baseline.source) as Record<string, number>;
+
+  for (const [rule, count] of Object.entries(allowed)) {
+    if (count > (BASELINE_AT_HEAD[rule] ?? 0)) {
+      return `${rule}: debt grew from ${BASELINE_AT_HEAD[rule] ?? 0} to ${count}.`;
+    }
+  }
+
+  return undefined;
+}
+
+export const gates: Gate[] = [
+  { id: "boundary", check: checkBoundary },
+  { id: "contract", check: checkContract },
+  { id: "lint", check: checkLint },
+];
+
+const TESTED_DIRS = [/^src\/shared\/lib\//, /^src\/[^/]+\/[^/]+\/model\//];
+
+const carriesLogic = (file: ProjectFile): boolean =>
+  !/\.test\.tsx?$/.test(file.path) &&
+  TESTED_DIRS.some((dir) => dir.test(file.path)) &&
+  /export (function|const)/.test(file.source);
+
+function countUntested(project: Project): number {
+  return project.filter((file) => {
+    if (!carriesLogic(file)) return false;
+
+    const base = file.path.replace(/\.tsx?$/, "");
+    return !read(project, `${base}.test.ts`) && !read(project, `${base}.test.tsx`);
+  }).length;
+}
+
+/** Строки самого большого слайса: размер меряют там, где он растёт. */
+function largestSlice(project: Project): number {
+  const totals = new Map<string, number>();
+
+  for (const file of project) {
+    const layer = layerOf(file.path);
+    if (!layer || layer === "shared") continue;
+
+    const key = `${layer}/${sliceOf(file.path)}`;
+    totals.set(key, (totals.get(key) ?? 0) + (file.lines ?? 0));
+  }
+
+  return Math.max(0, ...totals.values());
 }
 
 /**
- * Уровень — не украшение: он говорит, что случится с нарушением. Все пять
- * ворот здесь `build`, потому что всё, что дороже опечатки, живёт там.
+ * Оба измерения без потолка — так в репозитории и есть. Названная цифра без
+ * порога честнее, чем порог, взятый с потолка, но и остановить она не может.
  */
-export const gates: Gate[] = [
-  { id: "layers", level: "build", check: checkLayers },
-  { id: "content", level: "build", check: checkContent },
-  { id: "i18n", level: "build", check: checkI18n },
-  { id: "boundary", level: "build", check: checkBoundary },
-  { id: "budget", level: "build", check: checkBudget },
+export const meters: Meter[] = [
+  { id: "specs", unit: "files", measure: countUntested },
+  { id: "size", unit: "lines", measure: largestSlice },
 ];

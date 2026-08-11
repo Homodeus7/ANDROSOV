@@ -11,7 +11,7 @@ const ROUTES = [
   "/en/work/payment-gateways",
   "/en/work/property-ops",
   "/en/work/web3-terminal",
-  "/en/work/agent-harness",
+  // `/en/work/agent-harness` снят с показа, см. `src/content/cases/index.ts`
 ];
 
 test.describe("smoke", () => {

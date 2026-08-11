@@ -42,7 +42,6 @@ export const agentHarness: CaseRecord = {
   slug: "agent-harness",
   order: 5,
   nda: false,
-  demos: ["guardrails"],
   stack: [
     "Claude Code",
     "TypeScript",

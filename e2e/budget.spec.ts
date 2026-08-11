@@ -35,8 +35,8 @@ test.describe("payload budget", () => {
   // Vue не входит в начальную загрузку страницы. Отдельный чанк с ним Next
   // подтягивает уже после `load`, по простою — это не то же самое, что «по
   // появлению на экране», но в отрисовку первого экрана он не попадает
-  test("keeps Vue out of the initial payload", async ({ page }) => {
-    const bodies: Promise<{ url: string; vue: boolean }>[] = [];
+  async function scriptsContaining(page: Page, needle: string) {
+    const bodies: Promise<{ url: string; hit: boolean }>[] = [];
     let loaded = false;
 
     page.on("response", (response) => {
@@ -44,15 +44,26 @@ test.describe("payload budget", () => {
       bodies.push(
         response
           .text()
-          .then((body) => ({ url: response.url(), vue: body.includes("createApp") }))
-          .catch(() => ({ url: response.url(), vue: false })),
+          .then((body) => ({ url: response.url(), hit: body.includes(needle) }))
+          .catch(() => ({ url: response.url(), hit: false })),
       );
     });
 
     await page.goto("/en/lab", { waitUntil: "load" });
     loaded = true;
 
-    const vue = (await Promise.all(bodies)).filter((script) => script.vue).map((s) => s.url);
+    return (await Promise.all(bodies)).filter((script) => script.hit).map((s) => s.url);
+  }
+
+  test("keeps Vue out of the initial payload", async ({ page }) => {
+    const vue = await scriptsContaining(page, "createApp");
     expect(vue, vue.join("\n")).toEqual([]);
+  });
+
+  // Правила доступа целиком лежат в чанке демо: один импорт из обёртки утянул
+  // бы и CASL, и таблицу правил в начальную загрузку каждой страницы
+  test("keeps the rules engine out of the initial payload", async ({ page }) => {
+    const casl = await scriptsContaining(page, "__caslSubjectType__");
+    expect(casl, casl.join("\n")).toEqual([]);
   });
 });

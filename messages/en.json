@@ -82,25 +82,25 @@
   },
   "about": {
     "title": "About",
-    "headline": "I take the half of the frontend that usually breaks",
+    "headline": "I write frontend that holds up under load",
     "body": [
-      "I am Viacheslav Androsov, a frontend engineer with four years of production experience. I started with Web3 interfaces on outsourcing, moved through B2B and FinTech products, and now work on the core of a corporate low-code platform: the editor engine, undo across operations, the frame budget.",
-      "What interests me is not the mockup but what sits behind it: how the state is arranged, what happens between frames, why a table starts stuttering at five hundred rows and what to do about it. I work in both React and Vue — not \"familiar with both\", but two production codebases I had to switch between mid-week.",
-      "Almost everything I have built is under NDA and cannot be linked. So this site is arranged differently: every claim that carries a number is rebuilt as a demo you can run right here and watch the counter."
+      "Frontend engineer. Four years in production.",
+      "What interests me is not the markup but what sits behind it: how the state is arranged, what happens between frames, why a table starts stuttering at five hundred rows and what to do about it. I work in both React and Vue — not \"familiar with both\", but two production codebases I had to switch between mid-week.",
+      "Over those years a set of problems piled up that were interesting to solve and are worth talking about. The most telling ones I have rebuilt here from scratch: every claim that carries a number becomes its own demo — you can run it right on the page and watch the counter."
     ],
     "principlesTitle": "How I work",
     "principles": [
       {
         "title": "Measure first, then write",
-        "body": "Optimising without measuring is guessing. Twice while building these demos the measurement showed that the \"slow\" version was in fact fast, and the demo had to be rewritten rather than the wording adjusted."
+        "body": "Optimising without measuring is guessing. Twice while building these demos the measurement showed that the \"slow\" version was in fact the faster one, and it was the demo that had to be rewritten, not the wording."
       },
       {
         "title": "Boundaries over polish",
-        "body": "FSD, public APIs per slice, a linter that catches an import going upwards. Fifty modules and three teams in one repository survive on hard boundaries; they do not survive on agreements."
+        "body": "FSD, public APIs per slice, a linter that catches an import going upwards. Fifty modules and three teams in one repository live on hard boundaries — not on agreements."
       },
       {
         "title": "Tests where mistakes are expensive",
-        "body": "Not for a coverage number. A buffer collapse that quietly changes data is caught only by a property over generated sessions; a panel printing the wrong schema, only by a test tying it to the validator."
+        "body": "Not for a coverage number. A buffer collapse that quietly changes data is caught only by a property check over generated sessions; a panel printing the wrong schema, only by a test that checks it against the validator."
       }
     ]
   },
@@ -117,10 +117,17 @@
     "loading": "Loading the demo…",
     "vueNote": "This demo runs as a real Vue 3 island inside a React page. Vue sits in its own chunk and is not part of the initial payload: the browser picks it up after the page has rendered, and the island mounts once the demo reaches the screen.",
     "reactNote": "This demo is React, like the original. Its own chunk too, out of the initial payload, mounted once it reaches the screen.",
+    "portNote": "This demo is React; the original was Vue 3, so what is on show is the model rather than the framework. Its own chunk too, out of the initial payload, mounted once it reaches the screen.",
     "undoRedo": {
       "title": "Undo buffer",
       "lead": "Drag the blocks, add one, delete one, rename one. Every gesture writes actions into a single buffer, and the buffer collapses before it is sent.",
-      "seedNames": ["Request", "Validate", "Route", "Notify", "Archive"],
+      "seedNames": [
+        "Request",
+        "Validate",
+        "Route",
+        "Notify",
+        "Archive"
+      ],
       "newBlockName": "Step",
       "add": "Add",
       "connect": "Link",
@@ -304,54 +311,190 @@
       "note": "The ranking is a sort with eight tie-breaks, and no model takes part in it: choosing the row is choosing the nutrients, and that decision has to be reproducible and reviewable. The rules read a name as whole comma-segments rather than words — “Cheese, Parmesan, dry grated” is grated parmesan, and a word search calls it dry. This code runs here exactly as it runs in production. What is cut is the corpus: 154 rows across 18 foods, so the demo can list every candidate it ranks."
     },
     "guardrails": {
-      "title": "The agent proposes, the build disposes",
-      "lead": "Seven diffs an agent might hand you. Five gates decide. Four of the five are this project's own rules — the same lint patterns, the same Zod schema, the same locale check, the same regex the backend greps itself with — running here on a toy file tree.",
+      "title": "What holds a rule up",
+      "lead": "Eight diffs an agent might hand you on the FoodIQ frontend, and three tiers that meet them. A tier does not answer whether the diff is bad; it answers what finding out costs. The build answers for free and always the same way. A meter names a number. A chain of four reviewers thinks — and thinking costs model calls.",
       "proposes": "The diff an agent proposes",
-      "gates": "Gates",
       "files": "Files it touches",
-      "stopped": "The diff does not go in. It is not a review that stopped it — the build does not produce an artefact.",
-      "passed": "Every gate is silent, and the diff goes in. A wall that never opens is not a gate, it is a wall.",
-      "advice": "No gate has an opinion about this one, so it goes in. Only the instruction file asked otherwise — which is exactly what an instruction can do, and exactly why anything costlier than this does not live there.",
-      "levels": { "advice": "advice", "hook": "hook", "build": "build" },
-      "gateNames": {
-        "layers": "FSD layers",
-        "content": "case schema",
-        "i18n": "locale parity",
-        "boundary": "module boundary",
-        "budget": "payload budget"
+      "tiers": {
+        "build": "Build",
+        "threshold": "Meter",
+        "chain": "Chain"
       },
+      "calls": "model calls",
+      "gateNames": {
+        "boundary": "layer boundaries",
+        "contract": "client against schema",
+        "lint": "the debt ratchet"
+      },
+      "meterNames": {
+        "specs": "logic modules with no test",
+        "size": "largest slice"
+      },
+      "linkNames": {
+        "responsibility": "responsibility",
+        "repeat": "repeat",
+        "simplicity": "simplicity",
+        "cost": "cost"
+      },
+      "noCeiling": "no ceiling",
+      "ceiling": "ceiling",
+      "silent": "silent",
+      "notReached": "Not run: the diff was stopped a tier below.",
+      "outcomes": {
+        "build": "The diff does not go in. It is not a review that stopped it — the build simply does not produce an artefact.",
+        "threshold": "The number is over the ceiling, and the diff does not go in. A ceiling is not truth, it is a budget: it stands so that the increase gets noticed the day it is made.",
+        "chain": "The gates are silent; a link objects. It cannot reject the diff — only name a price somebody would otherwise pay without looking."
+      },
+      "passed": "All three tiers are silent, and the diff goes in. A wall that never opens is not a gate, it is a wall.",
       "diffs": {
-        "helper-upwards": {
-          "title": "A helper in entities/case that imports from widgets",
-          "body": "The shortest path to reuse, and it points upwards."
+        "import-up": {
+          "title": "A feature's dialog reaches for a widget",
+          "body": "An import upwards. This exact spot in the repository was broken."
         },
-        "english-only": {
-          "title": "A new case with only the English half written",
-          "body": "The Russian half is a to-do in a comment."
+        "hand-edit-generated": {
+          "title": "A hook hand-written into the generated client",
+          "body": "Orval wipes that directory whole and rebuilds it from schema.yml."
         },
-        "missing-ru-string": {
-          "title": "A string added to en.json alone",
-          "body": "Nothing crashes: the interface shows the key instead."
+        "ratchet-grows": {
+          "title": "The lint baseline rewritten to fit new violations",
+          "body": "Debt grows quietly with nothing to compare against. That is what a ratchet is for."
         },
-        "model-in-resolver": {
-          "title": "The resolver asks a model for the calories",
-          "body": "One import, and a deterministic path stops being deterministic."
+        "card-fetches": {
+          "title": "The card fetches the user itself",
+          "body": "Two places know about the same loaded state."
         },
-        "heavy-dependency": {
-          "title": "date-fns imported into the root layout",
-          "body": "For one formatted date on one page."
+        "own-default": {
+          "title": "The diary keeps its own calorie default",
+          "body": "One rule written four ways, over two separate constants."
         },
-        "narrating-comment": {
-          "title": "A comment restating what the code says",
-          "body": "Nothing breaks. It is the noise the instruction file asked not to write."
+        "double-suspense": {
+          "title": "Tabs wrapped in Suspense on top of dynamic",
+          "body": "The boundary is already inside; a second identical one sits outside."
         },
-        "honest": {
-          "title": "A section label extracted into shared/ui",
-          "body": "Downwards, through the public API, two kilobytes."
+        "type-three-ways": {
+          "title": "One type, three legal import paths",
+          "body": "Twenty-three lines in shared/lib and two pass-through re-exports."
+        },
+        "slot-from-above": {
+          "title": "The weight sheet lifted to the page",
+          "body": "The card takes a callback; the state lives where the flow does."
         }
       },
-      "hint": "The messages are the ones the real gates print, in the language the tooling prints them — an English lint message does not become Russian because you are reading the site in Russian.",
-      "note": "An instruction is advice: a model can forget it, and a long instruction file stops being read whole. A gate is not. So anything costlier than a typo lives in something that fails — a lint rule, a schema parsed at import, a test that greps the module it belongs to, a payload ceiling in the end-to-end suite. This demo runs the rules, not the toolchain: there is no eslint and no tsc in your browser, and the file tree is a fixture. What is real is the rules themselves, and a test that holds each of these diffs against exactly the gates it claims — a guard nobody has seen trigger is not a guard."
+      "hint": "The objections are printed as the reviewers wrote them, in the language they read this codebase in — a Russian objection does not become English because you are reading the site in English.",
+      "note": "An instruction is advice. On the FoodIQ frontend it weighs 129 KB across 3,360 lines in fourteen files, and no model holds that in its head on every edit. So the question is not whether to write rules, it is where to put each one. The costliest example is right here: the layer rules in this repository were written out in full — and nothing ever ran them, because they sat in .eslintrc.json, which ESLint 9 no longer reads. A written rule and a running rule are different things, and the difference surfaces on exactly the day somebody goes looking. What is decidable goes down into the build and stops being prose: porting the config surfaced 358 errors, 179 of them about entry points and 13 about layers; today it is 30 and 2. What is measurable becomes a number — though neither meter here has a ceiling, and that is not a gap in the demo but the state of the repository. The remainder goes to the chain, where it costs money — which is why there are four links and not one: a reviewer holding every rule at once approves everything. The build has its own blind spot too: boundaries does not parse import(), so a dynamic pull from a neighbouring feature passes in silence — only a link catches it. This demo runs the rules, not the toolchain: there is no vitest and no eslint in your browser, and the file tree is a fixture. What is real is the rules, the numbers, and the objections — they came out of an actual run of the agents that live in this frontend's .claude/agents/."
+    },
+    "accessMatrix": {
+      "title": "The row decides, not the role",
+      "lead": "Four roles over one queue of tickets. Every action asks the same question — is this allowed — and the answer depends on the row it is asked about: whose flat it is, who it is assigned to, whether the work is done. Switch the verdict over to a role check written in the component and it agrees with the rules right up to the first ticket belonging to somebody else.",
+      "naive": "Role in the component",
+      "roles": {
+        "operator": "Operator",
+        "dispatcher": "Dispatcher",
+        "accountant": "Accountant",
+        "resident": "Resident"
+      },
+      "actions": {
+        "read": "Read",
+        "assign": "Assign",
+        "close": "Close",
+        "invoice": "Invoice"
+      },
+      "kinds": {
+        "leak": "Water leak",
+        "heating": "No heating",
+        "lift": "Lift stuck",
+        "noise": "Noise complaint"
+      },
+      "statuses": {
+        "new": "new",
+        "assigned": "assigned",
+        "done": "done"
+      },
+      "columns": {
+        "id": "Ticket",
+        "flat": "Flat",
+        "kind": "Subject",
+        "status": "Status",
+        "assignee": "Assignee"
+      },
+      "rules": {
+        "operatorRead": "An operator reads every ticket in the queue.",
+        "operatorAssign": "An operator assigns a ticket while it is still new.",
+        "dispatcherRead": "A dispatcher reads every ticket in the queue.",
+        "dispatcherAssign": "A dispatcher assigns any ticket, at any point.",
+        "dispatcherClose": "A dispatcher closes a ticket that is assigned to them.",
+        "accountantRead": "An accountant reads every ticket in the queue.",
+        "accountantInvoice": "An accountant invoices a ticket once the work is done.",
+        "residentRead": "A resident reads tickets from their own flat.",
+        "residentClose": "A resident confirms work done in their own flat."
+      },
+      "unassigned": "nobody",
+      "redacted": "not visible",
+      "ask": "Press an action on a row — that is the component asking whether it is allowed.",
+      "allowed": "Allowed",
+      "denied": "Denied",
+      "noRule": "No rule grants it, and that is the whole answer. Nothing here was forbidden; nothing was permitted either.",
+      "byRole": "Role check says",
+      "visible": "rows readable",
+      "diverges": "answers the role check gets wrong",
+      "hint": "A dispatcher and a resident may both close a ticket — the role says so, and the role is right. Which ticket is a different question, and only the row can answer it.",
+      "note": "The rules are one file: nine calls to can, one branch per role, so a new role is a branch rather than a search through components. The panel does not map verdicts to explanations by hand — it asks CASL which rule matched, so an explanation cannot drift away from the rule that produced it. The role check beside it is deliberately given no ticket to look at: that is the defect being shown, not a simplification of it. Where the two disagree is pinned by a unit test, because a divergence nobody counted is not evidence."
+    },
+    "walletState": {
+      "title": "The state around the wallet",
+      "lead": "The left panel is the wallet, and you are holding it: approve, refuse, answer that a request is already open, move the network under a connected app. The right panel is the application answering. No extension is asked for and no wallet is connected — what is on show is the state the application keeps, and what it says when a provider hands it a number.",
+      "wallet": "Wallet",
+      "app": "Application",
+      "chain": "Network the wallet is on",
+      "statuses": {
+        "disconnected": "Not connected",
+        "connecting": "Waiting for the wallet",
+        "wrongChain": "Wrong network",
+        "switching": "Waiting for the switch",
+        "ready": "Connected",
+        "signing": "Waiting for a signature"
+      },
+      "advice": {
+        "idle": "Nothing has been asked of the wallet yet.",
+        "connecting": "The request is open in the wallet. There will be no second window — this one is waiting for you, possibly behind the browser.",
+        "wrongChain": "The wallet is on a network this application does not work in. The connection is intact; the network is not.",
+        "switching": "The wallet is being asked to switch networks. It can refuse, and refusing changes nothing that already works.",
+        "ready": "Connected, on the right network, and nothing is pending.",
+        "signing": "The signature request is open in the wallet.",
+        "rejected": "The wallet refused. Nothing was sent and nothing was spent — you can ask again.",
+        "pending": "A request of this kind is already open. Asking again opens nothing: the answer is in the window that is already there.",
+        "signed": "Signed. The signature is in the application and the connection stayed where it was."
+      },
+      "events": {
+        "connect": "Connect",
+        "switch": "Switch network",
+        "sign": "Sign",
+        "approve": "Approve",
+        "reject": "Refuse",
+        "busy": "Already pending",
+        "chainChanged": "Change network",
+        "disconnect": "Disconnect"
+      },
+      "raw": "What the provider returned",
+      "quiet": "The wallet is also allowed to say nothing at all: leave a request unanswered and the application stays in its waiting state rather than deciding on your behalf.",
+      "signature": "Signature",
+      "trail": "Transitions",
+      "hint": "Refuse a signature and watch what does not happen: the connection stays, the network stays, and the application returns to the state it was in before it asked.",
+      "note": "The original was ethers.js, and the part worth showing is not the call — it is the state around it. Six statuses and one transition table: an event a status has no transition for does not exist, so it cannot corrupt anything. Buttons on both panels are enabled straight from that table rather than from a second list of what is currently possible, which is why the demo cannot drift out of step with the machine. The provider codes are real ones — 4001 for a refusal, -32002 for a request already open — and the same code deliberately reads differently depending on where it arrives: a refusal while connecting sends you back to the start, a refusal while signing costs you nothing."
+    },
+    "referralSplit": {
+      "title": "Twelve people and one cent",
+      "lead": "A referral pool split down a team tree, in proportion to what each member turned over. Drag the pool. The total paid holds on the pool at every position, and beside it is what the same split does when each row is rounded on its own and nobody adds the column up.",
+      "pool": "Pool",
+      "team": "Team",
+      "share": "Share of volume",
+      "payout": "Payout",
+      "subtotal": "branch",
+      "paid": "paid out",
+      "drift": "cents the row-by-row rounding is off by",
+      "exact": "The first number is the pool, to the cent, at every position of the slider. The second is not money anyone lost — it is money that was never reconciled.",
+      "hint": "A cent is not a rounding error here: it is either paid to somebody or it is not, and the two answers have to be the same number.",
+      "note": "Everything is counted in whole cents, because money in a float is a decision to be wrong later. Shares are cut down to the cent and the remainder is handed out by largest remainder — a sort, once, and the payouts sum to the pool for any pool. Ties are broken by an explicit order, otherwise the same team would be paid differently depending on how the sort felt about equal remainders today. The tree is not decoration: every branch total is the sum of what is under it, and a test holds that against the payouts rather than against another sum computed the same way."
     }
   }
 }
