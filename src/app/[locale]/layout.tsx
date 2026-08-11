@@ -65,8 +65,17 @@ export default async function LocaleLayout({ children, params }: LayoutProps) {
     { label: "LinkedIn", href: site.linkedin },
   ];
 
+  // data-scroll-behavior возвращает поведение до Next 16: на время перехода
+  // `scroll-behavior` гасится. Без него прокрутка к началу новой страницы едет
+  // анимацией поверх наших собственных переходов — перелёта заголовка и подъёма
   return (
-    <html lang={locale} data-theme="dark" className={fontClassName} suppressHydrationWarning>
+    <html
+      lang={locale}
+      data-theme="dark"
+      data-scroll-behavior="smooth"
+      className={fontClassName}
+      suppressHydrationWarning
+    >
       <head>
         <ThemeScript />
       </head>
