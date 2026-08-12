@@ -21,7 +21,8 @@
     "test:run": "vitest run",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
-    "resume:pdf": "node scripts/resume-pdf.mjs"
+    "resume:pdf": "node scripts/resume-pdf.mjs",
+    "resume:docx": "python3 scripts/resume-docx.py"
   },
   "dependencies": {
     "@casl/ability": "^7.0.1",

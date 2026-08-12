@@ -4,7 +4,7 @@ Frontend Developer (React / Vue / TypeScript)
 
 Vietnam | Open to remote work
 
-\+7 993 075 84 04 · [bandrone.man@gmail.com](mailto:bandrone.man@gmail.com) · [t.me/awaitMeBro](https://t.me/awaitMeBro) · [github.com/Homodeus7](https://github.com/Homodeus7) · [linkedin.com/in/bandrones](https://www.linkedin.com/in/bandrones)
+\+7 993 075 84 04 · [bandrone.man@gmail.com](mailto:bandrone.man@gmail.com) · [t.me/awaitMeBro](https://t.me/awaitMeBro) · [androsov.space](https://androsov.space) · [github.com/Homodeus7](https://github.com/Homodeus7) · [linkedin.com/in/bandrones](https://www.linkedin.com/in/bandrones)
 
 **SUMMARY**
 
@@ -73,3 +73,29 @@ Frontend developer with 4+ years of commercial experience. Started with outsourc
 * Worked through UX together with the product manager and the designer: loading states, error handling, onboarding for new users.
 
 ***Stack:** Vue 3 (Composition API), TypeScript, Pinia / Vuex, TanStack Query, vee-validate \+ Yup, Vite, SCSS / Tailwind CSS, ethers.js, web3.js, MetaMask, WalletConnect, ApexCharts, GSAP, three.js.*
+
+**PET PROJECTS**
+
+**FoodIQ — pet project**	*[foodiq.space](https://foodiq.space)*
+
+*Calorie-tracking web app: the user describes a meal in plain text and AI works out the calories and macros*
+
+* Frontend on Next.js 16 and backend on NestJS: from the idea and the design through to a production deployment.
+* Built AI meal parsing from free text: products, weights, calories and macros are worked out automatically, with a confidence score to check them against.
+* Built the food diary, goals and plans, custom products and recipes over a public database, statistics with charts, the marketing landing page and the admin panel.
+* Made token-based billing: a free monthly allowance, one-off packs and a subscription, paid in crypto through NOWPayments.
+* Set up the infrastructure: a typed API client from OpenAPI (Orval), FSD architecture, Vitest and Playwright tests, Storybook, dark theme, i18n (ru/en).
+
+***Stack:** Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS v4, shadcn/ui (Radix), TanStack Query, Zustand, React Hook Form \+ Zod, OpenAPI, Recharts, Vitest, Playwright, Storybook, FSD.*
+
+**androsov.space — portfolio**	*[androsov.space](https://androsov.space)*
+
+*Portfolio site where every claim that carries a number is a demo you can run on the same page*
+
+* Next.js 16 (App Router), React 19 and TypeScript in two locales: the design, the copy, the code and the deployment are all mine.
+* Eight interactive demos, each rebuilding one feature from a production project: the undo/redo buffer, the canvas frame budget, a transaction table, a dynamic payout form, permissions on CASL, wallet states. The logic sits in separate entities and is covered by unit tests.
+* Two of the demos are written in Vue and run as islands inside the React app: Vue arrives in a chunk of its own once the island reaches the screen, and never enters the initial payload.
+* FSD boundaries are held by two hand-written ESLint rules (an import going upwards through the layers, an import bypassing a slice's public API), and case content is checked by Zod at import time: a half-translated case fails the build rather than shipping.
+* Covered the demos with Playwright e2e tests, including an accessibility pass through axe.
+
+***Stack:** Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS v4, GSAP, Lenis, next-intl, Zod, Vue 3, CASL, Vitest, Playwright, FSD, Vercel.*

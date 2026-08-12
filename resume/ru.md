@@ -4,7 +4,7 @@ Frontend Developer (React / Vue / TypeScript)
 
 Вьетнам | Готов к удаленной работе
 
-\+7 993 075 84 04 · [bandrone.man@gmail.com](mailto:bandrone.man@gmail.com) · [t.me/awaitMeBro](https://t.me/awaitMeBro) · [github.com/Homodeus7](https://github.com/Homodeus7) · [linkedin.com/in/bandrones](https://www.linkedin.com/in/bandrones)
+\+7 993 075 84 04 · [bandrone.man@gmail.com](mailto:bandrone.man@gmail.com) · [t.me/awaitMeBro](https://t.me/awaitMeBro) · [androsov.space](https://androsov.space) · [github.com/Homodeus7](https://github.com/Homodeus7) · [linkedin.com/in/bandrones](https://www.linkedin.com/in/bandrones)
 
 **О СЕБЕ**
 
@@ -73,3 +73,29 @@ Frontend-разработчик с 4+ годами коммерческого о
 * Прорабатывал UX вместе с продактом и дизайнером: состояния загрузки, обработка ошибок, онбординг новых пользователей.
 
 ***Стек:** Vue 3 (Composition API), TypeScript, Pinia / Vuex, TanStack Query, vee-validate \+ Yup, Vite, SCSS / Tailwind CSS, ethers.js, web3.js, MetaMask, WalletConnect, ApexCharts, GSAP, three.js.*
+
+**ПЕТ-ПРОЕКТЫ**
+
+**FoodIQ — пет-проект**	*[foodiq.space](https://foodiq.space)*
+
+*Веб-приложение для учета калорий: пользователь описывает еду обычным текстом, AI считает калории и БЖУ*
+
+* Фронтенд на Next.js 16 и бэкенд на NestJS: от идеи и дизайна до деплоя в продакшен.
+* Реализовал AI-разбор приема пищи из текста: продукты, граммовки, калории и БЖУ считаются автоматически, с оценкой уверенности для проверки.
+* Собрал дневник питания, цели и планы, свои продукты и рецепты с публичной базой, статистику с графиками, маркетинговый лендинг и админку.
+* Сделал биллинг на токенах: бесплатный месячный лимит, разовые пакеты и подписка, оплата криптовалютой через NOWPayments.
+* Настроил инфраструктуру: типизированный API-клиент из OpenAPI (Orval), архитектура FSD, тесты Vitest и Playwright, Storybook, тёмная тема, i18n (ru/en).
+
+***Стек:** Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS v4, shadcn/ui (Radix), TanStack Query, Zustand, React Hook Form \+ Zod, OpenAPI, Recharts, Vitest, Playwright, Storybook, FSD.*
+
+**androsov.space — портфолио**	*[androsov.space](https://androsov.space)*
+
+*Сайт-портфолио, где каждое утверждение с цифрой вынесено в работающее демо на той же странице*
+
+* Next.js 16 (App Router), React 19 и TypeScript, две локали: дизайн, тексты, код и деплой — сам.
+* Восемь интерактивных демо, каждое воспроизводит одну фичу из рабочего проекта: буфер undo/redo, кадровый бюджет холста, таблица транзакций, динамическая форма выплат, права на CASL, состояния кошелька. Логика вынесена в отдельные сущности и покрыта unit-тестами.
+* Два демо написаны на Vue и работают островами внутри React-приложения: Vue приезжает отдельным чанком, когда остров показался на экране, и в начальную загрузку не попадает.
+* Границы FSD держат два самописных правила ESLint (импорт вверх по слоям и в обход public API слайса), а контент кейсов Zod проверяет при импорте: наполовину переведённый кейс роняет сборку, а не уезжает в прод.
+* Покрыл демо e2e-тестами Playwright, включая проверку доступности через axe.
+
+***Стек:** Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS v4, GSAP, Lenis, next-intl, Zod, Vue 3, CASL, Vitest, Playwright, FSD, Vercel.*

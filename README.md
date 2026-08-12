@@ -16,6 +16,8 @@ npm run lint         # eslint
 npm run test:run     # vitest
 npm run test:e2e     # playwright (builds and serves on :3100)
 npm run format       # prettier
+npm run resume:pdf   # resume PDFs from resume/*.md
+npm run resume:docx  # the same source as .docx, two layouts (needs python-docx)
 ```
 
 ## Architecture
