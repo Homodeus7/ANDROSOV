@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { ArrowDown } from "lucide-react";
-import { DUR, EASE, STAGGER, SplitText, gsap, useGSAP } from "@/shared/motion";
+import { DUR, EASE, STAGGER, ScrollTrigger, SplitText, gsap, useGSAP } from "@/shared/motion";
 import { prefersReducedMotion, useReducedMotion } from "@/shared/lib";
 import { Container, SectionLabel } from "@/shared/ui";
 import { HEADLINE, Headline } from "./headline";
@@ -128,12 +128,20 @@ export function Hero() {
               end: "+=100%",
               scrub: 1,
               pin: true,
+              // Пин раздвигает страницу на экран вниз, поэтому меряться он
+              // обязан раньше всех остальных триггеров
+              refreshPriority: 1,
             },
           })
           .to("[data-hero-line]", { yPercent: -14, stagger: 0.04, ease: "none" }, 0)
           .to(meta, { opacity: 0, ease: "none" }, 0)
           .to("[data-hero-bg]", { yPercent: 12, ease: "none" }, 0);
       });
+
+      // Триггеры ниже героя посчитались при монтировании, а пин появляется
+      // только сейчас — вместе со шрифтами. Без пересчёта их старты остаются
+      // на экран выше реального положения
+      ScrollTrigger.refresh();
 
       return () => {
         observer.disconnect();

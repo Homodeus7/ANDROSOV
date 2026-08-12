@@ -3,7 +3,7 @@ import { useTranslations } from "next-intl";
 import { type ResolvedCase } from "@/entities/case";
 import { CodeBlock } from "@/shared/code";
 import { cn } from "@/shared/lib";
-import { Reveal } from "@/shared/motion";
+import { CounterText, Reveal } from "@/shared/motion";
 import { TransitionLink } from "@/shared/page-transition";
 import { Container, SectionLabel } from "@/shared/ui";
 import { DemoSlot } from "@/widgets/demos";
@@ -76,7 +76,9 @@ export function CasePage({ item, index, total, previous, next }: CasePageProps) 
         >
           {item.metrics.map((metric) => (
             <li key={metric.label} className="bg-bg px-4 py-10 md:px-8">
-              <p className="display text-h1">{metric.value}</p>
+              <p className="display text-h1">
+                <CounterText value={metric.value} />
+              </p>
               <p className="spec mt-4">{metric.label}</p>
               {metric.detail ? (
                 <p className="text-muted mt-2 max-w-prose text-sm">{metric.detail}</p>
