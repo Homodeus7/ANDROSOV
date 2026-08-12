@@ -1,10 +1,10 @@
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { caseFlipId, type ResolvedCase } from "@/entities/case";
+import { type ResolvedCase } from "@/entities/case";
 import { CodeBlock } from "@/shared/code";
-import { Link } from "@/shared/i18n";
 import { cn } from "@/shared/lib";
-import { FlipTarget, Reveal } from "@/shared/motion";
+import { Reveal } from "@/shared/motion";
+import { TransitionLink } from "@/shared/page-transition";
 import { Container, SectionLabel } from "@/shared/ui";
 import { DemoSlot } from "@/widgets/demos";
 import { CaseNav } from "./case-nav";
@@ -37,10 +37,10 @@ export function CasePage({ item, index, total, previous, next }: CasePageProps) 
       <section className="border-border border-b-2 pt-28 pb-12 md:pt-36 md:pb-16">
         <Container>
           <div className="spec text-muted flex items-center justify-between gap-4">
-            <Link href="/" className="hover:text-fg flex items-center gap-2">
+            <TransitionLink href="/" className="hover:text-fg flex items-center gap-2">
               <ArrowLeft aria-hidden className="size-4" />
               {tNav("work")}
-            </Link>
+            </TransitionLink>
             <div className="flex items-center gap-4">
               <span aria-hidden>
                 {String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
@@ -58,10 +58,8 @@ export function CasePage({ item, index, total, previous, next }: CasePageProps) 
             </div>
           </div>
 
-          <h1 className="display text-display mt-10 break-words">
-            <FlipTarget flipId={caseFlipId(item.slug)} className="inline-block">
-              {item.title}
-            </FlipTarget>
+          <h1 data-page-title className="display text-display mt-10 break-words">
+            {item.title}
           </h1>
 
           <p className="mt-8 max-w-3xl text-xl leading-snug text-balance md:text-2xl">

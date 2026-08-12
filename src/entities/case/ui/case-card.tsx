@@ -1,7 +1,6 @@
 import { ArrowUpRight } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { cn } from "@/shared/lib";
-import { caseFlipId } from "../model/route";
 import type { ResolvedCase } from "../model/schema";
 import { CaseLink } from "./case-link";
 
@@ -22,7 +21,7 @@ export function CaseCard({ item, index, total, featured = false, className }: Ca
       slug={item.slug}
       className={cn(
         "flood group border-border flex flex-col justify-between border-2 p-5 md:p-8",
-        featured ? "min-h-[20rem] md:min-h-[24rem]" : "min-h-60 md:min-h-64",
+        featured ? "min-h-80 md:min-h-96" : "min-h-60 md:min-h-64",
         className,
       )}
     >
@@ -44,10 +43,7 @@ export function CaseCard({ item, index, total, featured = false, className }: Ca
 
       <div className="mt-10">
         <div className="flex items-start justify-between gap-4">
-          <h3
-            data-flip-id={caseFlipId(item.slug)}
-            className={cn("display text-balance", featured ? "text-h1" : "text-h2")}
-          >
+          <h3 className={cn("display text-balance", featured ? "text-h1" : "text-h2")}>
             {item.title}
           </h3>
           <ArrowUpRight

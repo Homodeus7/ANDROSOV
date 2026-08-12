@@ -17,6 +17,8 @@ export const HEADLINE: HeadlineLine[] = [
 export function Headline({ lines, className }: { lines: HeadlineLine[]; className?: string }) {
   return (
     <h1
+      data-page-title
+      data-title-own
       aria-label={lines.map((line) => line.text).join(" ")}
       className={cn("hero-fit display leading-[0.98] tracking-[-0.04em]", className)}
     >

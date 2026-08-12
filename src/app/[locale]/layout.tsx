@@ -3,13 +3,14 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider, useTranslations } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { caseFlipId, caseHref, getCases } from "@/entities/case";
+import { caseHref, getCases } from "@/entities/case";
 import { CommandPalette } from "@/features/command-palette";
 import { MobileNav } from "@/features/mobile-nav";
 import { ThemeScript } from "@/features/theme";
 import { site } from "@/shared/config";
 import { fontClassName } from "@/shared/fonts";
 import { routing } from "@/shared/i18n";
+import { PageTransitionRoot } from "@/shared/page-transition";
 import { SmoothScroll } from "@/shared/smooth-scroll";
 import { GridOverlay } from "@/widgets/grid-overlay";
 import { SiteFooter } from "@/widgets/site-footer";
@@ -63,11 +64,10 @@ export default async function LocaleLayout({ children, params }: LayoutProps) {
   setRequestLocale(locale);
 
   // В палитру уходят только заголовки: полный контент кейсов в клиентский бандл
-  // не нужен. Маршрут и метка перелёта считаются здесь по той же причине —
-  // палитра лежит в корневом макете и не должна тянуть за собой сущность
+  // не нужен. Маршрут считается здесь по той же причине — палитра лежит в
+  // корневом макете и не должна тянуть за собой сущность
   const paletteCases = getCases(locale).map(({ slug, title, tagline }) => ({
     href: caseHref(slug),
-    flipId: caseFlipId(slug),
     title,
     tagline,
   }));
@@ -99,6 +99,7 @@ export default async function LocaleLayout({ children, params }: LayoutProps) {
       <body>
         <NextIntlClientProvider>
           <SkipLink />
+          <PageTransitionRoot />
           <SmoothScroll />
           <GridOverlay />
           <CommandPalette cases={paletteCases} links={paletteLinks} />

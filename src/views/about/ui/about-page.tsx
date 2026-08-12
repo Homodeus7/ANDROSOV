@@ -11,7 +11,9 @@ export function AboutPage() {
       <section className="border-border border-b-2 pt-28 pb-12 md:pt-36 md:pb-16">
         <Container>
           <SectionLabel>{t("title")}</SectionLabel>
-          <h1 className="display text-h1 mt-6 max-w-4xl text-balance">{t("headline")}</h1>
+          <h1 data-page-title className="display text-h1 mt-6 max-w-4xl text-balance">
+            {t("headline")}
+          </h1>
           <div className="mt-8 max-w-prose space-y-4 text-lg leading-relaxed">
             {paragraphs.map((paragraph) => (
               <p key={paragraph}>{paragraph}</p>

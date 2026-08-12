@@ -6,7 +6,8 @@ import { ArrowUpRight } from "lucide-react";
 import { ThemeToggle } from "@/features/theme";
 import { Link, locales, usePathname, useRouter } from "@/shared/i18n";
 import { cn, prefersReducedMotion } from "@/shared/lib";
-import { usePageScrollLock, useScrollTopNavigate } from "@/shared/smooth-scroll";
+import { usePageScrollLock } from "@/shared/smooth-scroll";
+import { usePageNavigate } from "@/shared/page-transition";
 
 export type MobileNavCase = { href: string; title: string; tagline: string };
 
@@ -60,7 +61,7 @@ export function MobileNav({ cases, links }: MobileNavProps) {
   const pathname = usePathname();
   const activeLocale = useLocale();
   const router = useRouter();
-  const navigate = useScrollTopNavigate();
+  const navigate = usePageNavigate();
 
   const [open, setOpen] = useState(false);
   const [shown, setShown] = useState(false);

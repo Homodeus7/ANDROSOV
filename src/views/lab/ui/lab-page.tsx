@@ -11,7 +11,9 @@ export function LabPage() {
       <section className="border-border border-b-2 pt-28 pb-12 md:pt-36 md:pb-16">
         <Container grid className="gap-y-0">
           <SectionLabel className="col-span-full">{t("title")}</SectionLabel>
-          <h1 className="display text-h1 col-span-full mt-6">{t("title")}</h1>
+          <h1 data-page-title className="display text-h1 col-span-full mt-6">
+            {t("title")}
+          </h1>
           <p className="col-span-full mt-8 text-xl leading-snug lg:col-span-6">{t("lead")}</p>
         </Container>
       </section>

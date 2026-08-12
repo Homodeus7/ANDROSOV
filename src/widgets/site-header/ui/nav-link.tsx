@@ -1,8 +1,9 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { Link, usePathname } from "@/shared/i18n";
+import { usePathname } from "@/shared/i18n";
 import { cn } from "@/shared/lib";
+import { TransitionLink } from "@/shared/page-transition";
 
 /**
  * Отдельный клиентский кусок, а не вся шапка: путь нужен только ссылкам, а
@@ -21,12 +22,12 @@ export function NavLink({
   const active = match.some((path) => pathname === path || pathname.startsWith(`${path}/`));
 
   return (
-    <Link
+    <TransitionLink
       href={href}
       aria-current={active ? "page" : undefined}
       className={cn(active ? "text-accent-ink" : "hover:text-accent-ink")}
     >
       {children}
-    </Link>
+    </TransitionLink>
   );
 }

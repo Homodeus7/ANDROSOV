@@ -50,7 +50,9 @@ export function ResumePage() {
       <section className="border-border border-b-2 pt-28 pb-12 md:pt-36 md:pb-16">
         <Container>
           <SectionLabel>{t("title")}</SectionLabel>
-          <h1 className="display text-h1 mt-6">{resume.name}</h1>
+          <h1 data-page-title className="display text-h1 mt-6">
+            {resume.name}
+          </h1>
           <p className="mt-4 text-xl leading-snug">{resume.headline}</p>
           <p className="text-muted mt-8 max-w-3xl leading-relaxed">{resume.summary}</p>
 

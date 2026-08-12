@@ -3,16 +3,12 @@
 import type { ComponentProps, MouseEvent } from "react";
 import { Link } from "@/shared/i18n";
 import { prefersReducedMotion } from "@/shared/lib";
-import { useScrollTopNavigate } from "../lib/use-scroll-top-navigate";
+import { usePageNavigate } from "../lib/use-page-navigate";
 
-type ScrollTopLinkProps = ComponentProps<typeof Link> & {
-  href: string;
-  /** Вызывается, когда переход остаётся за нами: после всех отказов, до подъёма */
-  onNavigate?: () => void;
-};
+type TransitionLinkProps = ComponentProps<typeof Link> & { href: string };
 
-export function ScrollTopLink({ href, onClick, onNavigate, ...props }: ScrollTopLinkProps) {
-  const navigate = useScrollTopNavigate();
+export function TransitionLink({ href, onClick, ...props }: TransitionLinkProps) {
+  const navigate = usePageNavigate();
 
   return (
     <Link
@@ -32,7 +28,6 @@ export function ScrollTopLink({ href, onClick, onNavigate, ...props }: ScrollTop
         if (modified) return;
 
         event.preventDefault();
-        onNavigate?.();
         navigate(href);
       }}
     />

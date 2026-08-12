@@ -1,9 +1,5 @@
 import { test, expect, type Page } from "@playwright/test";
 
-type Box = { x: number; y: number; width: number; height: number };
-
-const distance = (a: Box, b: Box) => Math.hypot(a.x - b.x, a.y - b.y);
-
 /**
  * `scrollIntoViewIfNeeded` прокручивает мимо Lenis, и тот ещё какое-то время
  * доводит страницу сам. Рамку карточки нужно снимать, когда она встала
@@ -22,53 +18,11 @@ async function settleScroll(page: Page) {
   throw new Error("scroll never settled");
 }
 
-type Flight = { source: Box | null; frames: Box[] };
-
-/**
- * Кадры перелёта пишет сама страница: переход клиентский, контекст переживает
- * его. Замеры из процесса теста ловят перелёт как повезёт, а на узком экране
- * весь ход укладывается в четверть секунды — первые кадры терялись.
- *
- * Рамка карточки снимается тем же кликом на всплытии вниз, а не заранее: клик
- * Playwright сам подкручивает высокую карточку в вид, да и подъём страницы
- * начинается сразу за ним — к моменту перехода карточка уже не там
- */
-async function recordFlight(page: Page, source: string) {
-  await page.evaluate((selector) => {
-    const rect = (node: Element) => {
-      const { x, y, width, height } = node.getBoundingClientRect();
-      return { x, y, width, height };
-    };
-
-    const flight: Flight = { source: null, frames: [] };
-    (window as unknown as { __flight: Flight }).__flight = flight;
-
-    document.addEventListener(
-      "click",
-      () => {
-        const node = document.querySelector(selector);
-        if (node) flight.source = rect(node);
-      },
-      true,
-    );
-
-    const tick = () => {
-      const node = document.querySelector("h1 [data-flip-id]");
-      if (node) flight.frames.push(rect(node));
-      requestAnimationFrame(tick);
-    };
-
-    requestAnimationFrame(tick);
-  }, source);
-
-  return () => page.evaluate(() => (window as unknown as { __flight: Flight }).__flight);
-}
-
 test.describe("case page", () => {
-  test("carries the shared-element target and the neighbour band", async ({ page }) => {
+  test("carries the page title and the neighbour band", async ({ page }) => {
     await page.goto("/en/work/foodiq");
 
-    await expect(page.locator('h1 [data-flip-id="case-foodiq"]')).toBeVisible();
+    await expect(page.locator("h1[data-page-title]")).toHaveText("FoodIQ");
 
     const neighbours = page.locator('nav a[href*="/work/"]');
     await expect(neighbours).toHaveCount(2);
@@ -77,34 +31,6 @@ test.describe("case page", () => {
     )) {
       expect(href).not.toContain("/work/foodiq");
     }
-  });
-
-  test("flies the title over from the card it was opened from", async ({ page }) => {
-    await page.goto("/en");
-    const card = page.locator('a[href$="/work/blocks-editor"]').first();
-    await card.scrollIntoViewIfNeeded();
-    await settleScroll(page);
-
-    const flight = await recordFlight(page, '[data-flip-id="case-blocks-editor"]');
-    await card.click();
-
-    await expect(page).toHaveURL(/\/work\/blocks-editor$/);
-    await page.waitForTimeout(1200);
-
-    const { source, frames } = await flight();
-    expect(source, "клик по карточке не зафиксирован").not.toBeNull();
-    expect(frames.length).toBeGreaterThan(4);
-
-    const from = source!;
-    const first = frames[0];
-    const landed = frames[frames.length - 1];
-
-    // На узком экране карточка и заголовок стоят почти на одном месте, поэтому
-    // одной координаты мало: перелёт стартует и позицией, и кеглем карточки
-    expect(distance(first, from), "заголовок не стартовал от карточки").toBeLessThan(4);
-    expect(Math.abs(first.height - from.height)).toBeLessThan(from.height * 0.1);
-
-    expect(distance(first, landed) + Math.abs(first.height - landed.height)).toBeGreaterThan(8);
   });
 
   // Карточка на главной ведёт себя как соседи внизу кейса: сначала подъём,

@@ -41,9 +41,12 @@ export function SmoothScroll() {
 
         const unbind = bindPageScroll({
           setLocked: (locked) => (locked ? lenis.stop() : lenis.start()),
-          toTop: () =>
-            new Promise((resolve) => {
-              const seconds = window.scrollY / TO_TOP_SPEED;
+          toTop: () => {
+            if (window.scrollY < 1) return Promise.resolve();
+
+            const seconds = window.scrollY / TO_TOP_SPEED;
+
+            return new Promise<void>((resolve) => {
               // force: остановленный Lenis игнорирует scrollTo, а прокрутка
               // вверх нужна и из-под оверлея
               lenis.scrollTo(0, {
@@ -52,7 +55,8 @@ export function SmoothScroll() {
                 force: true,
                 onComplete: () => resolve(),
               });
-            }),
+            });
+          },
         });
 
         dispose = () => {

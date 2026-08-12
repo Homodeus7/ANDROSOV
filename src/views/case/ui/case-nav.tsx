@@ -1,6 +1,6 @@
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { CaseLink, caseFlipId, type ResolvedCase } from "@/entities/case";
+import { CaseLink, type ResolvedCase } from "@/entities/case";
 import { cn } from "@/shared/lib";
 
 type CaseNavProps = {
@@ -44,9 +44,7 @@ function NavCard({
         />
         {label}
       </span>
-      <span data-flip-id={caseFlipId(item.slug)} className="display text-h2 text-balance">
-        {item.title}
-      </span>
+      <span className="display text-h2 text-balance">{item.title}</span>
     </CaseLink>
   );
 }
