@@ -1,18 +1,24 @@
 import { test, expect } from "@playwright/test";
+import { overflowReport } from "./overflow";
 
-const ROUTES = [
-  "/en",
-  "/ru",
-  "/en/lab",
-  "/en/about",
-  "/en/resume",
-  "/en/work/foodiq",
-  "/en/work/blocks-editor",
-  "/en/work/payment-gateways",
-  "/en/work/property-ops",
-  "/en/work/web3-terminal",
-  // `/en/work/agent-harness` снят с показа, см. `src/content/cases/index.ts`
+const SLUGS = [
+  "foodiq",
+  "blocks-editor",
+  "payment-gateways",
+  "property-ops",
+  "web3-terminal",
+  "tender-stat",
 ];
+
+// Обе локали, а не только английская: русские слова длиннее, и упирается в
+// край экрана всегда русский набор — «Лаборатория» на узком телефоне
+const ROUTES = ["en", "ru"].flatMap((locale) => [
+  `/${locale}`,
+  `/${locale}/lab`,
+  `/${locale}/about`,
+  `/${locale}/resume`,
+  ...SLUGS.map((slug) => `/${locale}/work/${slug}`),
+]);
 
 test.describe("smoke", () => {
   for (const route of ROUTES) {
@@ -38,39 +44,11 @@ test.describe("smoke", () => {
       await page.goto(route);
       await page.evaluate(() => document.fonts.ready);
 
-      const widest = await page.evaluate(() => {
-        const limit = document.documentElement.clientWidth;
+      const report = await overflowReport(page);
 
-        // data-clip помечает места, где обрезка по горизонтали — сознательное решение
-        const insideScroller = (el: HTMLElement) => {
-          for (
-            let node = el.parentElement;
-            node && node !== document.body;
-            node = node.parentElement
-          ) {
-            if (node.hasAttribute("data-clip")) return true;
-            if (/^(auto|scroll)$/.test(getComputedStyle(node).overflowX)) return true;
-          }
-          return false;
-        };
-
-        const offenders: string[] = [];
-        for (const el of document.querySelectorAll<HTMLElement>("body *")) {
-          const rect = el.getBoundingClientRect();
-          if (rect.width === 0) continue;
-          if (rect.right <= limit + 1 && rect.left >= -1) continue;
-          if (insideScroller(el)) continue;
-          offenders.push(`${el.tagName}.${el.className}`.slice(0, 80));
-        }
-
-        return {
-          offenders: offenders.slice(0, 5),
-          scrolls: document.documentElement.scrollWidth > limit,
-        };
-      });
-
-      expect(widest.scrolls).toBe(false);
-      expect(widest.offenders).toEqual([]);
+      expect(report.scrolls).toBe(false);
+      expect(report.escaped).toEqual([]);
+      expect(report.spilled).toEqual([]);
     });
   }
 });

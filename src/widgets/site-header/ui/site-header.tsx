@@ -38,8 +38,12 @@ export function SiteHeader() {
           </ul>
 
           <PaletteButton />
-          <LocaleSwitcher />
-          <ThemeToggle />
+          {/* На телефоне тема и язык живут в оверлее навигации — в шапке они
+              были бы вторым набором тех же кнопок */}
+          <div className="hidden items-center gap-3 sm:flex">
+            <LocaleSwitcher />
+            <ThemeToggle />
+          </div>
         </nav>
       </Container>
     </HeaderShell>

@@ -17,7 +17,13 @@
     "skipToContent": "Skip to content",
     "groupCases": "Cases",
     "groupPages": "Pages",
-    "groupActions": "Actions"
+    "groupActions": "Actions",
+    "menuOpen": "Menu",
+    "menuClose": "Close",
+    "menuLabel": "Site navigation",
+    "menuTitle": "Index",
+    "groupSections": "Sections",
+    "currentPage": "Here"
   },
   "home": {
     "role": "Frontend Engineer",

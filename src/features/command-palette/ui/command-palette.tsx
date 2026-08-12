@@ -79,7 +79,10 @@ export function CommandPalette({ cases, links }: CommandPaletteProps) {
       <div className="border-border bg-surface w-full max-w-xl border-2">
         <Command.Input
           placeholder={t("palettePlaceholder")}
-          className="spec placeholder:text-muted border-border w-full border-b-2 bg-transparent px-4 py-4 outline-none"
+          // 16px не для набора, а против Safari: на iOS фокус в поле мельче
+          // шестнадцати пикселей зумит вьюпорт, и отыграть масштаб обратно
+          // можно только жестом. С sm рисунок возвращается к `spec`
+          className="spec placeholder:text-muted border-border w-full border-b-2 bg-transparent px-4 py-4 text-base outline-none sm:text-[length:var(--text-spec)]"
         />
         {/* Остановленный Lenis гасит колесо целиком, включая события внутри
             модалки; этот атрибут — единственный путь, на котором он отдаёт

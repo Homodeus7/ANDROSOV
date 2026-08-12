@@ -1,9 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-// Смена языка меняет сегмент корневого layout, поэтому React собирает <html>
-// заново и снимает с него всё, чего нет в разметке. Тема живёт ровно там —
-// и светлая уезжала в тёмную на каждом переключении
-test("keeps the chosen theme when the language changes", async ({ page }) => {
+test("keeps the chosen theme when the language changes", async ({ page }, testInfo) => {
   const noise: string[] = [];
   page.on("console", (message) => {
     if (message.text().includes("script tag")) noise.push(message.text());
@@ -14,7 +11,13 @@ test("keeps the chosen theme when the language changes", async ({ page }) => {
 
   await page.goto("/en");
 
-  // Слушатель кнопки появляется только после гидратации, до неё клик — ничто
+  // На узком экране тема и язык живут в оверлее навигации, а не в шапке
+  if (testInfo.project.name === "mobile") {
+    await page.waitForTimeout(600);
+    await page.getByRole("button", { name: "Menu" }).click();
+    await expect(toggle).toBeVisible();
+  }
+
   await expect
     .poll(async () => {
       if ((await html.getAttribute("data-theme")) === "light") return "light";

@@ -5,6 +5,7 @@ import { hasLocale, NextIntlClientProvider, useTranslations } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { caseFlipId, caseHref, getCases } from "@/entities/case";
 import { CommandPalette } from "@/features/command-palette";
+import { MobileNav } from "@/features/mobile-nav";
 import { ThemeScript } from "@/features/theme";
 import { site } from "@/shared/config";
 import { fontClassName } from "@/shared/fonts";
@@ -93,6 +94,7 @@ export default async function LocaleLayout({ children, params }: LayoutProps) {
           <SmoothScroll />
           <GridOverlay />
           <CommandPalette cases={paletteCases} links={paletteLinks} />
+          <MobileNav cases={paletteCases} links={paletteLinks} />
           <SiteHeader />
           {/* tabIndex={-1} — без него ссылка «к содержимому» только проматывает
               страницу, а фокус остаётся в шапке, и клавиатуре приходится

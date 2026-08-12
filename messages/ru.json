@@ -17,7 +17,13 @@
     "skipToContent": "К содержимому",
     "groupCases": "Кейсы",
     "groupPages": "Страницы",
-    "groupActions": "Действия"
+    "groupActions": "Действия",
+    "menuOpen": "Меню",
+    "menuClose": "Закрыть",
+    "menuLabel": "Навигация по сайту",
+    "menuTitle": "Индекс",
+    "groupSections": "Разделы",
+    "currentPage": "Здесь"
   },
   "home": {
     "role": "Фронтенд-разработчик",
