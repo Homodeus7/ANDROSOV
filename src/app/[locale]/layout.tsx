@@ -2,7 +2,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider, useTranslations } from "next-intl";
-import { getTranslations, setRequestLocale } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 import { caseHref, getCases } from "@/entities/case";
 import { CommandPalette } from "@/features/command-palette";
 import { MobileNav } from "@/features/mobile-nav";
@@ -60,8 +60,6 @@ function SkipLink() {
 export default async function LocaleLayout({ children, params }: LayoutProps) {
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) notFound();
-
-  setRequestLocale(locale);
 
   // В палитру уходят только заголовки: полный контент кейсов в клиентский бандл
   // не нужен. Маршрут считается здесь по той же причине — палитра лежит в

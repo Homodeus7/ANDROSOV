@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { setRequestLocale } from "next-intl/server";
 import { getCase, getCaseNeighbours, getCaseSlugs } from "@/entities/case";
 import { routing, type Locale } from "@/shared/i18n";
 import { CasePage } from "@/views/case";
@@ -21,7 +20,6 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function Page({ params }: PageProps) {
   const { locale, slug } = await params;
-  setRequestLocale(locale);
 
   const item = getCase(slug, locale);
   if (!item) notFound();

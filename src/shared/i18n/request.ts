@@ -1,3 +1,4 @@
+import * as rootParams from "next/root-params";
 import { hasLocale } from "next-intl";
 import { getRequestConfig } from "next-intl/server";
 import type { Locale } from "@/shared/config";
@@ -14,8 +15,8 @@ const MESSAGES: Record<Locale, () => Promise<{ default: Record<string, unknown> 
   ru: () => import("../../../messages/ru.json"),
 };
 
-export default getRequestConfig(async ({ requestLocale }) => {
-  const requested = await requestLocale;
+export default getRequestConfig(async ({ locale: override }) => {
+  const requested = override ?? (await rootParams.locale());
   const locale = hasLocale(routing.locales, requested) ? requested : routing.defaultLocale;
 
   return {
