@@ -282,8 +282,8 @@
       "note": "Sums and counts can be added up: a minute is the sum of its twelve five-second pieces, and no regrouping changes the answer. Averages already cannot: to combine two averages you need to know how many events stand behind each, and those counts are gone once the totals are stored. p95 cannot be combined at all. p95 is the line below which 95% of the values fall — to find it you need the values themselves, not somebody else's totals. No formula turns twelve stored p95 values into the p95 of the minute. So the dashed line on the chart is not an approximate answer. It is a confident answer to a different question."
     },
     "foodMatch": {
-      "title": "The row you pick is the answer",
-      "lead": "Type a food. The same rows from the USDA reference, sorted two ways: the obvious one — shortest name, most measurements — and the one the product actually ships. The calories at the top differ by a factor of three, and the panel on the right shows which rule the two answers parted on.",
+      "title": "Ranking algorithm",
+      "lead": "Enter a product. You'll see the exact same rows from the USDA database sorted in two ways: the obvious one (shorter name, more measurements) and the one actually used in the product. The calorie count of the top rows differs threefold, and the right panel shows exactly which rule caused the results to diverge.",
       "search": "Food",
       "placeholder": "buckwheat",
       "naive": "Naive",
