@@ -8,7 +8,7 @@
     "lab": "Lab",
     "about": "About",
     "resume": "Resume",
-    "wordmark": "ANDROSOV",
+    "wordmark": "PORTFOLIO",
     "openPalette": "Open command palette",
     "palettePlaceholder": "Type a destination…",
     "paletteEmpty": "Nothing matches",
@@ -127,13 +127,7 @@
     "undoRedo": {
       "title": "Undo buffer",
       "lead": "Drag the blocks, add one, delete one, rename one. Every action goes into one shared list. Before anything is sent to the server that list is squeezed: what travels is the result of your work, not every twitch of the mouse.",
-      "seedNames": [
-        "Request",
-        "Validate",
-        "Route",
-        "Notify",
-        "Archive"
-      ],
+      "seedNames": ["Request", "Validate", "Route", "Notify", "Archive"],
       "newBlockName": "Step",
       "add": "Add",
       "connect": "Link",
