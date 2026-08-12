@@ -1,7 +1,7 @@
 "use client";
 
 import type { ComponentProps } from "react";
-import { captureFlip } from "@/shared/motion";
+import { captureFlip } from "@/shared/flip";
 import { ScrollTopLink } from "@/shared/smooth-scroll";
 import { caseFlipId, caseHref } from "../model/route";
 

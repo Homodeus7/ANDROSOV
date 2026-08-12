@@ -5,7 +5,7 @@ import { Command } from "cmdk";
 import { ArrowUpRight, Contrast, Languages } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { locales, usePathname, useRouter, type Locale } from "@/shared/i18n";
-import { captureFlip } from "@/shared/motion";
+import { captureFlip } from "@/shared/flip";
 import { usePageScrollLock, useScrollTopNavigate } from "@/shared/smooth-scroll";
 import { setTheme, useTheme } from "@/shared/theme";
 import { PALETTE_OPEN_EVENT } from "../lib/open-event";

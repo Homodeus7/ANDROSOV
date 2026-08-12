@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { consumeFlip } from "./flip-store";
+import { consumeFlip } from "@/shared/flip";
 import { gsap, useGSAP } from "./gsap";
 import { DUR, EASE } from "./presets";
 
