@@ -52,6 +52,6 @@ test.describe("resume and about", () => {
     await page.goto("/en/lab");
     await page.getByRole("navigation").getByRole("link", { name: "Work" }).click();
 
-    await expect(page).toHaveURL(/\/en#work$/);
+    await expect(page).toHaveURL(/\/en$/);
   });
 });
