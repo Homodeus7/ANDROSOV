@@ -32,18 +32,18 @@ export const blocksEditor: CaseRecord = {
       sections: [
         {
           kind: "problem",
-          title: "An editor that forgets nothing has to be able to forget on command",
+          title: "Undo Should Work Everywhere",
           body: [
-            "Analysts assemble a business process out of blocks and the platform turns the diagram into something executable. Every misplaced block is a change to a live artefact.",
-            "Undo has to cover the whole editor, not the easy half: moving blocks between diagrams, between pools, in and out of nested subprocesses — over forty operation types, each of which can be composed with the others.",
+            "An analyst builds a business process from blocks, and the platform turns the diagram into an executable workflow. Every action changes the live document.",
+            "That means undo has to work across the entire editor: moving blocks between diagrams and pools, nested subprocesses, and moving them back — more than 40 operation types that can be combined in any way.",
           ],
         },
         {
           kind: "constraint",
-          title: "The canvas is the product, so it cannot stutter",
+          title: "The Canvas Is the Product",
           body: [
-            "A hundred-block diagram is a normal working size, not an edge case. On that canvas the editor sat at roughly 25 FPS: dragging one block repainted the world.",
-            "The backend is the source of truth for the process, which means every intermediate state of a drag would otherwise become a write.",
+            "A hundred-block diagram is a normal working scenario, not an edge case. At that scale, the editor ran at around 25 FPS: dragging a single block triggered a full canvas re-render.",
+            "The backend was the source of truth, so every intermediate drag state could not be persisted as a separate record.",
           ],
         },
         {
@@ -78,27 +78,27 @@ export const blocksEditor: CaseRecord = {
       sections: [
         {
           kind: "problem",
-          title: "Редактор, который ничего не забывает, обязан забывать по команде",
+          title: "Отмена должна работать везде",
           body: [
-            "Аналитик собирает бизнес-процесс из блоков, платформа превращает схему в исполняемый процесс. Каждый промах мышью — правка живого артефакта.",
-            "Отмена должна покрывать весь редактор, а не удобную половину: перенос блоков между схемами, между пулами, внутрь вложенных подпроцессов и обратно — сорок с лишним типов операций, и все они комбинируются друг с другом.",
+            "Аналитик собирает бизнес-процесс из блоков, а платформа превращает схему в исполняемый процесс. Любое действие меняет живой документ.",
+            "Поэтому отмена должна работать для всего редактора: перенос блоков между схемами и пулами, вложенные подпроцессы и обратные перемещения — больше 40 типов операций, которые можно комбинировать между собой.",
           ],
         },
         {
           kind: "constraint",
-          title: "Холст и есть продукт, поэтому он не имеет права дёргаться",
+          title: "Холст — это и есть продукт",
           body: [
-            "Схема на сотню блоков — рабочий размер, а не крайний случай. На ней редактор жил на ~25 FPS: перетаскивание одного блока перерисовывало всё.",
-            "Источник правды о процессе — бэкенд, а значит каждое промежуточное состояние перетаскивания иначе превращалось бы в запись.",
+            "Схема на сотню блоков — обычный рабочий сценарий, а не крайний случай. При таком размере редактор держал около 25 FPS: перетаскивание одного блока перерисовывало весь холст.",
+            "Источник правды — бэкенд, поэтому каждое промежуточное состояние перетаскивания нельзя было сохранять как отдельную запись.",
           ],
         },
         {
           kind: "solution",
           title: "Один буфер действий, один бюджет кадра",
           body: [
-            "Действия копятся в буфере и схлопываются перед отправкой: на бэкенд уезжает результат взаимодействия, а не его след. На этом же буфере работают и ручные правки, и AI-ассистент — всё, что предложил ассистент, отменяется ровно так же, как сделанное руками.",
-            "На холсте убран холостой цикл перерисовки, геометрия сцены выведена из-под реактивности фреймворка, а кадр перестроен так, чтобы замеры и отрисовка не чередовались — никакого layout thrash посреди драга.",
-            "Содержимое блоков — компоненты поверх холста, собранные по описанию с бэкенда. Новый тип блока выкатывается без ручной вёрстки на фронте.",
+            "Действия собираются в буфер и отправляются на бэкенд уже итоговым изменением, а не каждым промежуточным шагом.",
+            "На холсте убрали лишние перерисовки и реактивность геометрии. Замеры и отрисовка разделены, поэтому во время drag нет лишних перерасчётов layout.",
+            "Содержимое блоков собирается из конфигурации, которую отдает бэкенд. Новый тип блока можно добавить без ручной верстки на фронтенде.",
           ],
         },
         {
