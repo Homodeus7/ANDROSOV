@@ -10,7 +10,7 @@ import { NavLink } from "./nav-link";
 const NAV = [
   // Грид работ живёт на главной, отдельной страницы под него нет — поэтому
   // подсветка не выводится из href: раздел «работы» это и главная, и кейс
-  { href: "/#work", key: "work", match: ["/", "/work"] },
+  { href: "/", key: "work", match: ["/", "/work"] },
   { href: "/lab", key: "lab", match: ["/lab"] },
   { href: "/about", key: "about", match: ["/about"] },
   { href: "/resume", key: "resume", match: ["/resume"] },
