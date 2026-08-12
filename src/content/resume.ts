@@ -407,7 +407,7 @@ export const resume: ResumeRecord = {
           kind: "project",
           company: "FoodIQ — foodiq.space",
           role: "Свой проект, фронтенд и бэкенд",
-          period: "2026 — наст. время",
+          period: "2025 — наст. время",
           summary:
             "Учёт калорий, в котором приём пищи описывается обычным текстом, а AI разбирает его на продукты, граммовки и БЖУ.",
           points: [
