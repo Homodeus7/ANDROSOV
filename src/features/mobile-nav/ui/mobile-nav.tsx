@@ -132,7 +132,7 @@ export function MobileNav({ cases, links }: MobileNavProps) {
 
   return (
     <>
-      <div className="border-border bg-bg fixed right-0 bottom-0 z-[190] border-t-2 border-l-2 pb-[env(safe-area-inset-bottom)] md:hidden">
+      <div className="border-border bg-bg fixed right-0 bottom-0 z-190 border-t-2 border-l-2 pb-[env(safe-area-inset-bottom)] md:hidden">
         <button
           type="button"
           onClick={openMenu}
@@ -159,7 +159,7 @@ export function MobileNav({ cases, links }: MobileNavProps) {
         {open && (
           <div
             data-open={shown ? "" : undefined}
-            className="group/panel flex h-full translate-y-full flex-col transition-transform duration-300 ease-out data-[open]:translate-y-0"
+            className="group/panel flex h-full translate-y-full flex-col transition-transform duration-300 ease-out data-open:translate-y-0"
           >
             <div className="border-border shrink-0 border-b-2 px-4 pt-8 pb-5">
               <p className="display text-h1 leading-none">{t("menuTitle")}</p>

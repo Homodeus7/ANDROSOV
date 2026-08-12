@@ -58,7 +58,7 @@ export function CasePage({ item, index, total, previous, next }: CasePageProps) 
             </div>
           </div>
 
-          <h1 data-page-title className="display text-display mt-10 break-words">
+          <h1 data-page-title className="display text-display mt-10 wrap-break-word">
             {item.title}
           </h1>
 

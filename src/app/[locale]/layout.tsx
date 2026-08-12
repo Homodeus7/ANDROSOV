@@ -50,7 +50,7 @@ function SkipLink() {
   return (
     <a
       href="#main"
-      className="spec bg-accent text-on-accent sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[300] focus:px-4 focus:py-2"
+      className="spec bg-accent text-on-accent sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-300 focus:px-4 focus:py-2"
     >
       {t("skipToContent")}
     </a>
