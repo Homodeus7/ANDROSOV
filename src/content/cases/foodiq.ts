@@ -61,7 +61,7 @@ const streamSnippet = {
     readonly code: number | null,
     // Сломался поток — сеть, не-200, оборванное тело: повторить имеет смысл,
     // и есть куда, на обычный эндпоинт. Иначе бэкенд прислал \`error\` с тем же
-    // доменным кодом, что лежит в HTTP-ошибках, и повтор упадёт так же
+    // доменным кодом, что лежит в HTTP-ошибках, и повтор упадет так же
     readonly transport: boolean,
   ) {
     super(message);
@@ -79,7 +79,7 @@ flush() {
       emitFrame(buffer);
     } catch {
       // Хвост, который не разобрался, кадром и не был. Выбросив его, мы
-      // оставляем поток незавершённым — а это \`streamPreview\` уже умеет
+      // оставляем поток незавершенным — а это \`streamPreview\` уже умеет
       // сообщить как транспортный сбой, которым он и является
     }
   }
@@ -89,7 +89,7 @@ flush() {
 
 const interceptorSnippet = {
   ru: `/**
- * Эндпоинты, до которых доходят без сессии: 401 там — отклонённые данные
+ * Эндпоинты, до которых доходят без сессии: 401 там — отклоненные данные
  * входа, а не протухший токен.
  *
  * \`/auth/logout\` попал сюда не ради порядка. Обновление сессии на его 401
@@ -103,19 +103,19 @@ const ANONYMOUS_PATHS = ["/auth/refresh", "/auth/logout", "/auth/login", /* … 
 /**
  * Регистрация на импорте модуля, а не из эффекта: axios замораживает цепочку
  * перехватчиков в момент отправки запроса, копируя обработчики в его промис.
- * Эффекты выполняются снизу вверх, поэтому всё, что дерево запрашивает на
+ * Эффекты выполняются снизу вверх, поэтому все, что дерево запрашивает на
  * маунте — \`/auth/me\` в первую очередь, — уходит раньше, чем родительский
  * эффект успел бы поставить перехватчик, ссылки на него не держит, и
- * протухший access-токен закончил бы сессию вместо того, чтобы обновить её
+ * протухший access-токен закончил бы сессию вместо того, чтобы обновить ее
  */
 installAuthInterceptor();`,
 };
 
 const layoutSyncSnippet = {
-  ru: `// Раскладку писал клиент новее: принять её нечем, но и затирать своим
-// дефолтом нельзя. Вкладка старой сборки живёт с \`staleTime: Infinity\` и про
+  ru: `// Раскладку писал клиент новее: принять ее нечем, но и затирать своим
+// дефолтом нельзя. Вкладка старой сборки живет с \`staleTime: Infinity\` и про
 // новую версию не узнает никогда — не пометив текущее состояние синхронным,
-// она через 800 мс отправила бы поверх неё свой начальный снимок. Уедет
+// она через 800 мс отправила бы поверх нее свой начальный снимок. Уедет
 // только то, что пользователь поменяет руками
 if (!accepted) {
   lastSynced.current = JSON.stringify(latest.current);
@@ -125,7 +125,7 @@ if (!accepted) {
 /**
  * Список из ответа сервера, годный для текущей версии, или \`null\`.
  * Версия из будущего не мигрируется: раскладку писал клиент, который знает
- * больше, и угадывать её форму назад нельзя
+ * больше, и угадывать ее форму назад нельзя
  */
 function acceptStored(stored, version, migrate) {
   if (stored.version === version) return { widgets: stored.widgets, migrated: false };
@@ -164,7 +164,8 @@ export const foodiq: CaseRecord = {
   content: {
     en: {
       title: "FoodIQ",
-      tagline: "A calorie tracker that reads plain language and refuses to invent the numbers",
+      tagline:
+        "A calorie tracker that understands plain language without inventing the numbers",
       role: "Solo — frontend, backend, design, deploy",
       period: "2026 — present",
       metrics: [
@@ -184,25 +185,25 @@ export const foodiq: CaseRecord = {
           kind: "problem",
           title: "Logging food is too much work to keep doing",
           body: [
-            "Every tracker asks you to search a database, pick a portion and repeat that per item. People quit in a week.",
-            "The input should be the sentence you would say out loud: “breakfast: 50g oats with a banana, coffee with milk”. Everything after that is the app's problem.",
+            "Most trackers make you search a database, choose a portion and repeat it for every item. That gets old fast.",
+            "FoodIQ starts with the sentence you would actually say: “breakfast: 50g oats with a banana, coffee with milk”. The app handles the rest.",
           ],
         },
         {
           kind: "constraint",
           title: "One developer, a whole product",
           body: [
-            "Diary, meal plans, macros, micronutrients, a private food and recipe base, a public recipe board, token billing paid in crypto, an admin panel, a landing page — and a React Native port.",
-            "With no team, anything that can drift apart eventually will. The architecture had to delete whole classes of maintenance rather than absorb them.",
+            "Diary, meal plans, nutrition, a private food and recipe base, a public recipe board, billing, admin, landing page — plus a React Native app.",
+            "With one developer, the main constraint was keeping the same product from turning into several different codebases.",
           ],
         },
         {
           kind: "solution",
           title: "The model names the food. It never counts the calories",
           body: [
-            "Ask an LLM for kilocalories and it returns a plausible number. For a tracker that is the worst possible answer: wrong, and convincing.",
-            "So the model has one job — turn a sentence into structure: dish, ingredient, quantity, unit. The counting is deterministic, on top of 13 619 imported USDA rows reached through a concept layer with Russian, English and Spanish aliases.",
-            "That layer is where the work is. A reference row declares its condition inside its own name, and misreading that name is a threefold error: dry spaghetti against cooked, raw mince against fried.",
+            "An LLM can give you a plausible calorie count. That's exactly what a tracker should not do.",
+            "The model only turns the sentence into structure: dish, ingredient, quantity and unit. Calories come from deterministic code and 13 619 USDA rows, connected through Russian, English and Spanish aliases.",
+            "The tricky part is the food's condition: dry vs cooked, raw vs fried. It is encoded in the reference name and has to be matched correctly.",
           ],
           code: {
             lang: "ts",
@@ -214,9 +215,9 @@ export const foodiq: CaseRecord = {
           kind: "solution",
           title: "When two answers are equally plausible, there is no answer",
           body: [
-            "Roughly two thousand pairs of reference rows sit above each other's similarity threshold — cottage cheese at 1% and at 2%, beef raw and broiled. The difference between them is the entire difference in the result.",
-            "So clearing the bar is not enough: the winner has to pull away from the runner-up. When it does not, the matcher returns nothing and the item is logged as unaccounted rather than handed another food's vitamins.",
-            "That refusal is what the 78% is. The remaining fifth of entries carries no reference link, and the day says so instead of printing a number nobody measured.",
+            "About two thousand pairs of reference rows are close enough to be genuinely ambiguous — for example, cottage cheese 1% vs 2%, or raw vs broiled beef.",
+            "A match is accepted only when the winner is clearly ahead of the runner-up. Otherwise the item stays unlinked instead of inheriting another food's nutrition.",
+            "That is where the 78% comes from: the rest is left unresolved on purpose.",
           ],
           code: {
             lang: "ts",
@@ -228,9 +229,8 @@ export const foodiq: CaseRecord = {
           kind: "solution",
           title: "Make the contract generate itself",
           body: [
-            "The typed API client is generated from the backend's OpenAPI schema, so frontend and backend cannot physically disagree about types. Hook names come from the HTTP verb and route rather than the NestJS operationId, which keeps them stable across regenerations — and lets React Native reuse the same contract with no second hand-written layer.",
-            "FSD layers with public APIs, held by lint rules: an import going upwards is impossible, not merely discouraged.",
-            "Tests where a mistake is expensive: validation schemas, stores, critical flows — and the query count of the day aggregate, pinned by a test on a counter, because the naive version made three requests per item instead of three per day.",
+            "The API client is generated from the backend's OpenAPI schema, so web and React Native use the same typed contract. Hook names come from the HTTP method and route, which keeps them stable between regenerations.",
+            "FSD boundaries are enforced by lint rules rather than convention. Tests cover the places where a small regression is expensive: validation, state and critical flows.",
           ],
           code: {
             lang: "ts",
@@ -240,11 +240,10 @@ export const foodiq: CaseRecord = {
         },
         {
           kind: "result",
-          title: "Half the entry bundle was never needed",
+          title: "A smaller entry bundle",
           body: [
-            "The first production build shipped 2.1 MB of JavaScript to the entry route: the mock layer and its fixture generator were in the bundle because the API client was generated as one file, and the diary imported the video renderer statically.",
-            "Splitting the generated client, making the heavy imports lazy and eventually deleting the mocks outright took the entry route to 1049 KB.",
-            "It is also the only project here you can open. Live, public, maintained — every claim on this page is checkable against the running app and its two repositories.",
+            "The entry route went from 2.1 MB to 1049 KB by splitting the generated API client and lazy-loading heavy modules.",
+            "The result is a lighter first load without changing the product itself.",
           ],
         },
       ],
@@ -277,9 +276,9 @@ export const foodiq: CaseRecord = {
           detail: "остальные интерфейс показывает несвязанными",
         },
         {
-          value: "1",
-          label: "исключение в правилах слоёв",
-          detail: "именованное, с условием, при котором вместо него заводится новый ярус",
+          value: "2",
+          label: "клиента",
+          detail: "web и React Native, один OpenAPI-контракт",
         },
       ],
       sections: [
@@ -287,34 +286,34 @@ export const foodiq: CaseRecord = {
           kind: "problem",
           title: "Дневник питания бросают через неделю",
           body: [
-            "Любой трекер просит найти продукт в базе, выбрать граммовку и повторить это для каждой позиции завтрака.",
-            "Вводить нужно так, как человек сказал бы вслух: «завтрак: овсянка 50 г с бананом, кофе с молоком». Всё, что дальше, — работа интерфейса.",
+            "Большинство трекеров заставляют искать продукт в базе, выбирать порцию и повторять это для каждой позиции.",
+            "Здесь достаточно написать как обычно: «завтрак: овсянка 50 г с бананом, кофе с молоком». Остальное разбирает приложение.",
           ],
         },
         {
           kind: "constraint",
           title: "Один разработчик, целый продукт",
           body: [
-            "Дневник, статистика, планы питания, БЖУ и микронутриенты, своя база продуктов и рецептов, публичная доска рецептов, биллинг на токенах с оплатой криптой, админка, лендинг — и порт на React Native с того же сгенерированного из OpenAPI контракта.",
-            "Без команды всё, что может разъехаться, однажды разъедется. Слои FSD держит линтер, накопленный долг — храповик по файлам, а исключение из правил слоёв ровно одно и оно именованное: `ai-parse` стоит на ярусе, которого в FSD нет, — выше сущностей, ниже четырёх зовущих его фич. Рядом записано условие, при котором вместо второго исключения заводится настоящий ярус.",
+            "Целый продукт в одиночку: дневник, статистика, планы питания, нутриенты, рецепты, биллинг, админка, лендинг и React Native.",
+            "Поэтому архитектура здесь не про сложность ради сложности. Она про то, чтобы web, mobile и backend не разошлись каждый в свою сторону.",
           ],
         },
         {
           kind: "solution",
-          title: "Модель называет еду, цифры берёт код",
+          title: "Модель называет еду, цифры берет код",
           body: [
-            "Спросите у LLM килокалории — она вернёт правдоподобное число. Для дневника это худший ответ: неверный и убедительный. Поэтому у модели одна работа — превратить фразу в структуру, а какой строкой USDA измерена эта еда, решает детерминированный матчер: лестница именованных правил поверх 13 619 импортированных строк.",
-            "Когда победитель не оторвался от второго — а около двух тысяч пар строк стоят выше порога сходства друг друга, творог 1% и 2%, — матчер не отвечает вовсе.",
-            "Интерфейсу достаётся самая неудобная часть: показать незнание. Позиция получает бейдж «найден», «похожий» или «новый», несвязанная строка живёт без микронутриентов и говорит об этом прямо, а рядом лежит подбор альтернатив — потому что «сыр» это всегда вопрос, а не ответ. Как устроена сама лестница, можно потрогать в демо на этой странице.",
+            "LLM не считает калории. Она превращает фразу в структуру, а детерминированный матчер связывает ее с одной из 13 619 строк USDA.",
+            "Если два кандидата слишком близки — например, творог 1% и 2% — система не угадывает. Позиция остается несвязанной и показывает это пользователю.",
+            "Это важнее красивой цифры: лучше честно сказать «не знаю», чем посчитать чужой продукт.",
           ],
         },
         {
           kind: "solution",
           title: "Разбор приезжает по частям, и это состояние интерфейса",
           body: [
-            "Разбор фразы — не один ответ, а несколько секунд работы: сначала известен список позиций, потом каждая по очереди находит свой продукт. Ждать конца молча значит показывать спиннер ровно там, где происходит самое интересное.",
-            "Поэтому превью идёт по SSE, а разбор потока живёт на фронте: кадры приезжают разрезанными по произвольным границам чанков и склеиваются через буфер, а хвост без завершающей пустой строки разбирается отдельно — телефон теряет связь посреди кадра, и это обычный вторник, а не сбой.",
-            "Ошибки потока разделены на два вида, потому что от этого зависит кнопка. Транспортная — сеть, не-200, оборванное тело: повторить имеет смысл, и есть куда, на обычный эндпоинт. Смысловая — бэкенд прислал `error` с доменным кодом: повтор упадёт так же, и предлагать его нечестно.",
+            "Разбор идет постепенно: сначала появляется список позиций, затем для каждой находится продукт. Поэтому интерфейс показывает результат по мере готовности, а не прячет все за одним спиннером.",
+            "Превью приходит по SSE. Фронт собирает кадры из произвольных чанков и отдельно обрабатывает оборванный хвост — сеть может пропасть в любой момент.",
+            "Ошибки разделены на транспортные и смысловые: первые можно повторить, вторые — нет.",
           ],
           code: {
             lang: "ts",
@@ -326,9 +325,8 @@ export const foodiq: CaseRecord = {
           kind: "solution",
           title: "Сессия, которой нет ни в одном хранилище",
           body: [
-            "Токенов в JS не лежит вообще: сессия ездит httpOnly-куками, 401 на обычном запросе — это штатное старение access-токена, и перехватчик меняет refresh-куку на новую пару и переигрывает запрос один раз. Сессия кончилась, только если не получилось обновить.",
-            "Два места, где эта схема ломает сама себя, стоили по вечеру каждое. Обновление на 401 от `/auth/logout` вызывает `clearSession` изнутри уже летящего `clearSession`, и single-flight отдаёт ему тот самый промис, звеном которого он является: вкладка залипает залогиненной до перезагрузки. А перехватчик, поставленный из эффекта, опаздывает — axios замораживает цепочку в момент отправки, эффекты идут снизу вверх, и `/auth/me` уходит без него.",
-            "Стриминг живёт рядом с этим и ровно поэтому написан своим `fetch`: половину съеденного ReadableStream перехватчик переиграть не может, а без переигрывания каждый протухший токен стоил бы визитёру падения со стрима на один поздний ответ.",
+            "Токенов в JavaScript нет: сессия живет в `httpOnly`-куках. Истекший access-токен обновляется через refresh, после чего исходный запрос повторяется один раз.",
+            "Для SSE используется отдельный `fetch`: обычный axios-интерсептор не может безопасно переиграть уже начатый `ReadableStream`.",
           ],
           code: {
             lang: "ts",
@@ -338,12 +336,11 @@ export const foodiq: CaseRecord = {
         },
         {
           kind: "solution",
-          title: "Дашборд, который пользователь пересобирает",
+          title: "Дашборд, который пользователь собирает сам",
           body: [
-            "Дневник и статистика — шестнадцать виджетов, которые перетаскиваются, добавляются и убираются, плюс до восьми приёмов пищи со своими названиями. Раскладка лежит в настройках пользователя, а значит обязана пережить второе устройство и вкладку со старой сборкой.",
-            "Простая часть — дебаунс: драг меняет порядок каждый кадр, на сервер уезжает успокоившийся результат, а недождавшийся таймер дописывается при уходе со страницы. Сложная — все способы, которыми экран затирает сам себя: двойной монтаж эффектов в dev, эхо сразу после гидрации, кадр, который старше только что применённой с сервера раскладки.",
-            "И отдельно — раскладка, записанная клиентом новее. Разобрать её нечем, но и затирать своим дефолтом нельзя: вкладка старой сборки про новую версию не узнает никогда.",
-            "В диалоге выбора виджета крутится не скриншот, а тот же самый компонент с теми же хуками — демо-данные подкладываются в отдельный QueryClient теми же генерёнными ключами, которыми строятся настоящие запросы, а `enabled: false` делает «превью не пойдёт в сеть» гарантией, а не надеждой.",
+            "На двух дашбордах — 16 виджетов: их можно добавлять, удалять и менять местами. Раскладка хранится на сервере и должна переживать вкладки, устройства и старые версии клиента.",
+            "При drag порядок меняется локально каждый кадр, а на сервер уходит только итог после debounce. Для старой сборки, которая встретила более новую раскладку, есть отдельная проверка версии — она не перезаписывает данные, которых еще не умеет понимать.",
+            "Превью виджетов использует те же компоненты и query keys, что и реальный дашборд, но с отдельным QueryClient и `enabled: false`, поэтому демо не делает сетевых запросов.",
           ],
           code: {
             lang: "ts",
@@ -353,11 +350,10 @@ export const foodiq: CaseRecord = {
         },
         {
           kind: "result",
-          title: "Половина входного бандла была там не нужна",
+          title: "Меньше JavaScript на входе",
           body: [
-            "Первая прод-сборка отдавала на входе 2,1 МБ JavaScript: слой моков с генератором фикстур попал в бандл, потому что API-клиент генерировался одним файлом, а дневник статически импортировал видеорендер.",
-            "Разделение клиента, ленивые тяжёлые импорты и удаление моков целиком довели вход до 1049 КБ. Каждый виджет теперь приезжает своим чанком и до приезда держит место тем же скелетоном, который покажет сам, — иначе грид прыгает на первой отрисовке. Видеорендер остался — он собирает из дня вертикальный ролик прямо в браузере, — но грузится, только когда его попросили.",
-            "Это единственный проект здесь, который можно открыть. Живой, публичный, поддерживается — каждое утверждение на этой странице проверяется по работающему приложению и двум его репозиториям.",
+            "Входной бандл уменьшен с 2,1 МБ до 1049 КБ за счет разделения API-клиента и ленивой загрузки тяжелых модулей.",
+            "Тяжелые части приложения теперь не влияют на первую загрузку, пока действительно не нужны.",
           ],
         },
       ],
