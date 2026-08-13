@@ -5,7 +5,7 @@ import { CodeBlock } from "@/shared/code";
 import { cn } from "@/shared/lib";
 import { CounterText, Reveal } from "@/shared/motion";
 import { TransitionLink } from "@/shared/page-transition";
-import { Container, SectionLabel } from "@/shared/ui";
+import { Container, FitTitle, SectionLabel } from "@/shared/ui";
 import { DemoSlot } from "@/widgets/demos";
 import { CaseNav } from "./case-nav";
 
@@ -58,9 +58,7 @@ export function CasePage({ item, index, total, previous, next }: CasePageProps) 
             </div>
           </div>
 
-          <h1 data-page-title className="display text-display mt-10 wrap-break-word">
-            {item.title}
-          </h1>
+          <FitTitle className="mt-10">{item.title}</FitTitle>
 
           <p className="mt-8 max-w-3xl text-xl leading-snug text-balance md:text-2xl">
             {item.tagline}
