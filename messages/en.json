@@ -113,7 +113,18 @@
   "resume": {
     "title": "Resume",
     "download": "Download PDF",
-    "caseLink": "Read the case"
+    "caseLink": "Read the case",
+    "viewer": {
+      "label": "PDF",
+      "title": "Resume as PDF",
+      "lead": "Opens right in the browser — send the link instead of attaching a file. Download button is right there.",
+      "newTab": "Open in a new tab",
+      "copyLink": "Copy link",
+      "copied": "Copied",
+      "webVersion": "Resume on the site",
+      "fallback": "This browser has no built-in PDF viewer. Open the file in a new tab or download it."
+    },
+    "openPdf": "Open PDF"
   },
   "footer": {
     "builtWith": "Built with Next.js, GSAP and a strict grid.",

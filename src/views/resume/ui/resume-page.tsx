@@ -1,5 +1,5 @@
 import { useLocale, useTranslations } from "next-intl";
-import type { Locale } from "@/shared/i18n";
+import { Link, type Locale } from "@/shared/i18n";
 import { CaseLink } from "@/entities/case";
 import { getResume, resumeFile, type ResumeJob } from "@/entities/resume";
 import { site } from "@/shared/config";
@@ -60,6 +60,12 @@ export function ResumePage() {
             <a href={site.telegram} className="spec text-accent-ink">
               {site.telegramHandle}
             </a>
+            <Link
+              href="/resume/pdf"
+              className="spec border-border text-fg flood inline-flex min-h-11 items-center border-2 px-3 print:hidden"
+            >
+              {t("openPdf")}
+            </Link>
             <a
               href={resumeFile(locale)}
               download
