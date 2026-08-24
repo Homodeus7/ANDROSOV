@@ -1,5 +1,5 @@
 import { useLocale, useTranslations } from "next-intl";
-import { Link, type Locale } from "@/shared/i18n";
+import { type Locale } from "@/shared/i18n";
 import { CaseLink } from "@/entities/case";
 import { getResume, resumeFile, type ResumeJob } from "@/entities/resume";
 import { site } from "@/shared/config";
@@ -41,7 +41,7 @@ export function ResumePage() {
   const t = useTranslations("resume");
   const locale = useLocale() as Locale;
   const resume = getResume(locale);
-
+  const file = resumeFile(locale);
   const experience = resume.jobs.filter((job) => job.kind === "job");
   const projects = resume.jobs.filter((job) => job.kind === "project");
 
@@ -60,14 +60,16 @@ export function ResumePage() {
             <a href={site.telegram} className="spec text-accent-ink">
               {site.telegramHandle}
             </a>
-            <Link
-              href="/resume/pdf"
-              className="spec border-border text-fg flood inline-flex min-h-11 items-center border-2 px-3 print:hidden"
+            <a
+              href={file}
+              target="_blank"
+              rel="noreferrer"
+              className="spec border-border text-fg flood inline-flex min-h-11 items-center border-2 px-3"
             >
               {t("openPdf")}
-            </Link>
+            </a>
             <a
-              href={resumeFile(locale)}
+              href={file}
               download
               className="spec border-border text-fg flood inline-flex min-h-11 items-center border-2 px-3 print:hidden"
             >

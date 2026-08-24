@@ -1,7 +1,7 @@
 import { useLocale, useTranslations } from "next-intl";
 import { CopyLink } from "@/features/copy-link";
 import { resumeFile } from "@/entities/resume";
-import { Link, type Locale } from "@/shared/i18n";
+import { type Locale } from "@/shared/i18n";
 import { Container, SectionLabel } from "@/shared/ui";
 
 export function ResumePdfPage() {
@@ -35,9 +35,9 @@ export function ResumePdfPage() {
             {t("viewer.newTab")}
           </a>
           <CopyLink href={`/${locale}/resume/pdf`} />
-          <Link href="/resume" className="spec text-accent-ink">
+          {/* <Link href="/resume" className="spec text-accent-ink">
             {t("viewer.webVersion")} →
-          </Link>
+          </Link> */}
         </div>
 
         {/* object, а не iframe: у него есть штатный фолбэк для мобильных браузеров,
