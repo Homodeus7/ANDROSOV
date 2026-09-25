@@ -74,7 +74,7 @@ def parse(markdown):
     return strip_bold(name), head, body
 
 
-INLINE = re.compile(r"\[([^\]]+)\]\(([^)]+)\)")
+INLINE = re.compile(r"\[([^\]]+)\]\(([^)]+)\)|\*\*(.+?)\*\*")
 
 
 def add_hyperlink(paragraph, text, url, style):
@@ -100,12 +100,15 @@ def add_hyperlink(paragraph, text, url, style):
 
 
 def write_inline(paragraph, text, style, **fmt):
-    """Раскладывает markdown-ссылки в отдельные run'ы, остальное — обычным текстом."""
+    """Раскладывает markdown-ссылки и **жирное** в отдельные run'ы, остальное — обычным текстом."""
     position = 0
     for match in INLINE.finditer(text):
         if match.start() > position:
             add_run(paragraph, unescape(text[position : match.start()]), style, **fmt)
-        add_hyperlink(paragraph, unescape(match.group(1)), match.group(2), style)
+        if match.group(3):
+            add_run(paragraph, unescape(match.group(3)), style, **{**fmt, "bold": True})
+        else:
+            add_hyperlink(paragraph, unescape(match.group(1)), match.group(2), style)
         position = match.end()
     if position < len(text):
         add_run(paragraph, unescape(text[position:]), style, **fmt)
@@ -230,8 +233,13 @@ def render_block(document, block, style):
 
 
 def build(locale, style_name):
+    target = OUT / f"Androsov_Viacheslav_Frontend_{locale.upper()}_{style_name}.docx"
+    build_file(SOURCE / f"{locale}.md", target, style_name)
+
+
+def build_file(source, target, style_name):
     style = STYLES[style_name]
-    markdown = (SOURCE / f"{locale}.md").read_text(encoding="utf-8")
+    markdown = Path(source).read_text(encoding="utf-8")
     name, head, body = parse(markdown)
 
     document = docx.Document()
@@ -272,13 +280,15 @@ def build(locale, style_name):
     for block in body:
         render_block(document, block, style)
 
-    OUT.mkdir(parents=True, exist_ok=True)
-    target = OUT / f"Androsov_Viacheslav_Frontend_{locale.upper()}_{style_name}.docx"
+    Path(target).parent.mkdir(parents=True, exist_ok=True)
     document.save(target)
     print(target)
 
 
 if __name__ == "__main__":
+    if len(sys.argv) > 1 and sys.argv[1].endswith(".md"):
+        build_file(sys.argv[1], sys.argv[2], sys.argv[3] if len(sys.argv) > 3 else "classic")
+        sys.exit()
     for style_name in sys.argv[1:] or STYLES:
         for locale in ("ru", "en"):
             build(locale, style_name)

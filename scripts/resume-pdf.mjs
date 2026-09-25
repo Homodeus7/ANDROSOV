@@ -1,4 +1,5 @@
 import { readFile, writeFile } from "node:fs/promises";
+import { pathToFileURL } from "node:url";
 import { chromium } from "playwright";
 
 const LOCALES = ["ru", "en"];
@@ -13,6 +14,7 @@ const escapeHtml = (text) =>
 const inline = (text) =>
   escapeHtml(text)
     .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>')
+    .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
     .replace(/\\(.)/g, "$1");
 
 function parse(markdown) {
@@ -130,12 +132,17 @@ function html(markdown) {
 const browser = await chromium.launch();
 const page = await browser.newPage();
 
-for (const locale of LOCALES) {
-  const markdown = await readFile(SOURCE(locale), "utf8");
+const [source, target] = process.argv.slice(2);
+const pairs = source
+  ? [[pathToFileURL(source), pathToFileURL(target)]]
+  : LOCALES.map((locale) => [SOURCE(locale), TARGET(locale)]);
+
+for (const [from, to] of pairs) {
+  const markdown = await readFile(from, "utf8");
   await page.setContent(html(markdown), { waitUntil: "load" });
   const pdf = await page.pdf({ format: "A4", printBackground: true });
-  await writeFile(TARGET(locale), pdf);
-  console.log(`${locale}: ${TARGET(locale).pathname} (${Math.round(pdf.length / 1024)} KB)`);
+  await writeFile(to, pdf);
+  console.log(`${to.pathname} (${Math.round(pdf.length / 1024)} KB)`);
 }
 
 await browser.close();

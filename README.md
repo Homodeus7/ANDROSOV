@@ -18,6 +18,7 @@ npm run test:e2e     # playwright (builds and serves on :3100)
 npm run format       # prettier
 npm run resume:pdf   # resume PDFs from resume/*.md
 npm run resume:docx  # the same source as .docx, two layouts (needs python-docx)
+npm run resume -- new|match|build <slug>  # tailored resume per vacancy, see resume/factory
 ```
 
 ## Architecture
