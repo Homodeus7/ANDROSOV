@@ -11,7 +11,7 @@ import { HEADLINE, Headline } from "./headline";
 const SPEC = [
   ["Stack", "React / Vue / TypeScript"],
   ["Motion", "GSAP / ScrollTrigger"],
-  ["Base", "Vietnam, UTC+7"],
+  ["Base", "Remote"],
 ] as const;
 
 // Страховка от зависшей загрузки: первый экран скрыт до готовности шрифта, и
