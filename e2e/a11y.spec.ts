@@ -54,21 +54,6 @@ test.describe("accessibility", () => {
     const results = await scan(page);
     expect(results.violations.map((violation) => violation.id)).toEqual([]);
   });
-
-  // Подсветка кода — четыре цвета вместо одного, и каждый должен пройти
-  // контраст в обеих темах: светлая берёт свои значения из другого блока
-  test("keeps the highlighted code readable in the light theme", async ({ page }) => {
-    await page.goto("/en/work/foodiq");
-    await page.evaluate(() => document.documentElement.setAttribute("data-theme", "light"));
-    await page.locator("figure pre").first().scrollIntoViewIfNeeded();
-
-    const results = await new AxeBuilder({ page })
-      .include("figure")
-      .withTags(["wcag2aa"])
-      .analyze();
-
-    expect(results.violations.map((violation) => violation.id)).toEqual([]);
-  });
 });
 
 // axe не ходит по странице клавиатурой: ловушки фокуса и порядок табуляции

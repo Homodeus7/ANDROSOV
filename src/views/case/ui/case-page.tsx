@@ -69,7 +69,11 @@ export function CasePage({ item, index, total, previous, next }: CasePageProps) 
       {item.metrics.length > 0 ? (
         <Reveal
           as="ul"
-          className="border-border bg-border grid gap-px border-b-2 sm:grid-cols-3"
+          className={cn(
+            "border-border bg-border grid gap-px border-b-2",
+            // Пустая ячейка сетки видна фоном-разделителем, поэтому колонок ровно столько, сколько цифр
+            item.metrics.length === 2 ? "sm:grid-cols-2" : "sm:grid-cols-3",
+          )}
           stagger={0.06}
         >
           {item.metrics.map((metric) => (
