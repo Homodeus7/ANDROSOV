@@ -7,7 +7,7 @@ export const demoIds = [
   "tx-table",
   "dynamic-form",
   "live-rollup",
-  "food-match",
+  "meal-stream",
   // "guardrails" — снят с показа, не удалён: демо и его сущность целы, но
   // цепочка ревьюеров записана наполовину. Возвращать сюда, в `demo-slot.tsx`
   // и в `demos` кейса `agent-harness`, см. `src/widgets/demos/guardrails/index.ts`
