@@ -1,0 +1,38 @@
+import type { ChipId } from "./recording";
+
+export type MealStreamStrings = {
+  input: string;
+  placeholder: string;
+  submit: string;
+  examples: string;
+  chips: Record<ChipId, string>;
+  slow: string;
+  idle: string;
+  steps: { parsing: string; matching: string; done: string };
+  confidence: string;
+  pending: string;
+  failed: string;
+  failedHint: string;
+  stalled: string;
+  total: string;
+  kcal: string;
+  grams: string;
+  protein: string;
+  fat: string;
+  carbs: string;
+  transport: string;
+  retry: string;
+  domain: string;
+  log: string;
+  bytes: string;
+  chunks: string;
+  frames: string;
+  buffer: string;
+  live: string;
+  closed: string;
+  cut: string;
+  dropped: string;
+  waiting: string;
+  hint: string;
+  note: string;
+};

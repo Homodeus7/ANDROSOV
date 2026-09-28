@@ -199,7 +199,7 @@ export const foodiq: CaseRecord = {
   slug: "foodiq",
   order: 0,
   nda: false,
-  demos: ["food-match"],
+  demos: ["meal-stream"],
   stack: [
     "Next.js 16",
     "React 19",

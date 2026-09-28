@@ -4,8 +4,8 @@ import { cn } from "@/shared/lib";
 import { AccessMatrixDemo } from "../access-matrix";
 import { CanvasFpsDemo } from "../canvas-fps";
 import { DynamicFormDemo } from "../dynamic-form";
-import { FoodMatchDemo } from "../food-match";
 import { LiveRollupDemo } from "../live-rollup";
+import { MealStreamDemo } from "../meal-stream";
 import { TxTableDemo } from "../tx-table";
 import { UndoRedoDemo } from "../undo-redo";
 import { WalletStateDemo } from "../wallet-state";
@@ -19,7 +19,7 @@ const DEMOS: Record<DemoId, DemoEntry> = {
   "tx-table": { component: TxTableDemo, messages: "txTable", note: "reactNote" },
   "dynamic-form": { component: DynamicFormDemo, messages: "dynamicForm", note: "reactNote" },
   "live-rollup": { component: LiveRollupDemo, messages: "liveRollup", note: "reactNote" },
-  "food-match": { component: FoodMatchDemo, messages: "foodMatch", note: "reactNote" },
+  "meal-stream": { component: MealStreamDemo, messages: "mealStream", note: "reactNote" },
   "access-matrix": {
     component: AccessMatrixDemo,
     messages: "accessMatrix",
