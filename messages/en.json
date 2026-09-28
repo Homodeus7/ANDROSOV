@@ -89,6 +89,7 @@
   "about": {
     "title": "About",
     "headline": "I write frontend that holds up under load",
+    "photoAlt": "Viacheslav Androsov",
     "body": [
       "Frontend engineer. Four years in production.",
       "What interests me is not the markup but what sits behind it: how the state is arranged, what happens between frames, why a table starts stuttering at five hundred rows and what to do about it. I work in both React and Vue — not \"familiar with both\", but two production codebases I had to switch between mid-week.",
