@@ -60,7 +60,6 @@ export function MealStreamDemo() {
     dropped: t("dropped"),
     waiting: t("waiting"),
     hint: t("hint"),
-    note: t("note"),
   };
 
   return (

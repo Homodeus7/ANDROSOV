@@ -338,8 +338,7 @@
       "cut": "cut off",
       "dropped": "tail did not parse and was dropped:",
       "waiting": "waiting",
-      "hint": "Turn on “slow down” and watch the buffer under the log: a frame piles up there piece by piece and reaches the interface only once the blank line arrives. Cottage cheese stays without numbers: 1% and 2% sit right next to each other in the reference, and the product does not guess. In “chicken with rice” the connection drops in the middle of the third frame — whatever arrived stays on screen, next to a Retry button.",
-      "note": "There is no network here and no model either: a twenty-food dictionary stands in for the LLM and a recorded response with delays for the server. What is real is the event protocol, assembling frames from arbitrary chunks, handling a cut-off tail, and splitting errors into transport and domain ones: this code follows stream-preview.ts from the product. The stream is a real ReadableStream of bytes inside a Response, and chunk boundaries fall mid-JSON and mid two-byte Cyrillic letter. Calories per item come from code and a USDA row, not from the model."
+      "hint": "Turn on “slow down” and watch the buffer under the log: a frame piles up there piece by piece and reaches the interface only once the blank line arrives. Cottage cheese stays without numbers: 1% and 2% sit right next to each other in the reference, and the product does not guess. In “chicken with rice” the connection drops in the middle of the third frame — whatever arrived stays on screen, next to a Retry button."
     },
     "guardrails": {
       "title": "What holds a rule up",

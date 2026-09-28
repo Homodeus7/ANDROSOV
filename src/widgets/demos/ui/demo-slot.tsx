@@ -10,7 +10,7 @@ import { TxTableDemo } from "../tx-table";
 import { UndoRedoDemo } from "../undo-redo";
 import { WalletStateDemo } from "../wallet-state";
 
-type DemoEntry = { component: () => React.ReactNode; messages: string; note: string };
+type DemoEntry = { component: () => React.ReactNode; messages: string; note?: string };
 
 /** Полная таблица: демо, обещанного кейсом и не собранного, не бывает — сборка не даст. */
 const DEMOS: Record<DemoId, DemoEntry> = {
@@ -19,7 +19,7 @@ const DEMOS: Record<DemoId, DemoEntry> = {
   "tx-table": { component: TxTableDemo, messages: "txTable", note: "reactNote" },
   "dynamic-form": { component: DynamicFormDemo, messages: "dynamicForm", note: "reactNote" },
   "live-rollup": { component: LiveRollupDemo, messages: "liveRollup", note: "reactNote" },
-  "meal-stream": { component: MealStreamDemo, messages: "mealStream", note: "reactNote" },
+  "meal-stream": { component: MealStreamDemo, messages: "mealStream" },
   "access-matrix": {
     component: AccessMatrixDemo,
     messages: "accessMatrix",
@@ -44,9 +44,11 @@ export function DemoSlot({ demo, className }: { demo: DemoId; className?: string
       <div className="col-span-full mt-10">
         <Demo />
       </div>
-      <p className="spec text-muted col-span-full mt-6 normal-case lg:col-span-6">
-        {t(entry.note)}
-      </p>
+      {entry.note ? (
+        <p className="spec text-muted col-span-full mt-6 normal-case lg:col-span-6">
+          {t(entry.note)}
+        </p>
+      ) : null}
     </div>
   );
 }

@@ -316,7 +316,6 @@ export function MealStream({
       </div>
 
       <p className="spec text-muted normal-case">{strings.hint}</p>
-      <p className="text-muted max-w-prose text-xs">{strings.note}</p>
     </div>
   );
 }
