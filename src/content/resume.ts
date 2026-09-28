@@ -10,7 +10,7 @@ export const resume: ResumeRecord = {
       sections: {
         skills: "Core skills",
         experience: "Work experience",
-        projects: "Own projects",
+        projects: "Product",
       },
       skills: [
         {
@@ -172,18 +172,21 @@ export const resume: ResumeRecord = {
         {
           kind: "project",
           company: "FoodIQ — foodiq.space",
-          role: "Own project, frontend and backend",
+          role: "Lead Frontend",
           period: "2025 — present",
           summary:
-            "Calorie tracking: the user describes a meal in plain text and AI works out the calories and macros.",
+            "AI nutrition tracker: a meal is described in plain text, calories and macros are worked out automatically. Small team; the web app is live, the mobile app is heading for RuStore, the App Store and Google Play.",
           points: [
-            "Full-stack, solo: Next.js 16 and NestJS, from the idea and the design to production",
-            "AI meal parsing from free text: products, weights, calories and macros with a confidence score",
-            "Token-based billing paid in crypto (NOWPayments), an API client generated from OpenAPI, Vitest and Playwright tests, i18n",
+            "Own the entire frontend — the Next.js 16 web app and the React Native app: designed the FSD architecture and a shared API layer for both clients",
+            "Built the AI parsing UI streamed over SSE: items appear as they are ready, a dropped connection does not break the result, and ambiguous matches are flagged honestly rather than guessed",
+            "Built a dashboard builder with 16 widgets and drag-and-drop: the layout is stored on the server and survives older client versions",
+            "Halved the entry bundle — from 2.1 MB to 1 MB by splitting the API client and lazy-loading heavy modules",
           ],
           stack: [
             "Next.js 16",
             "React 19",
+            "React Native (Expo)",
+            "NestJS",
             "TypeScript",
             "Tailwind CSS v4",
             "shadcn/ui",
@@ -198,34 +201,6 @@ export const resume: ResumeRecord = {
           ],
           case: "foodiq",
         },
-        {
-          kind: "project",
-          company: "Portfolio — androsov-dev.vercel.app",
-          role: "Own project, this site",
-          period: "2026",
-          summary:
-            "Portfolio site where every claim that carries a number is a demo you can run.",
-          points: [
-            "8 interactive demos, each rebuilding a feature from a production project: the undo/redo buffer, the canvas frame budget, a transaction table, CASL permissions",
-            "The Vue demos run as islands inside the React app and stay out of the initial payload",
-            "FSD boundaries are held by hand-written ESLint rules, content is checked by Zod at build time, e2e on Playwright with an accessibility pass",
-          ],
-          stack: [
-            "Next.js 16",
-            "React 19",
-            "TypeScript",
-            "Tailwind CSS v4",
-            "GSAP",
-            "next-intl",
-            "Zod",
-            "Vue 3",
-            "CASL",
-            "Vitest",
-            "Playwright",
-            "FSD",
-            "Vercel",
-          ],
-        },
       ],
     },
     ru: {
@@ -236,7 +211,7 @@ export const resume: ResumeRecord = {
       sections: {
         skills: "Ключевые навыки",
         experience: "Опыт работы",
-        projects: "Свои проекты",
+        projects: "Продукт",
       },
       skills: [
         {
@@ -398,18 +373,21 @@ export const resume: ResumeRecord = {
         {
           kind: "project",
           company: "FoodIQ — foodiq.space",
-          role: "Свой проект, фронтенд и бэкенд",
+          role: "Lead Frontend",
           period: "2025 — наст. время",
           summary:
-            "Учёт калорий: пользователь описывает еду обычным текстом, AI считает калории и БЖУ.",
+            "AI-трекер питания: еда описывается обычным текстом, калории и БЖУ считаются автоматически. Небольшая команда; веб в проде, мобильное приложение готовится к выходу в RuStore, App Store и Google Play.",
           points: [
-            "Фулстек в одиночку: Next.js 16 и NestJS, от идеи и дизайна до продакшена",
-            "AI-разбор приёма пищи из текста: продукты, граммовки, калории и БЖУ с оценкой уверенности",
-            "Биллинг на токенах с оплатой криптовалютой (NOWPayments), API-клиент из OpenAPI, тесты Vitest и Playwright, i18n",
+            "Отвечаю за весь фронтенд — веб на Next.js 16 и приложение на React Native: спроектировал архитектуру по FSD и общий слой API для обоих клиентов",
+            "Сделал интерфейс AI-разбора со стримингом по SSE: позиции появляются по мере готовности, обрыв сети не ломает результат, а спорные совпадения система честно помечает, а не угадывает",
+            "Собрал конструктор дашбордов на 16 виджетов с drag-and-drop: раскладка хранится на сервере и не ломается в старых версиях клиента",
+            "Сократил входной бандл вдвое — с 2,1 МБ до 1 МБ: разделил API-клиент и вынес тяжёлые модули в ленивую загрузку",
           ],
           stack: [
             "Next.js 16",
             "React 19",
+            "React Native (Expo)",
+            "NestJS",
             "TypeScript",
             "Tailwind CSS v4",
             "shadcn/ui",
@@ -423,34 +401,6 @@ export const resume: ResumeRecord = {
             "FSD",
           ],
           case: "foodiq",
-        },
-        {
-          kind: "project",
-          company: "Портфолио — androsov-dev.vercel.app",
-          role: "Свой проект, этот сайт",
-          period: "2026",
-          summary:
-            "Сайт-портфолио, где каждое утверждение с цифрой вынесено в работающее демо.",
-          points: [
-            "8 интерактивных демо, каждое воспроизводит фичу из рабочего проекта: буфер undo/redo, кадровый бюджет холста, таблица транзакций, права на CASL",
-            "Vue-демо работают островами внутри React-приложения и не попадают в начальную загрузку",
-            "Границы FSD держат собственные правила ESLint, контент проверяется Zod на сборке, e2e на Playwright с проверкой доступности",
-          ],
-          stack: [
-            "Next.js 16",
-            "React 19",
-            "TypeScript",
-            "Tailwind CSS v4",
-            "GSAP",
-            "next-intl",
-            "Zod",
-            "Vue 3",
-            "CASL",
-            "Vitest",
-            "Playwright",
-            "FSD",
-            "Vercel",
-          ],
         },
       ],
     },

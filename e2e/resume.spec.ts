@@ -5,7 +5,7 @@ test.describe("resume and about", () => {
     await page.goto("/en/resume");
 
     await expect(page.getByRole("heading", { level: 1 })).toHaveText("Viacheslav Androsov");
-    await expect(page.getByRole("heading", { level: 3 })).toHaveCount(6);
+    await expect(page.getByRole("heading", { level: 3 })).toHaveCount(5);
     await expect(page.getByText("Frontend Developer (Vue)")).toBeVisible();
   });
 

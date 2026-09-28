@@ -166,7 +166,7 @@ export const foodiq: CaseRecord = {
       title: "FoodIQ",
       tagline:
         "A calorie tracker that understands plain language without inventing the numbers",
-      role: "Solo — frontend, backend, design, deploy",
+      role: "Lead Frontend — the whole frontend and its architecture, small product team",
       period: "2026 — present",
       metrics: [
         { value: "13 619", label: "reference rows", detail: "USDA FNDDS, SR and Foundation" },
@@ -191,10 +191,9 @@ export const foodiq: CaseRecord = {
         },
         {
           kind: "constraint",
-          title: "One developer, a whole product",
+          title: "A small team, a whole product",
           body: [
-            "Diary, meal plans, nutrition, a private food and recipe base, a public recipe board, billing, admin, landing page — plus a React Native app.",
-            "With one developer, the main constraint was keeping the same product from turning into several different codebases.",
+            "Diary, meal plans, nutrition, a private food and recipe base, a public recipe board, billing, admin, landing page — plus a React Native app heading for RuStore, the App Store and Google Play.",
           ],
         },
         {
@@ -251,7 +250,7 @@ export const foodiq: CaseRecord = {
     ru: {
       title: "FoodIQ",
       tagline: "Трекер калорий, который понимает обычный текст и не выдумывает цифры",
-      role: "Один — фронтенд, бэкенд, дизайн, деплой",
+      role: "Lead Frontend — весь фронтенд и архитектура, небольшая продуктовая команда",
       period: "2026 — настоящее время",
       metrics: [
         { value: "1049 КБ", label: "входной бандл", detail: "было 2139 КБ" },
@@ -292,10 +291,9 @@ export const foodiq: CaseRecord = {
         },
         {
           kind: "constraint",
-          title: "Один разработчик, целый продукт",
+          title: "Небольшая команда, целый продукт",
           body: [
-            "Целый продукт в одиночку: дневник, статистика, планы питания, нутриенты, рецепты, биллинг, админка, лендинг и React Native.",
-            "Поэтому архитектура здесь не про сложность ради сложности. Она про то, чтобы web, mobile и backend не разошлись каждый в свою сторону.",
+            "Дневник, статистика, планы питания, нутриенты, рецепты, биллинг, админка, лендинг и приложение на React Native, которое готовится к выходу в RuStore, App Store и Google Play.",
           ],
         },
         {
