@@ -6,6 +6,7 @@ const LOCALES = ["ru", "en"];
 const SOURCE = (locale) => new URL(`../resume/${locale}.md`, import.meta.url);
 const TARGET = (locale) =>
   new URL(`../public/resume/Androsov_Viacheslav_Frontend_${locale.toUpperCase()}.pdf`, import.meta.url);
+const PHOTO = new URL("../resume/photo.jpg", import.meta.url);
 
 const escapeHtml = (text) =>
   text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -91,6 +92,19 @@ const STYLE = `
     line-height: 1.15;
   }
   .head p { text-align: center; }
+  .top {
+    display: flex;
+    align-items: center;
+    gap: 16pt;
+  }
+  .top .name, .top .head p { text-align: left; }
+  .photo {
+    flex: none;
+    width: 30mm;
+    height: 30mm;
+    border-radius: 50%;
+    object-fit: cover;
+  }
   .head p:first-of-type { font-size: 14pt; margin-top: 3pt; }
   .head p + p { font-size: 10pt; margin-top: 5pt; }
   a { color: #2e5c8a; text-decoration: none; }
@@ -120,14 +134,20 @@ const STYLE = `
   .stack { margin-top: 4pt; font-style: italic; font-size: 9.5pt; }
 `;
 
-function html(markdown) {
+function html(markdown, photo) {
   const { name, head, body } = parse(markdown);
+  const intro = `<p class="name">${inline(name)}</p>
+    <div class="head">${head.map((block) => `<p>${inline(blockText(block))}</p>`).join("")}</div>`;
   return `<!doctype html><html><head><meta charset="utf-8"><style>${STYLE}</style></head><body>
-    <p class="name">${inline(name)}</p>
-    <div class="head">${head.map((block) => `<p>${inline(blockText(block))}</p>`).join("")}</div>
+    ${photo ? `<div class="top"><img class="photo" src="${photo}" alt=""><div>${intro}</div></div>` : intro}
     ${body.map(render).join("\n")}
   </body></html>`;
 }
+
+const photo = await readFile(PHOTO).then(
+  (bytes) => `data:image/jpeg;base64,${bytes.toString("base64")}`,
+  () => null,
+);
 
 const browser = await chromium.launch();
 const page = await browser.newPage();
@@ -139,7 +159,7 @@ const pairs = source
 
 for (const [from, to] of pairs) {
   const markdown = await readFile(from, "utf8");
-  await page.setContent(html(markdown), { waitUntil: "load" });
+  await page.setContent(html(markdown, photo), { waitUntil: "load" });
   const pdf = await page.pdf({ format: "A4", printBackground: true });
   await writeFile(to, pdf);
   console.log(`${to.pathname} (${Math.round(pdf.length / 1024)} KB)`);
