@@ -34,5 +34,4 @@ export type MealStreamStrings = {
   dropped: string;
   waiting: string;
   hint: string;
-  note: string;
 };
