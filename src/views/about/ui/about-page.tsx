@@ -11,25 +11,28 @@ export function AboutPage() {
   return (
     <>
       <section className="border-border border-b-2 pt-28 pb-12 md:pt-36 md:pb-16">
-        <Container className="grid gap-8 md:grid-cols-[minmax(0,1fr)_auto] md:gap-12">
-          <div>
-            <SectionLabel>{t("title")}</SectionLabel>
-            <h1 data-page-title className="display text-h1 mt-6 max-w-4xl text-balance">
+        <Container>
+          <SectionLabel>{t("title")}</SectionLabel>
+          <div className="grid-page mt-6 gap-y-8">
+            <h1
+              data-page-title
+              className="display text-h1 col-span-4 text-balance md:col-span-8 lg:col-span-8"
+            >
               {t("headline")}
             </h1>
-            <div className="mt-8 max-w-prose space-y-4 text-lg leading-relaxed">
+            <Image
+              src={portrait}
+              alt={t("photoAlt")}
+              placeholder="blur"
+              sizes="(min-width: 1024px) 25vw, (min-width: 768px) 37vw, 50vw"
+              className="border-border col-span-2 border-2 contrast-125 grayscale transition-[filter] duration-300 hover:grayscale-0 md:col-span-3 lg:col-span-3 lg:col-start-10 lg:row-span-2"
+            />
+            <div className="col-span-4 max-w-prose space-y-4 text-lg leading-relaxed md:col-span-5 lg:col-span-8">
               {paragraphs.map((paragraph) => (
                 <p key={paragraph}>{paragraph}</p>
               ))}
             </div>
           </div>
-          <Image
-            src={portrait}
-            alt={t("photoAlt")}
-            placeholder="blur"
-            sizes="(min-width: 1024px) 320px, (min-width: 768px) 240px, 160px"
-            className="border-border w-40 border-2 md:mt-12 md:w-60 lg:w-80"
-          />
         </Container>
       </section>
 
