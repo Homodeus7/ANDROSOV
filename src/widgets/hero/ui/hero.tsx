@@ -6,6 +6,7 @@ import { ArrowDown } from "lucide-react";
 import { DUR, EASE, STAGGER, ScrollTrigger, SplitText, gsap, useGSAP } from "@/shared/motion";
 import { prefersReducedMotion, useReducedMotion } from "@/shared/lib";
 import { Container, SectionLabel } from "@/shared/ui";
+import { bindGlyphScramble } from "../lib/glyph-scramble";
 import { HEADLINE, Headline } from "./headline";
 
 const SPEC = [
@@ -119,6 +120,25 @@ export function Hero() {
       );
 
       const mm = gsap.matchMedia();
+
+      mm.add("(hover: hover) and (pointer: fine)", () => {
+        let unbind = () => {};
+        const bind = () => {
+          unbind = bindGlyphScramble(
+            lines,
+            splits.map((split) => split.chars as HTMLElement[]),
+          );
+        };
+
+        if (tl.progress() === 1) bind();
+        else tl.eventCallback("onComplete", bind);
+
+        return () => {
+          tl.eventCallback("onComplete", null);
+          unbind();
+        };
+      });
+
       mm.add("(min-width: 48rem)", () => {
         gsap
           .timeline({
