@@ -10,7 +10,7 @@ export const resume: ResumeRecord = {
       sections: {
         skills: "Core skills",
         experience: "Work experience",
-        projects: "Pet project",
+        projects: "Product",
       },
       skills: [
         {
@@ -173,12 +173,12 @@ export const resume: ResumeRecord = {
         {
           kind: "project",
           company: "FoodIQ — foodiq.space",
-          role: "Pet project in production",
+          role: "Lead Frontend",
           period: "2025 — present",
           summary:
-            "AI nutrition tracker: a meal is described in plain text, calories and macros are worked out automatically. Built entirely by me, from idea to production, including the NestJS backend; the web app is live, the mobile app is heading for RuStore, the App Store and Google Play.",
+            "AI nutrition tracker: a meal is described in plain text, calories and macros are worked out automatically. Small team: a backend developer, an analyst and me on the whole frontend; the web app is live, the mobile app is heading for RuStore, the App Store and Google Play.",
           points: [
-            "Designed the FSD architecture and a shared API layer for the Next.js 16 web app and the React Native app",
+            "Own the entire frontend — the Next.js 16 web app and the React Native app: designed the FSD architecture and a shared API layer for both clients",
             "Built the AI parsing UI streamed over SSE: items appear as they are ready, a dropped connection does not break the result, and ambiguous matches are flagged honestly rather than guessed",
             "Built a dashboard builder with 16 widgets and drag-and-drop: the layout is stored on the server and survives older client versions",
             "Halved the entry bundle — from 2.1 MB to 1 MB by splitting the API client and lazy-loading heavy modules",
@@ -212,7 +212,7 @@ export const resume: ResumeRecord = {
       sections: {
         skills: "Ключевые навыки",
         experience: "Опыт работы",
-        projects: "Пет-проект",
+        projects: "Продукт",
       },
       skills: [
         {
@@ -375,12 +375,12 @@ export const resume: ResumeRecord = {
         {
           kind: "project",
           company: "FoodIQ — foodiq.space",
-          role: "Пет-проект в проде",
+          role: "Lead Frontend",
           period: "2025 — наст. время",
           summary:
-            "AI-трекер питания: еда описывается обычным текстом, калории и БЖУ считаются автоматически. Сделан мной целиком, от идеи до прода, включая бэкенд на NestJS; веб работает, мобильное приложение готовится к выходу в RuStore, App Store и Google Play.",
+            "AI-трекер питания: еда описывается обычным текстом, калории и БЖУ считаются автоматически. Небольшая команда: бэкендер, аналитик и я на всем фронтенде; веб в проде, мобильное приложение готовится к выходу в RuStore, App Store и Google Play.",
           points: [
-            "Спроектировал архитектуру по FSD и общий слой API для веба на Next.js 16 и приложения на React Native",
+            "Отвечаю за весь фронтенд — веб на Next.js 16 и приложение на React Native: спроектировал архитектуру по FSD и общий слой API для обоих клиентов",
             "Сделал интерфейс AI-разбора со стримингом по SSE: позиции появляются по мере готовности, обрыв сети не ломает результат, а спорные совпадения система честно помечает, а не угадывает",
             "Собрал конструктор дашбордов на 16 виджетов с drag-and-drop: раскладка хранится на сервере и не ломается в старых версиях клиента",
             "Сократил входной бандл вдвое — с 2,1 МБ до 1 МБ: разделил API-клиент и вынес тяжелые модули в ленивую загрузку",
