@@ -6,11 +6,11 @@ export const resume: ResumeRecord = {
       name: "Viacheslav Androsov",
       headline: "Frontend Developer (React / Vue / TypeScript)",
       summary:
-        "Frontend developer with 4+ years of commercial experience. Started with outsourced Web3 interfaces, then moved to product teams: a B2B/FinTech platform and an enterprise low-code tool. Specialising in complex SPAs on React and Vue 3 with TypeScript: I design the frontend architecture (FSD), put legacy code back in order and fix performance problems. I work with AI tools daily (Claude Code, agentic pipelines) and ship features faster without losing quality.",
+        "Frontend developer with 4+ years of commercial experience. Started with outsourced Web3 interfaces, then a housing-management ecosystem, a payment gateway and an enterprise low-code platform. Specialising in complex SPAs on React and Vue 3 with TypeScript: I design the frontend architecture (FSD), put legacy code back in order and fix performance problems. I work with Claude Code and agentic pipelines daily.",
       sections: {
         skills: "Core skills",
         experience: "Work experience",
-        projects: "Product",
+        projects: "Pet project",
       },
       skills: [
         {
@@ -60,17 +60,17 @@ export const resume: ResumeRecord = {
         },
         {
           label: "AI",
-          items: ["Claude Code", "agentic pipelines", "MCP"],
+          items: ["AI-assisted development", "Claude Code", "agentic pipelines", "MCP"],
         },
       ],
       jobs: [
         {
           kind: "job",
-          company: "Under NDA",
+          company: "Kvant LLC",
           role: "Frontend Developer (Vue)",
           period: "Feb 2026 — present",
           summary:
-            "Enterprise low-code platform: a visual editor that turns a diagram of blocks into an executable process.",
+            "Enterprise B2B product running inside the client's perimeter, similar to Camunda Modeler: an analyst builds a BPMN diagram from blocks and the platform turns it into an executable process. Team of 6; I own the editor core — scene engine, action history, performance.",
           points: [
             "Designed undo/redo for the whole editor — 40+ operation types, including moving blocks between diagrams. Actions collect in a buffer and are compacted: the backend receives the result, not every mouse movement",
             "Sped the editor up from ~25 to a stable 60 FPS on diagrams of 100+ blocks: removed the idle repaint loop, took scene geometry out from under Vue reactivity, separated measuring from painting within a frame",
@@ -90,14 +90,14 @@ export const resume: ResumeRecord = {
         },
         {
           kind: "job",
-          company: "Under NDA",
+          company: "Syncra",
           role: "Frontend Developer (React)",
           period: "Apr 2025 — Jan 2026",
           summary:
-            "FinTech payment-gateway platform (B2B): merchant portal, admin panel and an embeddable payment form.",
+            "Payment gateway for QR and fast-payment-system payments, about 40k payments a day: merchant portal, operator admin panel and an embeddable payment form. I worked on the merchant portal team.",
           points: [
             "Advanced the architecture along FSD: 3 applications and 50+ modules in one codebase, with clear boundaries for every team",
-            "Replaced per-widget polling with a shared query cache — billing load dropped by 30% on server metrics",
+            "Replaced per-widget polling with a shared query cache — 30% fewer billing requests per session, measured in gateway logs",
             "Built transaction tables with live statuses over WebSocket: an update repaints one row, not the whole table — 500+ transactions update without dropped frames",
           ],
           stack: [
@@ -120,10 +120,10 @@ export const resume: ResumeRecord = {
           role: "Frontend Developer (React, React Native)",
           period: "Mar 2024 — Apr 2025",
           summary:
-            "Residential-complex management ecosystem: a web dashboard for management companies and a mobile app for residents.",
+            "Housing-management ecosystem: a dashboard for management companies and a mobile app for residents instead of calls to the dispatch desk. Team of 10, Scrum, CI/CD.",
           points: [
-            "Built a mobile app from scratch on React Native for residents and staff: requests, payments, documents, push notifications",
-            "Set up generation of a typed API client from the OpenAPI schema — manual type syncing with the backend disappeared entirely",
+            "Built a mobile app from scratch on React Native for residents and staff: requests, payments, documents, push notifications. Wrote it ahead of the backend against mocks of the OpenAPI contract — integration took hours, not weeks",
+            "Set up generation of a typed API client from the OpenAPI schema (Orval) — manual type syncing with the backend disappeared entirely; contract breaks show up at build time, not in production",
             "Built a permission system on CASL: a new role is one file edit, not checks scattered across the code",
           ],
           stack: [
@@ -145,11 +145,12 @@ export const resume: ResumeRecord = {
           company: "Web3 studio (outsourcing)",
           role: "Frontend Developer",
           period: "Jun 2022 — Feb 2024",
-          summary: "Interfaces for DeFi, NFT and GameFi startups on Vue 3 and TypeScript.",
+          summary:
+            "Studio of about 30 people building interfaces for DeFi, NFT and GameFi startups. Main project: a decentralised exchange on BNB Chain — swaps, liquidity pools, farming, portfolio.",
           points: [
-            "Connected MetaMask and WalletConnect wallets through ethers.js: wallet sign-in, transaction signing, network switching",
-            "Showed blockchain data in real time over WebSocket — prices, liquidity, yield — with no page reloads",
-            "Took part in building an NFT platform (Stake / Trade / Earn) and promo landing pages with 3D graphics",
+            "Joined as a junior; within six months owned exchange modules — wallets, swap, portfolio, and by the end shipped features from mockup to production and reviewed the second frontend developer",
+            "Integrated MetaMask and WalletConnect through ethers.js: sign-in by message signature, network switching, and a transaction UI that shows both phases — signing and waiting for the block — and survives a page reload",
+            "Streamed prices, liquidity and yield in real time over WebSocket; contributed to an NFT platform (Stake / Trade / Earn) and three.js promo landing pages",
           ],
           stack: [
             "Vue 3 (Composition API)",
@@ -172,12 +173,12 @@ export const resume: ResumeRecord = {
         {
           kind: "project",
           company: "FoodIQ — foodiq.space",
-          role: "Lead Frontend",
+          role: "Pet project in production",
           period: "2025 — present",
           summary:
-            "AI nutrition tracker: a meal is described in plain text, calories and macros are worked out automatically. Small team; the web app is live, the mobile app is heading for RuStore, the App Store and Google Play.",
+            "AI nutrition tracker: a meal is described in plain text, calories and macros are worked out automatically. Built entirely by me, from idea to production, including the NestJS backend; the web app is live, the mobile app is heading for RuStore, the App Store and Google Play.",
           points: [
-            "Own the entire frontend — the Next.js 16 web app and the React Native app: designed the FSD architecture and a shared API layer for both clients",
+            "Designed the FSD architecture and a shared API layer for the Next.js 16 web app and the React Native app",
             "Built the AI parsing UI streamed over SSE: items appear as they are ready, a dropped connection does not break the result, and ambiguous matches are flagged honestly rather than guessed",
             "Built a dashboard builder with 16 widgets and drag-and-drop: the layout is stored on the server and survives older client versions",
             "Halved the entry bundle — from 2.1 MB to 1 MB by splitting the API client and lazy-loading heavy modules",
@@ -207,11 +208,11 @@ export const resume: ResumeRecord = {
       name: "Вячеслав Андросов",
       headline: "Frontend-разработчик (React / Vue / TypeScript)",
       summary:
-        "Frontend-разработчик с 4+ годами коммерческого опыта. Начинал с аутсорс-разработки Web3-интерфейсов, дальше — продуктовые команды. Специализация — сложные SPA на React и Vue 3 с TypeScript: проектирую архитектуру фронтенда, привожу в порядок legacy, решаю проблемы производительности. Ежедневно работаю с AI-инструментами (Claude Code, агентные пайплайны) — быстрее выпускаю фичи без потери качества.",
+        "Frontend-разработчик с 4+ годами коммерческого опыта. Начинал с аутсорс-разработки Web3-интерфейсов, дальше — ЖКХ-экосистема, платежный шлюз и low-code платформа. Специализация — сложные SPA на React и Vue 3 с TypeScript: проектирую архитектуру фронтенда, привожу в порядок legacy, решаю проблемы производительности. Ежедневно работаю с Claude Code и агентными пайплайнами.",
       sections: {
         skills: "Ключевые навыки",
         experience: "Опыт работы",
-        projects: "Продукт",
+        projects: "Пет-проект",
       },
       skills: [
         {
@@ -231,7 +232,7 @@ export const resume: ResumeRecord = {
         },
         {
           label: "UI / Стилизация",
-          items: ["Tailwind CSS", "shadcn/ui", "SCSS", "Storybook", "адаптивная вёрстка"],
+          items: ["Tailwind CSS", "shadcn/ui", "SCSS", "Storybook", "адаптивная верстка"],
         },
         {
           label: "Качество / Инструменты",
@@ -261,20 +262,20 @@ export const resume: ResumeRecord = {
         },
         {
           label: "AI",
-          items: ["Claude Code", "агентные пайплайны", "MCP"],
+          items: ["AI-assisted development", "Claude Code", "агентные пайплайны", "MCP"],
         },
       ],
       jobs: [
         {
           kind: "job",
-          company: "Под NDA",
+          company: "ООО «Квант»",
           role: "Frontend-разработчик (Vue)",
           period: "фев 2026 — наст. время",
           summary:
-            "Корпоративная low-code платформа: визуальный редактор, который превращает схему из блоков в исполняемый процесс.",
+            "Корпоративный B2B-продукт внутри контура заказчика, аналог Camunda Modeler: аналитик собирает BPMN-схему из блоков, платформа превращает ее в исполняемый процесс. Команда 6 человек, моя зона — ядро редактора: движок сцены, история действий, производительность.",
           points: [
             "Спроектировал undo/redo для всего редактора — 40+ типов операций, включая перенос блоков между схемами. Действия копятся в буфере и сжимаются: на бэкенд уходит результат, а не каждое движение мыши",
-            "Ускорил редактор с ~25 до стабильных 60 FPS на схемах из 100+ блоков: убрал холостую перерисовку, вывел геометрию сцены из-под реактивности Vue, развёл измерения и отрисовку в кадре",
+            "Ускорил редактор с ~25 до стабильных 60 FPS на схемах из 100+ блоков: убрал холостую перерисовку, вывел геометрию сцены из-под реактивности Vue, развел измерения и отрисовку в кадре",
           ],
           stack: [
             "Vue 3 (Composition API)",
@@ -291,14 +292,14 @@ export const resume: ResumeRecord = {
         },
         {
           kind: "job",
-          company: "Под NDA",
+          company: "Syncra",
           role: "Frontend-разработчик (React)",
           period: "апр 2025 — янв 2026",
           summary:
-            "FinTech-платформа платёжных шлюзов (B2B): кабинет мерчанта, админ-панель и встраиваемая платёжная форма.",
+            "Платежный шлюз для приема платежей по QR и СБП, около 40 тыс. платежей в день: кабинет мерчанта, админка операторов и встраиваемая платежная форма. Работал в команде кабинета мерчанта.",
           points: [
             "Развивал архитектуру по FSD: 3 приложения и 50+ модулей в одной кодовой базе, у каждой команды свои границы",
-            "Заменил самостоятельный опрос данных в виджетах общим кешем запросов — нагрузка на биллинг снизилась на 30% по серверным метрикам",
+            "Заменил самостоятельный опрос данных в виджетах общим кешем запросов — запросов к биллингу на сессию стало на 30% меньше по логам шлюза",
             "Собрал таблицы транзакций с живыми статусами по WebSocket: при обновлении перерисовывается одна строка, а не вся таблица — 500+ транзакций обновляются без просадки кадров",
           ],
           stack: [
@@ -321,10 +322,10 @@ export const resume: ResumeRecord = {
           role: "Frontend-разработчик (React, React Native)",
           period: "мар 2024 — апр 2025",
           summary:
-            "Экосистема управления жилыми комплексами: веб-дашборд для УК и мобильное приложение для жильцов.",
+            "Экосистема ЖКХ: дашборд для управляющих компаний и мобильное приложение для жильцов вместо звонков в диспетчерскую. Команда 10 человек, Scrum, CI/CD.",
           points: [
-            "С нуля разработал мобильное приложение на React Native для жильцов и сотрудников УК: заявки, оплаты, документы, push-уведомления",
-            "Настроил генерацию типизированного API-клиента из OpenAPI — ручная синхронизация типов с бэкендом ушла совсем",
+            "С нуля разработал мобильное приложение на React Native для жильцов и сотрудников УК: заявки, оплаты, документы, push-уведомления. Писал до готовности бэкенда на моках по OpenAPI-контракту — интеграция заняла часы, а не недели",
+            "Настроил генерацию типизированного API-клиента из OpenAPI (Orval) — ручная синхронизация типов с бэкендом ушла совсем, поломки контракта видны на этапе сборки, а не в проде",
             "Собрал систему прав доступа на CASL: новая роль добавляется правкой одного файла, а не проверками по всему коду",
           ],
           stack: [
@@ -346,11 +347,12 @@ export const resume: ResumeRecord = {
           company: "Web3-студия (аутсорс)",
           role: "Frontend-разработчик",
           period: "июн 2022 — фев 2024",
-          summary: "Интерфейсы для DeFi-, NFT- и GameFi-стартапов на Vue 3 и TypeScript.",
+          summary:
+            "Студия около 30 человек: интерфейсы для DeFi-, NFT- и GameFi-стартапов. Основной проект — децентрализованная биржа на BNB Chain: обмен, пулы ликвидности, фарминг, портфель.",
           points: [
-            "Подключал криптокошельки MetaMask и WalletConnect через ethers.js: вход по кошельку, подпись транзакций, переключение сети",
-            "Выводил данные блокчейна в реальном времени по WebSocket — цены, ликвидность, доходность — без перезагрузки страницы",
-            "Участвовал в разработке NFT-платформы (Stake / Trade / Earn) и промо-лендингов с 3D-графикой",
+            "Пришел junior'ом, через полгода вел модули биржи — кошельки, обмен, портфель, к концу сам закрывал фичи от макета до прода и ревьюил второго фронтенда",
+            "Подключил MetaMask и WalletConnect через ethers.js: вход по подписи сообщения, переключение сети, интерфейс транзакции с обеими фазами — подпись и ожидание блока — который переживает перезагрузку страницы",
+            "Выводил цены, ликвидность и доходность в реальном времени по WebSocket; участвовал в NFT-платформе (Stake / Trade / Earn) и промо-лендингах на three.js",
           ],
           stack: [
             "Vue 3 (Composition API)",
@@ -373,15 +375,15 @@ export const resume: ResumeRecord = {
         {
           kind: "project",
           company: "FoodIQ — foodiq.space",
-          role: "Lead Frontend",
+          role: "Пет-проект в проде",
           period: "2025 — наст. время",
           summary:
-            "AI-трекер питания: еда описывается обычным текстом, калории и БЖУ считаются автоматически. Небольшая команда; веб в проде, мобильное приложение готовится к выходу в RuStore, App Store и Google Play.",
+            "AI-трекер питания: еда описывается обычным текстом, калории и БЖУ считаются автоматически. Сделан мной целиком, от идеи до прода, включая бэкенд на NestJS; веб работает, мобильное приложение готовится к выходу в RuStore, App Store и Google Play.",
           points: [
-            "Отвечаю за весь фронтенд — веб на Next.js 16 и приложение на React Native: спроектировал архитектуру по FSD и общий слой API для обоих клиентов",
+            "Спроектировал архитектуру по FSD и общий слой API для веба на Next.js 16 и приложения на React Native",
             "Сделал интерфейс AI-разбора со стримингом по SSE: позиции появляются по мере готовности, обрыв сети не ломает результат, а спорные совпадения система честно помечает, а не угадывает",
             "Собрал конструктор дашбордов на 16 виджетов с drag-and-drop: раскладка хранится на сервере и не ломается в старых версиях клиента",
-            "Сократил входной бандл вдвое — с 2,1 МБ до 1 МБ: разделил API-клиент и вынес тяжёлые модули в ленивую загрузку",
+            "Сократил входной бандл вдвое — с 2,1 МБ до 1 МБ: разделил API-клиент и вынес тяжелые модули в ленивую загрузку",
           ],
           stack: [
             "Next.js 16",
