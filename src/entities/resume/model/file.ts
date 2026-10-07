@@ -5,4 +5,4 @@ import type { Locale } from "@/shared/i18n";
  * вёрстка на оба языка, поэтому русская и английская версии не расходятся.
  */
 export const resumeFile = (locale: Locale) =>
-  `/resume/Androsov_Viacheslav_Frontend_${locale.toUpperCase()}.pdf`;
+  `/resume/Frontend_Developer_Viacheslav_Androsov_CV_${locale.toUpperCase()}.pdf`;

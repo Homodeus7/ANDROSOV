@@ -5,7 +5,7 @@ import { chromium } from "playwright";
 const LOCALES = ["ru", "en"];
 const SOURCE = (locale) => new URL(`../resume/${locale}.md`, import.meta.url);
 const TARGET = (locale) =>
-  new URL(`../public/resume/Androsov_Viacheslav_Frontend_${locale.toUpperCase()}.pdf`, import.meta.url);
+  new URL(`../public/resume/Frontend_Developer_Viacheslav_Androsov_CV_${locale.toUpperCase()}.pdf`, import.meta.url);
 const PHOTO = new URL("../resume/photo.jpg", import.meta.url);
 
 const escapeHtml = (text) =>

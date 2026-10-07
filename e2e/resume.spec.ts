@@ -26,8 +26,8 @@ test.describe("resume and about", () => {
   // рядом и отдаваться, а не отвечать 404 после переименования
   test("hands out the pdf of the page's own language", async ({ page, request }) => {
     for (const [locale, file] of [
-      ["en", "Androsov_Viacheslav_Frontend_EN.pdf"],
-      ["ru", "Androsov_Viacheslav_Frontend_RU.pdf"],
+      ["en", "Frontend_Developer_Viacheslav_Androsov_CV_EN.pdf"],
+      ["ru", "Frontend_Developer_Viacheslav_Androsov_CV_RU.pdf"],
     ]) {
       await page.goto(`/${locale}/resume`);
       const link = page.locator(`a[href="/resume/${file}"][download]`);

@@ -233,7 +233,7 @@ def render_block(document, block, style):
 
 
 def build(locale, style_name):
-    target = OUT / f"Androsov_Viacheslav_Frontend_{locale.upper()}_{style_name}.docx"
+    target = OUT / f"Frontend_Developer_Viacheslav_Androsov_CV_{locale.upper()}_{style_name}.docx"
     build_file(SOURCE / f"{locale}.md", target, style_name)
 
 
