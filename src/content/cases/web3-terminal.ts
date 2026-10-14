@@ -3,7 +3,7 @@ import type { CaseRecord } from "@/entities/case";
 export const web3Terminal: CaseRecord = {
   slug: "web3-terminal",
   order: 4,
-  nda: true,
+  nda: false,
   stack: [
     "Vue 3",
     "TypeScript",
@@ -13,16 +13,15 @@ export const web3Terminal: CaseRecord = {
     "WebSocket",
     "ApexCharts",
     "GSAP",
-    "three.js",
     "Vite",
   ],
   demos: ["wallet-state"],
-  links: [],
+  links: [{ label: "babydoge.com", href: "https://babydoge.com" }],
   content: {
     en: {
       title: "DeFi Terminal",
       tagline: "Quotes, deals and referral income, all moving under the user at once",
-      role: "Frontend engineer — outsourcing studio",
+      role: "Frontend engineer — BabyDoge",
       period: "Jun 2022 — Feb 2024",
       metrics: [
         {
@@ -38,7 +37,7 @@ export const web3Terminal: CaseRecord = {
         {
           value: "20",
           label: "months",
-          detail: "across the studio's DeFi and GameFi products",
+          detail: "across BabyDoge's DeFi and GameFi products",
         },
       ],
       sections: [
@@ -54,7 +53,7 @@ export const web3Terminal: CaseRecord = {
           kind: "constraint",
           title: "One Codebase — Multiple Products",
           body: [
-            "The studio ran several Web3 and GameFi products in parallel on outsourcing deadlines, so anything built for one of them had to survive being lifted into the next.",
+            "BabyDoge ran several Web3 and GameFi products in parallel, so anything built for one of them had to survive being lifted into the next.",
             "And for a large share of these users it is the first crypto transaction of their life. An interface that forwards a provider's error verbatim has told them nothing.",
           ],
         },
@@ -79,7 +78,7 @@ export const web3Terminal: CaseRecord = {
     ru: {
       title: "DeFi-терминал",
       tagline: "Котировки, сделки и реферальный доход — всё меняется под пользователем разом",
-      role: "Фронтенд-разработчик — аутсорс-студия",
+      role: "Фронтенд-разработчик — BabyDoge",
       period: "июн 2022 — фев 2024",
       metrics: [
         {
@@ -92,7 +91,7 @@ export const web3Terminal: CaseRecord = {
           label: "перезагрузок страницы",
           detail: "котировки и сделки идут сокетом",
         },
-        { value: "20", label: "месяцев", detail: "на DeFi- и GameFi-продуктах студии" },
+        { value: "20", label: "месяцев", detail: "на DeFi- и GameFi-продуктах BabyDoge" },
       ],
       sections: [
         {
@@ -107,7 +106,7 @@ export const web3Terminal: CaseRecord = {
           kind: "constraint",
           title: "Один код — несколько продуктов",
           body: [
-            "Студия параллельно вела несколько Web3- и GameFi-продуктов. Решения, сделанные для одного проекта, должны были легко переноситься в следующий — без переписывания с нуля.",
+            "BabyDoge параллельно развивал несколько Web3- и GameFi-продуктов. Решения, сделанные для одного проекта, должны были легко переноситься в следующий — без переписывания с нуля.",
             "Для многих пользователей это была первая криптотранзакция. Поэтому сырая ошибка провайдера не помогала понять, что произошло и что делать дальше.",
           ],
         },

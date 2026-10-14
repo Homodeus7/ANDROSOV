@@ -16,9 +16,9 @@ type DemoEntry = { component: () => React.ReactNode; messages: string; note?: st
 const DEMOS: Record<DemoId, DemoEntry> = {
   "undo-redo": { component: UndoRedoDemo, messages: "undoRedo", note: "vueNote" },
   "canvas-fps": { component: CanvasFpsDemo, messages: "canvasFps", note: "vueNote" },
-  "tx-table": { component: TxTableDemo, messages: "txTable", note: "reactNote" },
-  "dynamic-form": { component: DynamicFormDemo, messages: "dynamicForm", note: "reactNote" },
-  "live-rollup": { component: LiveRollupDemo, messages: "liveRollup", note: "reactNote" },
+  "tx-table": { component: TxTableDemo, messages: "txTable", note: "portNote" },
+  "dynamic-form": { component: DynamicFormDemo, messages: "dynamicForm", note: "portNote" },
+  "live-rollup": { component: LiveRollupDemo, messages: "liveRollup", note: "portNote" },
   "meal-stream": { component: MealStreamDemo, messages: "mealStream" },
   "access-matrix": {
     component: AccessMatrixDemo,
