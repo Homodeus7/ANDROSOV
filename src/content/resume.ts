@@ -146,7 +146,7 @@ export const resume: ResumeRecord = {
           role: "Frontend Developer",
           period: "Jun 2022 — Feb 2024",
           summary:
-            "Web3 ecosystem on BNB Chain: a decentralised exchange, an NFT platform and GameFi projects. A team of 2–3 frontend developers, a backend developer, a smart contract developer, a designer and a project manager. Kanban, releases by product milestones.",
+            "Web3 ecosystem on BNB Chain: a decentralised exchange, an NFT platform and GameFi projects. A team of 2–3 frontend developers, a backend developer, a smart contract developer, a designer and a project manager. Worked in Kanban.",
           duties: [
             "Building the exchange, NFT platform and promo landing page interfaces",
             "Refactoring exchange modules: wallets, swap, portfolio",
@@ -346,7 +346,7 @@ export const resume: ResumeRecord = {
           role: "Frontend-разработчик",
           period: "июн 2022 — фев 2024",
           summary:
-            "Web3-экосистема на BNB Chain: децентрализованная биржа, NFT-платформа и GameFi-проекты. Команда из 2–3 фронтендеров, бэкендера, разработчика смарт-контрактов, дизайнера и проджект-менеджера. Kanban, релизы по вехам продукта.",
+            "Web3-экосистема на BNB Chain: децентрализованная биржа, NFT-платформа и GameFi-проекты. Команда из 2–3 фронтендеров, бэкендера, разработчика смарт-контрактов, дизайнера и проджект-менеджера. Работали по Kanban.",
           duties: [
             "Разработка интерфейсов биржи, NFT-платформы и промо-лендингов",
             "Рефакторинг модулей биржи: кошельки, обмен, портфель",
