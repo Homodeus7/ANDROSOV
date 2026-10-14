@@ -122,7 +122,7 @@ export const resume: ResumeRecord = {
           ],
           points: [
             "Built a mobile app from scratch on React Native for residents and staff: requests, payments, documents, push notifications. Wrote it ahead of the backend against mocks of the OpenAPI contract — integration took hours, not weeks",
-            "Initiated and introduced generation of a typed API client from the OpenAPI schema (Orval) into the team's workflow — manual type syncing with the backend disappeared entirely; contract breaks show up at build time, not in production",
+            "Initiated and introduced generation of a typed API client from the OpenAPI schema (Orval) into the team's workflow — manual type syncing with the backend disappeared entirely",
             "Built a permission system on CASL: a new role is one file edit, not checks scattered across the code",
             "Wrote the project documentation from scratch in Markdown and Confluence — new developers got up to speed faster",
           ],
@@ -330,7 +330,7 @@ export const resume: ResumeRecord = {
           ],
           points: [
             "С нуля разработал мобильное приложение на React Native для жильцов и сотрудников УК: заявки, оплаты, документы, push-уведомления. Писал до готовности бэкенда на моках по OpenAPI-контракту — интеграция заняла часы, а не недели",
-            "Стал инициатором и внедрил в работу команды генерацию типизированного API-клиента из OpenAPI (Orval) — ручная синхронизация типов с бэкендом ушла совсем, поломки контракта видны на этапе сборки, а не в проде",
+            "Стал инициатором и внедрил в работу команды генерацию типизированного API-клиента из OpenAPI (Orval) — ручная синхронизация типов с бэкендом ушла совсем",
             "Собрал систему прав доступа на CASL: новая роль добавляется правкой одного файла, а не проверками по всему коду",
             "С нуля написал документацию проекта в Markdown и Confluence — новые разработчики стали быстрее входить в проект",
           ],
