@@ -6,14 +6,14 @@ export const resume: ResumeRecord = {
       name: "Viacheslav Androsov",
       headline: "Frontend Developer (React / Vue / TypeScript)",
       summary:
-        "Frontend developer with 4+ years of commercial experience in Vue 3, React and TypeScript. I design frontend architecture, clean up legacy code and fix performance problems. Fullstack experience with Node.js; I work with Claude Code and AI agents daily.",
+        "Frontend developer with 4+ years of commercial experience in Vue 3, React and TypeScript. I design frontend architecture, untangle legacy code and fix performance bottlenecks. Full-stack experience with Node.js. I use Claude Code and AI agents every day.",
       sections: {
         skills: "Core skills",
         experience: "Work experience",
-        projects: "Product",
+        projects: "Projects",
         education: "Education",
       },
-      education: "Higher education, Siberian Federal University (SibFU), 2014",
+      education: "Siberian Federal University, 2014",
       skills: [
         {
           label: "Frontend",
@@ -72,12 +72,12 @@ export const resume: ResumeRecord = {
           role: "Frontend Developer (Vue)",
           period: "Apr 2025 — present",
           summary:
-            "B2B payment gateway, about 40k payments a day. Team: 2 frontend, 3 backend, a BA, a QA and a lead. Scrum.",
+            "B2B payment gateway handling ~40k payments a day. Team: 2 frontend and 3 backend devs, a BA, QA, a lead. Scrum.",
           points: [
-            "Traced a payment form crash on older Android devices through Sentry and shipped a build for old browsers — Android payment-step conversion rose from ~62% to ~81%",
-            "Sped the process editor up from ~25 to a stable 60 FPS on diagrams of 100+ blocks",
-            "Built a reusable DataGrid on TanStack Table for 20+ pages with live WebSocket statuses — 500+ transactions update without dropped frames",
-            "Designed the editor's history module — 40+ operation types, including moving blocks between diagrams",
+            "Traced a payment form crash on older Android devices via Sentry and shipped a legacy-browser build — Android checkout conversion rose from ~62% to ~81%",
+            "Took the process editor from ~25 to a steady 60 FPS on diagrams with 100+ blocks",
+            "Built a reusable TanStack Table data grid used across 20+ pages, with live status updates over WebSocket — 500+ transactions refresh without dropped frames",
+            "Designed undo/redo for the whole editor — 40+ operation types, including moving blocks between diagrams",
           ],
           stack: [
             "Vue 3",
@@ -102,10 +102,10 @@ export const resume: ResumeRecord = {
           role: "Frontend Developer (React, React Native)",
           period: "Mar 2024 — Apr 2025",
           summary:
-            "An ecosystem of housing-management services. A team of about 10: 3 web frontend developers, me on mobile, 3–4 backend developers, a designer, a QA and a PM. Scrum.",
+            "Property management platform. Team of ~10: 3 web frontend devs, me on mobile, 3–4 backend devs, a designer, QA and a PM. Scrum.",
           points: [
             "Built a React Native app from scratch for residents and staff: requests, payments, documents, push notifications",
-            "Introduced a typed API client generated from OpenAPI (Orval) — no more manual type syncing",
+            "Introduced typed API client generation from OpenAPI (Orval), ending manual type syncing with the backend",
           ],
           stack: [
             "React",
@@ -127,10 +127,10 @@ export const resume: ResumeRecord = {
           role: "Frontend Developer",
           period: "Jun 2022 — Feb 2024",
           summary:
-            "Web3 ecosystem on BNB Chain: a DEX, an NFT platform and GameFi. Team: 2–3 frontend, backend, smart contract developer, designer, PM. Kanban.",
+            "Web3 ecosystem on BNB Chain: a DEX, an NFT platform and GameFi projects. Team: 2–3 frontend devs, backend and smart contract devs, a designer and a PM. Kanban.",
           points: [
-            "Joined as a junior; within six months owned wallets, swap and portfolio; later shipped features end to end",
-            "Integrated MetaMask and WalletConnect via ethers.js: signature sign-in, network switching, reload-proof transaction status",
+            "Joined as a junior and within six months owned the wallet, swap and portfolio modules",
+            "Integrated MetaMask and WalletConnect via ethers.js: wallet-signature sign-in, network switching and transaction status that survives a reload",
           ],
           stack: [
             "Vue 3",
@@ -155,10 +155,10 @@ export const resume: ResumeRecord = {
           role: "Lead Frontend",
           period: "2025 — present",
           summary:
-            "AI nutrition tracker: calories and macros from a plain-text meal. Team: a backend developer, an analyst and me.",
+            "AI nutrition tracker: calories and macros from a meal described in plain text. Team: me, a backend dev and an analyst.",
           points: [
-            "Set up contract-first work on OpenAPI — 120+ endpoints, frontend and backend build in parallel",
-            "Halved the entry bundle, from 2.1 to 1 MB",
+            "Set up contract-first development with OpenAPI: 120+ endpoints, frontend and backend built in parallel",
+            "Cut the initial bundle in half, from 2.1 MB to 1 MB",
           ],
           stack: [
             "Next.js 16",

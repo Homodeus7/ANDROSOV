@@ -136,7 +136,7 @@ const STYLE = `
   .duties { font-size: 9.5pt; line-height: 1.15; }
   .duties li { margin-top: 1pt; }
   .stack { margin-top: 4pt; font-style: italic; font-size: 9.5pt; }
-  .dense { font-size: 10pt; line-height: 1.22; }
+  .dense { font-size: 10pt; line-height: 1.18; }
   .dense .photo { width: 26mm; height: 26mm; }
   .dense h2 { margin-top: 10pt; }
   .dense h2 + p { margin-top: 5pt; }
