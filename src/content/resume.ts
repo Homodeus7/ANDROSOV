@@ -87,7 +87,6 @@ export const resume: ResumeRecord = {
             "Sped the editor up from ~25 to a stable 60 FPS on diagrams of 100+ blocks: removed the idle repaint loop, took scene geometry out from under Vue reactivity, separated measuring from painting within a frame",
             "Brought Claude Code with MCP servers into the team and taught colleagues to work with AI agents — tests, reviews and documentation began taking noticeably less time",
             "Built a reusable DataGrid on TanStack Table used on 20+ pages of the app: filtering, sorting, pagination and drag & drop column setup. Added live transaction statuses over WebSocket: an update repaints one row, not the whole table — 500+ transactions update without dropped frames",
-            "Introduced in-app user feedback collection: merchant requests were gathered into statistics, and the team picked them up faster",
           ],
           stack: [
             "Vue 3",
@@ -296,7 +295,6 @@ export const resume: ResumeRecord = {
             "Ускорил редактор с ~25 до стабильных 60 FPS на схемах из 100+ блоков: убрал холостую перерисовку, вывел геометрию сцены из-под реактивности Vue, развел измерения и отрисовку в кадре",
             "Внедрил в команду Claude Code с MCP-серверами и обучил коллег работе с AI-агентами — тесты, ревью и документация стали занимать заметно меньше времени",
             "Разработал универсальный DataGrid на TanStack Table, который используется на 20+ страницах приложения: фильтрация, сортировка, пагинация и настройка колонок через drag & drop. Подключил живые статусы транзакций по WebSocket: при обновлении перерисовывается одна строка, а не вся таблица — 500+ транзакций обновляются без просадки кадров",
-            "Внедрил сбор пользовательского фидбека прямо в интерфейсе: запросы мерчантов собирались в статистику, и команда быстрее брала их в работу",
           ],
           stack: [
             "Vue 3",
