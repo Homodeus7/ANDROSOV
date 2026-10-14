@@ -136,13 +136,20 @@ const STYLE = `
   .duties { font-size: 9.5pt; line-height: 1.15; }
   .duties li { margin-top: 1pt; }
   .stack { margin-top: 4pt; font-style: italic; font-size: 9.5pt; }
+  .dense { font-size: 10pt; line-height: 1.22; }
+  .dense .photo { width: 26mm; height: 26mm; }
+  .dense h2 { margin-top: 10pt; }
+  .dense h2 + p { margin-top: 5pt; }
+  .dense .job-head { margin-top: 8pt; }
 `;
 
-function html(markdown, photo) {
+const ONE_PAGE = new Set(["en"]);
+
+function html(markdown, photo, dense) {
   const { name, head, body } = parse(markdown);
   const intro = `<p class="name">${inline(name)}</p>
     <div class="head">${head.map((block) => `<p>${inline(blockText(block))}</p>`).join("")}</div>`;
-  return `<!doctype html><html><head><meta charset="utf-8"><style>${STYLE}</style></head><body>
+  return `<!doctype html><html><head><meta charset="utf-8"><style>${STYLE}</style></head><body${dense ? ' class="dense"' : ""}>
     ${photo ? `<div class="top"><img class="photo" src="${photo}" alt=""><div>${intro}</div></div>` : intro}
     ${body.map(render).join("\n")}
   </body></html>`;
@@ -158,12 +165,12 @@ const page = await browser.newPage();
 
 const [source, target] = process.argv.slice(2);
 const pairs = source
-  ? [[pathToFileURL(source), pathToFileURL(target)]]
-  : LOCALES.map((locale) => [SOURCE(locale), TARGET(locale)]);
+  ? [[pathToFileURL(source), pathToFileURL(target), false]]
+  : LOCALES.map((locale) => [SOURCE(locale), TARGET(locale), ONE_PAGE.has(locale)]);
 
-for (const [from, to] of pairs) {
+for (const [from, to, dense] of pairs) {
   const markdown = await readFile(from, "utf8");
-  await page.setContent(html(markdown, photo), { waitUntil: "load" });
+  await page.setContent(html(markdown, photo, dense), { waitUntil: "load" });
   const pdf = await page.pdf({ format: "A4", printBackground: true });
   await writeFile(to, pdf);
   console.log(`${to.pathname} (${Math.round(pdf.length / 1024)} KB)`);
