@@ -5,7 +5,21 @@ import { getResume, resumeFile, type ResumeJob } from "@/entities/resume";
 import { site } from "@/shared/config";
 import { Container, SectionLabel } from "@/shared/ui";
 
-function Job({ job, caseLabel }: { job: ResumeJob; caseLabel: string }) {
+type JobLabels = { caseLink: string; duties: string; achievements: string };
+
+function Points({ items }: { items: string[] }) {
+  return (
+    <ul className="text-muted mt-2 max-w-prose space-y-2">
+      {items.map((item) => (
+        <li key={item} className="before:text-accent-ink before:mr-2 before:content-['—']">
+          {item}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function Job({ job, labels }: { job: ResumeJob; labels: JobLabels }) {
   return (
     <article className="border-border break-inside-avoid border-t-2 pt-6">
       <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
@@ -15,13 +29,18 @@ function Job({ job, caseLabel }: { job: ResumeJob; caseLabel: string }) {
       <p className="spec text-muted mt-1">{job.company}</p>
       <p className="mt-4 max-w-prose">{job.summary}</p>
 
-      <ul className="text-muted mt-4 max-w-prose space-y-2">
-        {job.points.map((point) => (
-          <li key={point} className="before:text-accent-ink before:mr-2 before:content-['—']">
-            {point}
-          </li>
-        ))}
-      </ul>
+      {job.duties ? (
+        <>
+          <p className="spec text-muted mt-4">{labels.duties}</p>
+          <Points items={job.duties} />
+          <p className="spec text-muted mt-4">{labels.achievements}</p>
+          <Points items={job.points} />
+        </>
+      ) : (
+        <div className="mt-4">
+          <Points items={job.points} />
+        </div>
+      )}
 
       <p className="spec text-muted mt-4">{job.stack.join(" · ")}</p>
 
@@ -30,7 +49,7 @@ function Job({ job, caseLabel }: { job: ResumeJob; caseLabel: string }) {
           slug={job.case}
           className="spec text-accent-ink mt-4 inline-block print:hidden"
         >
-          {caseLabel} →
+          {labels.caseLink} →
         </CaseLink>
       ) : null}
     </article>
@@ -44,6 +63,11 @@ export function ResumePage() {
   const file = resumeFile(locale);
   const experience = resume.jobs.filter((job) => job.kind === "job");
   const projects = resume.jobs.filter((job) => job.kind === "project");
+  const labels: JobLabels = {
+    caseLink: t("caseLink"),
+    duties: t("duties"),
+    achievements: t("achievements"),
+  };
 
   return (
     <>
@@ -102,7 +126,7 @@ export function ResumePage() {
             <SectionLabel>{label}</SectionLabel>
             <div className="mt-8 space-y-10">
               {jobs.map((job) => (
-                <Job key={job.role + job.period} job={job} caseLabel={t("caseLink")} />
+                <Job key={job.role + job.period} job={job} labels={labels} />
               ))}
             </div>
           </Container>

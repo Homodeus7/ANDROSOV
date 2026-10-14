@@ -115,6 +115,8 @@
     "title": "Resume",
     "download": "Download PDF",
     "caseLink": "Read the case",
+    "duties": "Responsibilities",
+    "achievements": "Achievements",
     "viewer": {
       "label": "PDF",
       "title": "Resume as PDF",

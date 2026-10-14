@@ -12,6 +12,7 @@ const jobSchema = z.object({
   role: z.string().min(1),
   period: z.string().min(1),
   summary: z.string().min(1),
+  duties: z.array(z.string().min(1)).optional(),
   points: z.array(z.string().min(1)).min(1),
   stack: z.array(z.string().min(1)).min(1),
   /** Slug кейса: резюме и кейс говорят об одной работе, и это должно быть видно */

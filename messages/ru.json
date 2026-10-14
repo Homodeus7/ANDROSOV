@@ -115,6 +115,8 @@
     "title": "Резюме",
     "download": "Скачать PDF",
     "caseLink": "Кейс целиком",
+    "duties": "Обязанности",
+    "achievements": "Достижения",
     "viewer": {
       "label": "PDF",
       "title": "Резюме в PDF",
