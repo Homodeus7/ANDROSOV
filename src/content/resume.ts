@@ -84,7 +84,7 @@ export const resume: ResumeRecord = {
           points: [
             "Caught a payment form crash on some Android devices through Sentry: an old browser engine could not parse the bundle and copying payment details failed silently. Added fallback paths and a build for older browsers — payment-step conversion on Android rose from ~62% to ~81%",
             "Designed the history module for the business-process editor — 40+ operation types, including moving blocks between diagrams",
-            "Sped the editor up from ~25 to a stable 60 FPS on diagrams of 100+ blocks: removed the idle repaint loop, took scene geometry out from under Vue reactivity, separated measuring from painting within a frame",
+            "Sped the editor up from ~25 to a stable 60 FPS on diagrams of 100+ blocks: removed the idle repaint loop and took scene geometry out from under Vue reactivity",
             "Brought Claude Code with MCP servers into the team and taught colleagues to work with AI agents — tests, reviews and documentation began taking noticeably less time",
             "Built a reusable DataGrid on TanStack Table used on 20+ pages of the app: filtering, sorting, pagination and drag & drop column setup. Added live transaction statuses over WebSocket: an update repaints one row, not the whole table — 500+ transactions update without dropped frames",
           ],
@@ -146,7 +146,7 @@ export const resume: ResumeRecord = {
           role: "Frontend Developer",
           period: "Jun 2022 — Feb 2024",
           summary:
-            "Web3 ecosystem on BNB Chain: a decentralised exchange, an NFT platform and GameFi projects. A team of 2–3 frontend developers, a backend developer, a designer and a project manager. Kanban, releases shipped against product milestones.",
+            "Web3 ecosystem on BNB Chain: a decentralised exchange, an NFT platform and GameFi projects. A team of 2–3 frontend developers, a backend developer, a smart contract developer, a designer and a project manager. Kanban, releases shipped against product milestones.",
           duties: [
             "Building the exchange, NFT platform and promo landing page interfaces",
             "Refactoring exchange modules: wallets, swap, portfolio",
@@ -292,7 +292,7 @@ export const resume: ResumeRecord = {
           points: [
             "Через Sentry отловил краш платежной формы на части Android-устройств: старый браузерный движок не читал бандл, а копирование реквизитов молча падало. Добавил запасные пути и сборку под старые браузеры — конверсия шага оплаты на Android выросла с ~62% до ~81%",
             "Спроектировал модуль истории для редактора бизнес-процессов — 40+ типов операций, включая перенос блоков между схемами",
-            "Ускорил редактор с ~25 до стабильных 60 FPS на схемах из 100+ блоков: убрал холостую перерисовку, вывел геометрию сцены из-под реактивности Vue, развел измерения и отрисовку в кадре",
+            "Ускорил редактор с ~25 до стабильных 60 FPS на схемах из 100+ блоков: убрал холостую перерисовку и вывел геометрию сцены из-под реактивности Vue",
             "Внедрил в команду Claude Code с MCP-серверами и обучил коллег работе с AI-агентами — тесты, ревью и документация стали занимать заметно меньше времени",
             "Разработал универсальный DataGrid на TanStack Table, который используется на 20+ страницах приложения: фильтрация, сортировка, пагинация и настройка колонок через drag & drop. Подключил живые статусы транзакций по WebSocket: при обновлении перерисовывается одна строка, а не вся таблица — 500+ транзакций обновляются без просадки кадров",
           ],
@@ -354,7 +354,7 @@ export const resume: ResumeRecord = {
           role: "Frontend-разработчик",
           period: "июн 2022 — фев 2024",
           summary:
-            "Web3-экосистема на BNB Chain: децентрализованная биржа, NFT-платформа и GameFi-проекты. Команда из 2–3 фронтендеров, бэкендера, дизайнера и проджект-менеджера. Работали по Kanban, релизы выходили по вехам продукта.",
+            "Web3-экосистема на BNB Chain: децентрализованная биржа, NFT-платформа и GameFi-проекты. Команда из 2–3 фронтендеров, бэкендера, разработчика смарт-контрактов, дизайнера и проджект-менеджера. Работали по Kanban, релизы выходили по вехам продукта.",
           duties: [
             "Разработка интерфейсов биржи, NFT-платформы и промо-лендингов",
             "Рефакторинг модулей биржи: кошельки, обмен, портфель",
