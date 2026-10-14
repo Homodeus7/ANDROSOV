@@ -38,7 +38,9 @@ function parse(markdown) {
 
 const blockText = (block) => block.replace(/^\*+|\*+$/g, "");
 
-function render(block) {
+const DUTIES = new Set(["**Обязанности:**", "**Responsibilities:**"]);
+
+function render(block, index, blocks) {
   const heading = /^\*\*([^*]+)\*\*$/.exec(block);
   if (heading && heading[1] === heading[1].toUpperCase()) {
     return `<h2>${inline(heading[1])}</h2>`;
@@ -67,7 +69,7 @@ function render(block) {
       .split(/\n(?=\* )/)
       .map((item) => `<li>${inline(item.replace(/^\*\s+/, "").trim())}</li>`)
       .join("");
-    return `<ul>${items}</ul>`;
+    return DUTIES.has(blocks[index - 1]) ? `<ul class="duties">${items}</ul>` : `<ul>${items}</ul>`;
   }
 
   return `<p>${inline(block)}</p>`;
@@ -131,6 +133,8 @@ const STYLE = `
   .job-sub { margin-top: 2pt; font-style: italic; font-size: 10pt; break-after: avoid; }
   ul { margin: 3pt 0 0; padding-left: 15pt; }
   li { margin-top: 2pt; }
+  .duties { font-size: 9.5pt; line-height: 1.15; }
+  .duties li { margin-top: 1pt; }
   .stack { margin-top: 4pt; font-style: italic; font-size: 9.5pt; }
 `;
 
