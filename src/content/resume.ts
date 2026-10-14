@@ -11,7 +11,9 @@ export const resume: ResumeRecord = {
         skills: "Core skills",
         experience: "Work experience",
         projects: "Product",
+        education: "Education",
       },
+      education: "Higher education, Siberian Federal University (SibFU), 2014",
       skills: [
         {
           label: "Frontend",
@@ -70,7 +72,7 @@ export const resume: ResumeRecord = {
           role: "Frontend Developer (Vue)",
           period: "Apr 2025 — present",
           summary:
-            "B2B payment gateway for online stores and services, about 40k payments a day.",
+            "B2B payment gateway for online stores and services, about 40k payments a day. Several teams worked on the project; mine had 2 frontend developers, 3 backend developers, a business analyst, a QA engineer and a team lead. Scrum process, new features shipped in planned releases.",
           duties: [
             "Building the merchant portal and process editor interfaces",
             "Refactoring code and moving modules onto FSD",
@@ -84,7 +86,7 @@ export const resume: ResumeRecord = {
             "Designed the history module for the business-process editor — 40+ operation types, including moving blocks between diagrams",
             "Sped the editor up from ~25 to a stable 60 FPS on diagrams of 100+ blocks: removed the idle repaint loop, took scene geometry out from under Vue reactivity, separated measuring from painting within a frame",
             "Brought Claude Code with MCP servers into the team and taught colleagues to work with AI agents — tests, reviews and documentation began taking noticeably less time",
-            "Built transaction tables with live statuses over WebSocket: an update repaints one row, not the whole table — 500+ transactions update without dropped frames",
+            "Built a reusable DataGrid on TanStack Table used on 20+ pages of the app: filtering, sorting, pagination and drag & drop column setup. Added live transaction statuses over WebSocket: an update repaints one row, not the whole table — 500+ transactions update without dropped frames",
             "Introduced in-app user feedback collection: merchant requests were gathered into statistics, and the team picked them up faster",
           ],
           stack: [
@@ -110,10 +112,10 @@ export const resume: ResumeRecord = {
           role: "Frontend Developer (React, React Native)",
           period: "Mar 2024 — Apr 2025",
           summary:
-            "Housing-management ecosystem: a dashboard for management companies and a mobile app for residents.",
+            "Housing-management ecosystem: a dashboard for management companies and a mobile app for residents. A team of about 10: 3 frontend developers on the web, me on the mobile app, 3–4 backend developers, a designer, a QA engineer and a product manager. Scrum with two-week sprints: the web shipped at the end of each sprint, the mobile app as features were ready.",
           duties: [
             "Building the web dashboard for management companies and the React Native mobile app",
-            "Refactoring the legacy web app",
+            "Taking part in refactoring the project onto a clean FSD-like architecture",
             "Code review",
             "Onboarding new developers",
             "Fixing bugs in the web and mobile apps",
@@ -121,7 +123,7 @@ export const resume: ResumeRecord = {
           ],
           points: [
             "Built a mobile app from scratch on React Native for residents and staff: requests, payments, documents, push notifications. Wrote it ahead of the backend against mocks of the OpenAPI contract — integration took hours, not weeks",
-            "Set up generation of a typed API client from the OpenAPI schema (Orval) — manual type syncing with the backend disappeared entirely; contract breaks show up at build time, not in production",
+            "Initiated and introduced generation of a typed API client from the OpenAPI schema (Orval) into the team's workflow — manual type syncing with the backend disappeared entirely; contract breaks show up at build time, not in production",
             "Built a permission system on CASL: a new role is one file edit, not checks scattered across the code",
             "Wrote the project documentation from scratch in Markdown and Confluence — new developers got up to speed faster",
           ],
@@ -145,7 +147,7 @@ export const resume: ResumeRecord = {
           role: "Frontend Developer",
           period: "Jun 2022 — Feb 2024",
           summary:
-            "Web3 ecosystem on BNB Chain: a decentralised exchange, an NFT platform and GameFi projects.",
+            "Web3 ecosystem on BNB Chain: a decentralised exchange, an NFT platform and GameFi projects. A team of 2–3 frontend developers, a backend developer, a designer and a project manager. Kanban, releases shipped against product milestones.",
           duties: [
             "Building the exchange, NFT platform and promo landing page interfaces",
             "Refactoring exchange modules: wallets, swap, portfolio",
@@ -182,7 +184,8 @@ export const resume: ResumeRecord = {
           summary:
             "AI nutrition tracker: a meal is described in plain text, calories and macros are worked out automatically. Small team: a backend developer, an analyst and me on the whole frontend; the web app is live, the mobile app is heading for RuStore, the App Store and Google Play.",
           points: [
-            "Own the entire frontend — the Next.js 16 web app and the React Native app: designed the FSD architecture and a shared API layer for both clients",
+            "Own the entire frontend — the Next.js 16 web app and the React Native app: designed the FSD architecture for both clients",
+            "Set up contract-first work with the backend: we design the OpenAPI schema together, then frontend and backend build in parallel, with client types and hooks generated from the schema. 120+ endpoints connected this way across the web and mobile apps",
             "Built the AI parsing UI streamed over SSE: items appear as they are ready, a dropped connection does not break the result, and ambiguous matches are flagged honestly rather than guessed",
             "Built a dashboard builder with 16 widgets and drag-and-drop: the layout is stored on the server and survives older client versions",
             "Halved the entry bundle — from 2.1 MB to 1 MB by splitting the API client and lazy-loading heavy modules",
@@ -217,7 +220,9 @@ export const resume: ResumeRecord = {
         skills: "Ключевые навыки",
         experience: "Опыт работы",
         projects: "Продукт",
+        education: "Образование",
       },
+      education: "Высшее, Сибирский федеральный университет (СФУ), 2014",
       skills: [
         {
           label: "Frontend",
@@ -276,7 +281,7 @@ export const resume: ResumeRecord = {
           role: "Frontend-разработчик (Vue)",
           period: "апр 2025 — наст. время",
           summary:
-            "B2B-платежный шлюз для интернет-магазинов и сервисов, около 40 тыс. платежей в день.",
+            "B2B-платежный шлюз для интернет-магазинов и сервисов, около 40 тыс. платежей в день. Над проектом работало несколько команд, моя состояла из 2 фронтендеров, 3 бэкендеров, бизнес-аналитика, тестировщика и лида. Процессы по Scrum, новые фичи выходили запланированными релизами.",
           duties: [
             "Разработка интерфейсов кабинета мерчанта и редактора процессов",
             "Рефакторинг кода и перевод модулей на FSD",
@@ -290,7 +295,7 @@ export const resume: ResumeRecord = {
             "Спроектировал модуль истории для редактора бизнес-процессов — 40+ типов операций, включая перенос блоков между схемами",
             "Ускорил редактор с ~25 до стабильных 60 FPS на схемах из 100+ блоков: убрал холостую перерисовку, вывел геометрию сцены из-под реактивности Vue, развел измерения и отрисовку в кадре",
             "Внедрил в команду Claude Code с MCP-серверами и обучил коллег работе с AI-агентами — тесты, ревью и документация стали занимать заметно меньше времени",
-            "Собрал таблицы транзакций с живыми статусами по WebSocket: при обновлении перерисовывается одна строка, а не вся таблица — 500+ транзакций обновляются без просадки кадров",
+            "Разработал универсальный DataGrid на TanStack Table, который используется на 20+ страницах приложения: фильтрация, сортировка, пагинация и настройка колонок через drag & drop. Подключил живые статусы транзакций по WebSocket: при обновлении перерисовывается одна строка, а не вся таблица — 500+ транзакций обновляются без просадки кадров",
             "Внедрил сбор пользовательского фидбека прямо в интерфейсе: запросы мерчантов собирались в статистику, и команда быстрее брала их в работу",
           ],
           stack: [
@@ -316,10 +321,10 @@ export const resume: ResumeRecord = {
           role: "Frontend-разработчик (React, React Native)",
           period: "мар 2024 — апр 2025",
           summary:
-            "Экосистема ЖКХ: дашборд для управляющих компаний и мобильное приложение для жильцов.",
+            "Экосистема ЖКХ: дашборд для управляющих компаний и мобильное приложение для жильцов. Команда около 10 человек: 3 фронтендера на вебе, я на мобильном приложении, 3–4 бэкендера, дизайнер, тестировщик и продакт. Scrum со спринтами по две недели: веб выходил релизом по итогам спринта, мобильное приложение — по готовности фич.",
           duties: [
             "Разработка веб-дашборда для УК и мобильного приложения на React Native",
-            "Рефакторинг legacy-веба",
+            "Участие в рефакторинге проекта на чистую FSD-like архитектуру",
             "Проведение код-ревью",
             "Онбординг новых разработчиков",
             "Исправление багов в вебе и мобильном приложении",
@@ -327,7 +332,7 @@ export const resume: ResumeRecord = {
           ],
           points: [
             "С нуля разработал мобильное приложение на React Native для жильцов и сотрудников УК: заявки, оплаты, документы, push-уведомления. Писал до готовности бэкенда на моках по OpenAPI-контракту — интеграция заняла часы, а не недели",
-            "Настроил генерацию типизированного API-клиента из OpenAPI (Orval) — ручная синхронизация типов с бэкендом ушла совсем, поломки контракта видны на этапе сборки, а не в проде",
+            "Стал инициатором и внедрил в работу команды генерацию типизированного API-клиента из OpenAPI (Orval) — ручная синхронизация типов с бэкендом ушла совсем, поломки контракта видны на этапе сборки, а не в проде",
             "Собрал систему прав доступа на CASL: новая роль добавляется правкой одного файла, а не проверками по всему коду",
             "С нуля написал документацию проекта в Markdown и Confluence — новые разработчики стали быстрее входить в проект",
           ],
@@ -351,7 +356,7 @@ export const resume: ResumeRecord = {
           role: "Frontend-разработчик",
           period: "июн 2022 — фев 2024",
           summary:
-            "Web3-экосистема на BNB Chain: децентрализованная биржа, NFT-платформа и GameFi-проекты.",
+            "Web3-экосистема на BNB Chain: децентрализованная биржа, NFT-платформа и GameFi-проекты. Команда из 2–3 фронтендеров, бэкендера, дизайнера и проджект-менеджера. Работали по Kanban, релизы выходили по вехам продукта.",
           duties: [
             "Разработка интерфейсов биржи, NFT-платформы и промо-лендингов",
             "Рефакторинг модулей биржи: кошельки, обмен, портфель",
@@ -388,7 +393,8 @@ export const resume: ResumeRecord = {
           summary:
             "AI-трекер питания: еда описывается обычным текстом, калории и БЖУ считаются автоматически. Небольшая команда: бэкендер, аналитик и я на всем фронтенде; веб в проде, мобильное приложение готовится к выходу в RuStore, App Store и Google Play.",
           points: [
-            "Отвечаю за весь фронтенд — веб на Next.js 16 и приложение на React Native: спроектировал архитектуру по FSD и общий слой API для обоих клиентов",
+            "Отвечаю за весь фронтенд — веб на Next.js 16 и приложение на React Native: спроектировал архитектуру по FSD для обоих клиентов",
+            "Выстроил работу с бэкендом от контракта: сначала вместе проектируем OpenAPI-схему, потом фронт и бэк делают свои части параллельно, а типы и хуки для клиента генерируются из схемы. Так подключили 120+ эндпоинтов в вебе и мобильном приложении",
             "Сделал интерфейс AI-разбора со стримингом по SSE: позиции появляются по мере готовности, обрыв сети не ломает результат, а спорные совпадения система честно помечает, а не угадывает",
             "Собрал конструктор дашбордов на 16 виджетов с drag-and-drop: раскладка хранится на сервере и не ломается в старых версиях клиента",
             "Сократил входной бандл вдвое — с 2,1 МБ до 1 МБ: разделил API-клиент и вынес тяжелые модули в ленивую загрузку",

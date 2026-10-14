@@ -25,10 +25,12 @@ const localizedSchema = z.object({
   summary: z.string().min(1),
   skills: z.array(skillGroupSchema).min(1),
   jobs: z.array(jobSchema).min(1),
+  education: z.string().min(1),
   sections: z.object({
     skills: z.string().min(1),
     experience: z.string().min(1),
     projects: z.string().min(1),
+    education: z.string().min(1),
   }),
 });
 

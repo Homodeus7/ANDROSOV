@@ -31,10 +31,10 @@ function Job({ job, labels }: { job: ResumeJob; labels: JobLabels }) {
 
       {job.duties ? (
         <>
-          <p className="spec text-muted mt-4">{labels.duties}</p>
-          <Points items={job.duties} />
           <p className="spec text-muted mt-4">{labels.achievements}</p>
           <Points items={job.points} />
+          <p className="spec text-muted mt-4">{labels.duties}</p>
+          <Points items={job.duties} />
         </>
       ) : (
         <div className="mt-4">
@@ -132,6 +132,13 @@ export function ResumePage() {
           </Container>
         </section>
       ))}
+
+      <section className="border-border border-b-2 py-12 md:py-16">
+        <Container>
+          <SectionLabel>{resume.sections.education}</SectionLabel>
+          <p className="mt-8">{resume.education}</p>
+        </Container>
+      </section>
     </>
   );
 }
