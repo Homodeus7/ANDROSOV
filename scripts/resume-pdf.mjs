@@ -76,7 +76,7 @@ function render(block, index, blocks) {
 }
 
 const STYLE = `
-  @page { size: A4; margin: 16mm 21mm; }
+  @page { size: A4; margin: 13mm 21mm; }
   * { box-sizing: border-box; }
   body {
     margin: 0;
