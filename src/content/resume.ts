@@ -69,7 +69,7 @@ export const resume: ResumeRecord = {
             "Traced a payment form crash on older Android devices via Sentry and shipped a legacy-browser build — Android checkout conversion rose from ~62% to ~81%",
             "Took the process editor from ~25 to a steady 60 FPS on diagrams with 100+ blocks",
             "Built a reusable TanStack Table data grid used across 20+ pages, with live status updates over WebSocket — 500+ transactions refresh without dropped frames",
-            "Designed undo/redo for the whole editor — 40+ operation types, including moving blocks between diagrams",
+            "Designed undo/redo for the whole editor — 40+ operation types",
           ],
           stack: [
             "Vue 3",
@@ -238,7 +238,7 @@ export const resume: ResumeRecord = {
           ],
           points: [
             "Через Sentry отловил краш платежной формы на части Android-устройств: старый браузерный движок не читал бандл, а копирование реквизитов молча падало. Добавил запасные пути и сборку под старые браузеры — конверсия шага оплаты на Android выросла с ~62% до ~81%",
-            "Спроектировал модуль истории для редактора бизнес-процессов — 40+ типов операций, включая перенос блоков между схемами",
+            "Спроектировал модуль истории для редактора бизнес-процессов — 40+ типов операций",
             "Ускорил редактор с ~25 до стабильных 60 FPS на схемах из 100+ блоков: убрал холостую перерисовку и вывел геометрию сцены из-под реактивности Vue",
             "Внедрил в команду Claude Code с MCP-серверами и обучил коллег работе с AI-агентами — тесты, ревью и документация стали занимать заметно меньше времени",
             "Разработал универсальный DataGrid на TanStack Table, на 20+ страницах приложения: фильтрация, сортировка, пагинация и настройка колонок через drag & drop. Подключил живые статусы транзакций по WebSocket: при обновлении перерисовывается одна строка, а не вся таблица — 500+ транзакций обновляются без просадки кадров",
