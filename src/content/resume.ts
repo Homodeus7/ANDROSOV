@@ -111,7 +111,7 @@ export const resume: ResumeRecord = {
           role: "Frontend Developer (React, React Native)",
           period: "Mar 2024 — Apr 2025",
           summary:
-            "Housing-management ecosystem: a dashboard for management companies and a mobile app for residents. A team of about 10: 3 frontend developers on the web, me on the mobile app, 3–4 backend developers, a designer, a QA engineer and a product manager. Scrum, two-week sprints.",
+            "An ecosystem of housing-management services. A team of about 10: 3 frontend developers on the web, me on the mobile app, 3–4 backend developers, a designer, a QA engineer and a product manager. Scrum, two-week sprints.",
           duties: [
             "Building the web dashboard for management companies and the React Native mobile app",
             "Taking part in refactoring the project onto a clean FSD-like architecture",
@@ -311,7 +311,7 @@ export const resume: ResumeRecord = {
           role: "Frontend-разработчик (React, React Native)",
           period: "мар 2024 — апр 2025",
           summary:
-            "Экосистема ЖКХ: дашборд для УК и мобильное приложение для жильцов. Команда около 10 человек: 3 фронтендера на вебе, я на мобильном приложении, 3–4 бэкендера, дизайнер, тестировщик и продакт. Scrum, спринты по две недели.",
+            "Экосистема сервисов для ЖКХ. Команда около 10 человек: 3 фронтендера на вебе, я на мобильном приложении, 3–4 бэкендера, дизайнер, тестировщик и продакт. Scrum, спринты по две недели.",
           duties: [
             "Разработка веб-дашборда для УК и мобильного приложения на React Native",
             "Участие в рефакторинге проекта на чистую FSD-like архитектуру",
